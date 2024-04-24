@@ -7,3 +7,7 @@ export type User = {
   id_rol: number;
   rol: string;
 }
+
+export type Token = {
+  token: string;
+}

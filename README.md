@@ -9,6 +9,10 @@
 * cuando el stock de un producto llega a 0 se inhabilita
 * todo 😭 :D :D :D
 
+### Usuarios y Tokens
+
+Utilizar signals para los tokens y los usuarios??
+
 #### Mini esquema de navegación
 
 2 dashboards distintos [cocina, mesero] ¿?
