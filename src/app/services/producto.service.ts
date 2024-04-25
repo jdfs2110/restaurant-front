@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Producto, stockQuantity } from "@/app/types/Producto";
 import { Stock } from "@/app/types/Stock";
+import { Response } from "@/app/types/Response";
 
 @Injectable({
   providedIn: 'root'
@@ -15,32 +16,32 @@ export class ProductoService {
   constructor(private http: HttpClient) { }
   // TODO: implement headers / token
 
-  findAll(page: number = 1): Observable<Producto[]> {
-    return this.http.get<Producto[]>(`${this.url}?page=${page}`);
+  findAll(page: number = 1): Observable<Response<Producto[]>> {
+    return this.http.get<Response<Producto[]>>(`${this.url}?page=${page}`);
   }
 
-  getPages(): Observable<number> { // No estoy seguro de si debería de ser number o Producto 
+  getPages(): Observable<number> {
     return this.http.get<number>(`${this.url}/pages`);
   }
 
-  findById(id: number): Observable<Producto> {
-    return this.http.get<Producto>(`${this.url}/${id}`);
+  findById(id: number): Observable<Response<Producto>> {
+    return this.http.get<Response<Producto>>(`${this.url}/${id}`);
   }
 
-  create(producto: FormData): Observable<Producto> {
-    return this.http.post<Producto>(`${this.url}/new`, producto);
+  create(producto: FormData): Observable<Response<Producto>> {
+    return this.http.post<Response<Producto>>(`${this.url}/new`, producto);
   }
 
-  update(producto: FormData, id: number): Observable<Producto> {
-    return this.http.post<Producto>(`${this.url}/${id}?_method=PUT`, producto);
+  update(producto: FormData, id: number): Observable<Response<Producto>> {
+    return this.http.post<Response<Producto>>(`${this.url}/${id}?_method=PUT`, producto);
   }
 
-  delete(id: number): Observable<Producto> {
-    return this.http.delete<Producto>(`${this.url}/${id}`);
+  delete(id: number): Observable<Response<Producto>> {
+    return this.http.delete<Response<Producto>>(`${this.url}/${id}`);
   }
 
-  getStock(id: number): Observable<Stock> {
-    return this.http.get<Stock>(`${this.url}/${id}/stock`);
+  getStock(id: number): Observable<Response<Stock>> {
+    return this.http.get<Response<Stock>>(`${this.url}/${id}/stock`);
   }
 
   // any territory (terrorista)

@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Rol } from "@/app/types/Rol";
 import { User } from "@/app/types/User";
+import { Response } from '@/app/types/Response';
 
 @Injectable({
   providedIn: 'root'
@@ -15,31 +16,31 @@ export class RolService {
   constructor(private http: HttpClient) { }
   // TODO: implement headers
 
-  findAll(page: number = 1): Observable<Rol[]> {
-    return this.http.get<Rol[]>(`${this.url}?page=${page}`);
+  findAll(page: number = 1): Observable<Response<Rol[]>> {
+    return this.http.get<Response<Rol[]>>(`${this.url}?page=${page}`);
   }
 
-  getPages(): Observable<number> { // No estoy seguro de si debería de ser number o Rol 
+  getPages(): Observable<number> {
     return this.http.get<number>(`${this.url}/pages`);
   }
 
-  findById(id: number): Observable<Rol> {
-    return this.http.get<Rol>(`${this.url}/${id}`);
+  findById(id: number): Observable<Response<Rol>> {
+    return this.http.get<Response<Rol>>(`${this.url}/${id}`);
   }
 
-  create(rol: Rol): Observable<Rol> {
-    return this.http.post<Rol>(`${this.url}/new`, rol);
+  create(rol: Rol): Observable<Response<Rol>> {
+    return this.http.post<Response<Rol>>(`${this.url}/new`, rol);
   }
 
-  update(rol: Rol, id: number): Observable<Rol> {
-    return this.http.put<Rol>(`${this.url}/${id}`, rol);
+  update(rol: Rol, id: number): Observable<Response<Rol>> {
+    return this.http.put<Response<Rol>>(`${this.url}/${id}`, rol);
   }
 
-  delete(id: number): Observable<Rol> {
-    return this.http.delete<Rol>(`${this.url}/${id}`);
+  delete(id: number): Observable<Response<Rol>> {
+    return this.http.delete<Response<Rol>>(`${this.url}/${id}`);
   }
 
-  findAllUsersWithRol(id: number): Observable<User[]> {
-    return this.http.get<User[]>(`${this.url}/${id}/usuarios`);
+  findAllUsersWithRol(id: number): Observable<Response<User[]>> {
+    return this.http.get<Response<User[]>>(`${this.url}/${id}/usuarios`);
   }
 }

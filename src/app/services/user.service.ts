@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import { User } from "@/app/types/User";
 import { RegisterForm } from "@/app/types/RegisterForm";
 import { Pedido } from "@/app/types/Pedido";
+import { Response } from "@/app/types/Response";
 
 @Injectable({
   providedIn: 'root'
@@ -17,31 +18,31 @@ export class UserService {
   constructor(private http: HttpClient) { }
   // TODO: implement headers / token
 
-  findAll(page: number = 1): Observable<User[]> {
-    return this.http.get<User[]>(`${this.url}?page=${page}`);
+  findAll(page: number = 1): Observable<Response<User[]>> {
+    return this.http.get<Response<User[]>>(`${this.url}?page=${page}`);
   }
 
   getPages(): Observable<number> { // No estoy seguro de si debería de ser number o User 
     return this.http.get<number>(`${this.url}/pages`);
   }
 
-  findById(id: number): Observable<User> {
-    return this.http.get<User>(`${this.url}/${id}`);
+  findById(id: number): Observable<Response<User>> {
+    return this.http.get<Response<User>>(`${this.url}/${id}`);
   }
 
-  create(registerForm: RegisterForm): Observable<User> {
-    return this.http.post<User>(`${this.registerURL}`, registerForm);
+  create(registerForm: RegisterForm): Observable<Response<User>> {
+    return this.http.post<Response<User>>(`${this.registerURL}`, registerForm);
   }
 
-  update(user: User, id: number): Observable<User> {
-    return this.http.put<User>(`${this.url}/${id}`, user);
+  update(user: User, id: number): Observable<Response<User>> {
+    return this.http.put<Response<User>>(`${this.url}/${id}`, user);
   }
 
-  delete(id: number): Observable<User> {
-    return this.http.delete<User>(`${this.url}/${id}`);
+  delete(id: number): Observable<Response<User>> {
+    return this.http.delete<Response<User>>(`${this.url}/${id}`);
   }
 
-  findPedidosManagedByUser(id: number): Observable<Pedido[]> { // Voy a tener que cambiarle de nombre a esta función, es horrible xdd
-    return this.http.get<Pedido[]>(`${this.url}/${id}/pedidos`);
+  findPedidosManagedByUser(id: number): Observable<Response<Pedido[]>> { // Voy a tener que cambiarle de nombre a esta función, es horrible xdd
+    return this.http.get<Response<Pedido[]>>(`${this.url}/${id}/pedidos`);
   }
 }
