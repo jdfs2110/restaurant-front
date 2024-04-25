@@ -16,8 +16,12 @@ export class PedidoService {
   constructor(private http: HttpClient) { }
   // TODO: implement headers / token
 
-  findAll(): Observable<Pedido[]> {
-    return this.http.get<Pedido[]>(`${this.url}`);
+  findAll(page: number = 1): Observable<Pedido[]> {
+    return this.http.get<Pedido[]>(`${this.url}?page=${page}`);
+  }
+
+  getPages(): Observable<number> { // No estoy seguro de si debería de ser number o Pedido 
+    return this.http.get<number>(`${this.url}/pages`);
   }
 
   findById(id: number): Observable<Pedido> {

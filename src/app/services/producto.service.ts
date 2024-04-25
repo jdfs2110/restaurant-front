@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { API_URL } from "@/app/constants/url";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { Producto } from "@/app/types/Producto";
+import { Producto, stockQuantity } from "@/app/types/Producto";
 import { Stock } from "@/app/types/Stock";
 
 @Injectable({
@@ -15,8 +15,12 @@ export class ProductoService {
   constructor(private http: HttpClient) { }
   // TODO: implement headers / token
 
-  findAll(): Observable<Producto[]> {
-    return this.http.get<Producto[]>(`${this.url}`);
+  findAll(page: number = 1): Observable<Producto[]> {
+    return this.http.get<Producto[]>(`${this.url}?page=${page}`);
+  }
+
+  getPages(): Observable<number> { // No estoy seguro de si debería de ser number o Producto 
+    return this.http.get<number>(`${this.url}/pages`);
   }
 
   findById(id: number): Observable<Producto> {
@@ -37,5 +41,15 @@ export class ProductoService {
 
   getStock(id: number): Observable<Stock> {
     return this.http.get<Stock>(`${this.url}/${id}/stock`);
+  }
+
+  // any territory (terrorista)
+
+  addStock(quantity: stockQuantity, id: number): Observable<any> {
+    return this.http.post<any>(`${this.url}/${id}/stock/add`, quantity);
+  }
+
+  reduceStock(quantity: stockQuantity, id: number): Observable<any> {
+    return this.http.post<any>(`${this.url}/${id}/stock/reduce`, quantity);
   }
 }

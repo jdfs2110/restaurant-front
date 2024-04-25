@@ -15,8 +15,12 @@ export class RolService {
   constructor(private http: HttpClient) { }
   // TODO: implement headers
 
-  findAll(): Observable<Rol[]> {
-    return this.http.get<Rol[]>(`${this.url}`);
+  findAll(page: number = 1): Observable<Rol[]> {
+    return this.http.get<Rol[]>(`${this.url}?page=${page}`);
+  }
+
+  getPages(): Observable<number> { // No estoy seguro de si debería de ser number o Rol 
+    return this.http.get<number>(`${this.url}/pages`);
   }
 
   findById(id: number): Observable<Rol> {

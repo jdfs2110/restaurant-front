@@ -14,8 +14,12 @@ export class FacturaService {
   constructor(private http: HttpClient) { }
   // TODO: implement headers / token
 
-  findAll(): Observable<Factura[]> {
-    return this.http.get<Factura[]>(`${this.url}`);
+  findAll(page: number = 1): Observable<Factura[]> {
+    return this.http.get<Factura[]>(`${this.url}?page=${page}`);
+  }
+
+  getPages(): Observable<number> { // No estoy seguro de si debería de ser number o Factura 
+    return this.http.get<number>(`${this.url}/pages`);
   }
 
   findById(id: number): Observable<Factura> {

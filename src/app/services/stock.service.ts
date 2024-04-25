@@ -14,12 +14,12 @@ export class StockService {
   constructor(private http: HttpClient) { }
   // TODO: implement headers / token
 
-  findAll(): Observable<Stock[]> {
-    return this.http.get<Stock[]>(`${this.url}`);
+  findAll(page: number = 1): Observable<Stock[]> {
+    return this.http.get<Stock[]>(`${this.url}?page=${page}`);
   }
 
-  findById(id: number): Observable<Stock> {
-    return this.http.get<Stock>(`${this.url}/${id}`);
+  getPages(): Observable<number> { // No estoy seguro de si debería de ser number o Stock 
+    return this.http.get<number>(`${this.url}/pages`);
   }
 
   create(stock: Stock): Observable<Stock> { // Al crear un producto se utiliza 'cantidad' pero por si acaso dejo el endpoint
@@ -28,9 +28,5 @@ export class StockService {
 
   update(stock: Stock, id: number): Observable<Stock> {
     return this.http.put<Stock>(`${this.url}/${id}`, stock);
-  }
-
-  delete(id: number): Observable<Stock> {
-    return this.http.delete<Stock>(`${this.url}/${id}`);
   }
 }

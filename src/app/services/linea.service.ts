@@ -14,8 +14,12 @@ export class LineaService {
   constructor(private http: HttpClient) { }
   // TODO: implement headers / token
 
-  findAll(): Observable<Linea[]> {
-    return this.http.get<Linea[]>(`${this.url}`);
+  findAll(page: number = 1): Observable<Linea[]> {
+    return this.http.get<Linea[]>(`${this.url}?page=${page}`);
+  }
+
+  getPages(): Observable<number> { // No estoy seguro de si debería de ser number o Linea
+    return this.http.get<number>(`${this.url}/pages`);
   }
 
   findById(id: number): Observable<Linea> {

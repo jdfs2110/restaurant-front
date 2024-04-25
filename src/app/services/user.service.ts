@@ -17,8 +17,12 @@ export class UserService {
   constructor(private http: HttpClient) { }
   // TODO: implement headers / token
 
-  findAll(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.url}`);
+  findAll(page: number = 1): Observable<User[]> {
+    return this.http.get<User[]>(`${this.url}?page=${page}`);
+  }
+
+  getPages(): Observable<number> { // No estoy seguro de si debería de ser number o User 
+    return this.http.get<number>(`${this.url}/pages`);
   }
 
   findById(id: number): Observable<User> {

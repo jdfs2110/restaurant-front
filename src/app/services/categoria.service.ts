@@ -15,8 +15,12 @@ export class CategoriaService {
   constructor(private http: HttpClient) { }
   // TODO: implement Authorization headers.
 
-  findAll(): Observable<Categoria[]> {
-    return this.http.get<Categoria[]>(this.url);
+  findAll(page: number = 1): Observable<Categoria[]> {
+    return this.http.get<Categoria[]>(`${this.url}?page=${page}`);
+  }
+
+  getPages(): Observable<number> { // No estoy seguro de si debería de ser number o Categoría 
+    return this.http.get<number>(`${this.url}/pages`);
   }
 
   findById(id: number): Observable<Categoria> {
