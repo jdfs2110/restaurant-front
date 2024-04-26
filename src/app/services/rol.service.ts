@@ -20,8 +20,8 @@ export class RolService {
     return this.http.get<Response<Rol[]>>(`${this.url}?page=${page}`);
   }
 
-  getPages(): Observable<number> {
-    return this.http.get<number>(`${this.url}/pages`);
+  getPages(): Observable<Response<number>> {
+    return this.http.get<Response<number>>(`${this.url}/pages`);
   }
 
   findById(id: number): Observable<Response<Rol>> {

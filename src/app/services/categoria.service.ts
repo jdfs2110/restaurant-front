@@ -20,8 +20,8 @@ export class CategoriaService {
     return this.http.get<Response<Categoria[]>>(`${this.url}?page=${page}`);
   }
 
-  getPages(): Observable<number> { // No estoy seguro de si debería de ser number o Categoría 
-    return this.http.get<number>(`${this.url}/pages`);
+  getPages(): Observable<Response<number>> {
+    return this.http.get<Response<number>>(`${this.url}/pages`);
   }
 
   findById(id: number): Observable<Response<Categoria>> {

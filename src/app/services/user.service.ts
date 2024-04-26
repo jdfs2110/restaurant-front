@@ -22,8 +22,8 @@ export class UserService {
     return this.http.get<Response<User[]>>(`${this.url}?page=${page}`);
   }
 
-  getPages(): Observable<number> { // No estoy seguro de si debería de ser number o User 
-    return this.http.get<number>(`${this.url}/pages`);
+  getPages(): Observable<Response<number>> {
+    return this.http.get<Response<number>>(`${this.url}/pages`);
   }
 
   findById(id: number): Observable<Response<User>> {

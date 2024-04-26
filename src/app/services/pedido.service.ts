@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import { Pedido } from "@/app/types/Pedido";
 import { Linea } from "@/app/types/Linea";
 import { Factura } from "@/app/types/Factura";
+import { Response } from '@/app/types/Response';
 
 @Injectable({
   providedIn: 'root'
@@ -16,35 +17,35 @@ export class PedidoService {
   constructor(private http: HttpClient) { }
   // TODO: implement headers / token
 
-  findAll(page: number = 1): Observable<Pedido[]> {
-    return this.http.get<Pedido[]>(`${this.url}?page=${page}`);
+  findAll(page: number = 1): Observable<Response<Pedido[]>> {
+    return this.http.get<Response<Pedido[]>>(`${this.url}?page=${page}`);
   }
 
-  getPages(): Observable<number> { // No estoy seguro de si debería de ser number o Pedido 
-    return this.http.get<number>(`${this.url}/pages`);
+  getPages(): Observable<Response<number>> { // No estoy seguro de si debería de ser number o Pedido 
+    return this.http.get<Response<number>>(`${this.url}/pages`);
   }
 
-  findById(id: number): Observable<Pedido> {
-    return this.http.get<Pedido>(`${this.url}/${id}`);
+  findById(id: number): Observable<Response<Pedido>> {
+    return this.http.get<Response<Pedido>>(`${this.url}/${id}`);
   }
 
-  create(pedido: Pedido): Observable<Pedido> {
-    return this.http.post<Pedido>(`${this.url}/new`, pedido);
+  create(pedido: Pedido): Observable<Response<Pedido>> {
+    return this.http.post<Response<Pedido>>(`${this.url}/new`, pedido);
   }
 
-  update(pedido: Pedido, id: number): Observable<Pedido> {
-    return this.http.put<Pedido>(`${this.url}/${id}`, pedido);
+  update(pedido: Pedido, id: number): Observable<Response<Pedido>> {
+    return this.http.put<Response<Pedido>>(`${this.url}/${id}`, pedido);
   }
 
-  delete(id: number): Observable<Pedido> {
-    return this.http.delete<Pedido>(`${this.url}/${id}`);
+  delete(id: number): Observable<Response<Pedido>> {
+    return this.http.delete<Response<Pedido>>(`${this.url}/${id}`);
   }
 
-  getLineas(id: number): Observable<Linea[]> {
-    return this.http.get<Linea[]>(`${this.url}/${id}/lineas`);
+  getLineas(id: number): Observable<Response<Linea>> {
+    return this.http.get<Response<Linea>>(`${this.url}/${id}/lineas`);
   }
 
-  getFactura(id: number): Observable<Factura> {
-    return this.http.get<Factura>(`${this.url}/${id}/factura`);
+  getFactura(id: number): Observable<Response<Factura>> {
+    return this.http.get<Response<Factura>>(`${this.url}/${id}/factura`);
   }
 }

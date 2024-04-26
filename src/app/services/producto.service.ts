@@ -20,8 +20,8 @@ export class ProductoService {
     return this.http.get<Response<Producto[]>>(`${this.url}?page=${page}`);
   }
 
-  getPages(): Observable<number> {
-    return this.http.get<number>(`${this.url}/pages`);
+  getPages(): Observable<Response<number>> {
+    return this.http.get<Response<number>>(`${this.url}/pages`);
   }
 
   findById(id: number): Observable<Response<Producto>> {
@@ -46,11 +46,11 @@ export class ProductoService {
 
   // any territory (terrorista)
 
-  addStock(quantity: stockQuantity, id: number): Observable<any> {
-    return this.http.post<any>(`${this.url}/${id}/stock/add`, quantity);
+  addStock(quantity: stockQuantity, id: number): Observable<Response<Stock>> {
+    return this.http.post<Response<Stock>>(`${this.url}/${id}/stock/add`, quantity);
   }
 
-  reduceStock(quantity: stockQuantity, id: number): Observable<any> {
-    return this.http.post<any>(`${this.url}/${id}/stock/reduce`, quantity);
+  reduceStock(quantity: stockQuantity, id: number): Observable<Response<Stock>> {
+    return this.http.post<Response<Stock>>(`${this.url}/${id}/stock/reduce`, quantity);
   }
 }

@@ -3,6 +3,7 @@ import { API_URL } from "@/app/constants/url";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Stock } from "@/app/types/Stock";
+import { Response } from '@/app/types/Response';
 
 @Injectable({
   providedIn: 'root'
@@ -14,19 +15,19 @@ export class StockService {
   constructor(private http: HttpClient) { }
   // TODO: implement headers / token
 
-  findAll(page: number = 1): Observable<Stock[]> {
-    return this.http.get<Stock[]>(`${this.url}?page=${page}`);
+  findAll(page: number = 1): Observable<Response<Stock[]>> {
+    return this.http.get<Response<Stock[]>>(`${this.url}?page=${page}`);
   }
 
-  getPages(): Observable<number> { // No estoy seguro de si debería de ser number o Stock 
-    return this.http.get<number>(`${this.url}/pages`);
+  getPages(): Observable<Response<number>> {
+    return this.http.get<Response<number>>(`${this.url}/pages`);
   }
 
-  create(stock: Stock): Observable<Stock> { // Al crear un producto se utiliza 'cantidad' pero por si acaso dejo el endpoint
-    return this.http.post<Stock>(`${this.url}/new`, stock);
+  create(stock: Stock): Observable<Response<Stock>> { // Al crear un producto se utiliza 'cantidad' pero por si acaso dejo el endpoint
+    return this.http.post<Response<Stock>>(`${this.url}/new`, stock);
   }
 
-  update(stock: Stock, id: number): Observable<Stock> {
-    return this.http.put<Stock>(`${this.url}/${id}`, stock);
+  update(stock: Stock, id: number): Observable<Response<Stock>> {
+    return this.http.put<Response<Stock>>(`${this.url}/${id}`, stock);
   }
 }

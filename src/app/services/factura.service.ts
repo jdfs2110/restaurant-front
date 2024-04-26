@@ -3,6 +3,7 @@ import { API_URL } from "@/app/constants/url";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Factura } from "@/app/types/Factura";
+import { Response } from "@/app/types/Response";
 
 @Injectable({
   providedIn: 'root'
@@ -14,27 +15,27 @@ export class FacturaService {
   constructor(private http: HttpClient) { }
   // TODO: implement headers / token
 
-  findAll(page: number = 1): Observable<Factura[]> {
-    return this.http.get<Factura[]>(`${this.url}?page=${page}`);
+  findAll(page: number = 1): Observable<Response<Factura[]>> {
+    return this.http.get<Response<Factura[]>>(`${this.url}?page=${page}`);
   }
 
-  getPages(): Observable<number> { // No estoy seguro de si debería de ser number o Factura 
-    return this.http.get<number>(`${this.url}/pages`);
+  getPages(): Observable<Response<number>> {
+    return this.http.get<Response<number>>(`${this.url}/pages`);
   }
 
-  findById(id: number): Observable<Factura> {
-    return this.http.get<Factura>(`${this.url}/${id}`);
+  findById(id: number): Observable<Response<Factura>> {
+    return this.http.get<Response<Factura>>(`${this.url}/${id}`);
   }
 
-  create(factura: Factura): Observable<Factura> {
-    return this.http.post<Factura>(`${this.url}/new`, factura);
+  create(factura: Factura): Observable<Response<Factura>> {
+    return this.http.post<Response<Factura>>(`${this.url}/new`, factura);
   }
 
-  update(factura: Factura, id: number): Observable<Factura> {
-    return this.http.put<Factura>(`${this.url}/${id}`, factura);
+  update(factura: Factura, id: number): Observable<Response<Factura>> {
+    return this.http.put<Response<Factura>>(`${this.url}/${id}`, factura);
   }
 
-  delete(id: number): Observable<Factura> {
-    return this.http.delete<Factura>(`${this.url}/${id}`);
+  delete(id: number): Observable<Response<Factura>> {
+    return this.http.delete<Response<Factura>>(`${this.url}/${id}`);
   }
 }
