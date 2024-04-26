@@ -8,5 +8,6 @@ module.exports = {
     extend: {},
   },
   plugins: [animations],
+  corePlugins: { preFlight: false }
 }
 
