@@ -12,17 +12,26 @@
 ## Para cuando implemente pusher
 
 ```ts
-constructor(
-    private pusher: PusherService
+export class PedidosComponent implements OnInit {
+  pedidos: Pedido[] = [];
+  
+  constructor(
+    private pusher: PusherService,
+    private pedidoService: PedidoService,
+    privte audioService: AudioService,
   ) { }
 
   ngOnInit(): void {
     const channel = this.pusher.listenTo('pedido-created');
+    
     channel.bind('pedido-created', (data: any) => {
       const { pedido } = data;
       console.log('nuevo pedido:', pedido);
+
+      this.pedidos = [...this.pedidos, pedido];
     });
   }
+}
 ```
 
 ### Usuarios y Tokens
