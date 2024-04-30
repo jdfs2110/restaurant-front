@@ -9,6 +9,22 @@
 * cuando el stock de un producto llega a 0 se inhabilita
 * todo 😭 :D :D :D
 
+## Para cuando implemente pusher
+
+```ts
+constructor(
+    private pusher: PusherService
+  ) { }
+
+  ngOnInit(): void {
+    const channel = this.pusher.listenTo('pedido-created');
+    channel.bind('pedido-created', (data: any) => {
+      const { pedido } = data;
+      console.log('nuevo pedido:', pedido);
+    });
+  }
+```
+
 ### Usuarios y Tokens
 
 Utilizar signals para los tokens y los usuarios??
