@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import Pusher from "pusher-js";
-import { env } from "../env";
+import { env } from "@/app/env";
 
 @Injectable({
   providedIn: 'root'
