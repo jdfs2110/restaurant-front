@@ -1,0 +1,4 @@
+"builder": "@angular-devkit/build-angular:application",
+
+ "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
