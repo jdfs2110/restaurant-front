@@ -18,7 +18,7 @@ export class PedidosComponent implements OnInit {
   constructor(
     private pusher: PusherService,
     private pedidoService: PedidoService,
-    privte audioService: AudioService,
+    private audioService: AudioService,
   ) { }
 
   ngOnInit(): void {
