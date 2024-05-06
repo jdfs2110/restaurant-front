@@ -29,6 +29,7 @@ yarn-error.log
 .history/*
 
 src/app/env.ts
+src/app/env.json
 
 # Miscellaneous
 /.angular/cache
