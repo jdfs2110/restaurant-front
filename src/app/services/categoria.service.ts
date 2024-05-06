@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
+import env from '@/app/env.json';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Categoria } from "@/app/types/Categoria";
 import { Producto } from "@/app/types/Producto";
 import { Response } from "@/app/types/Response";
-import { env } from '@/app/env';
 
 @Injectable({
   providedIn: 'root'

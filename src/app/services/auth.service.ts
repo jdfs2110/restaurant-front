@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { env } from '@/app/env'
+import env from '@/app/env.json'
 import { HttpClient } from "@angular/common/http";
 import { LoginForm } from "@/app/types/LoginForm";
 import { Observable } from "rxjs";
@@ -25,9 +25,7 @@ export class AuthService {
     this.cookieService.set('token', token);
   }
 
-  getToken(): string { // TODO: remove unnecesary things
-    const token = this.cookieService.get('token')
-    console.log(token)
+  getToken(): string {
     return this.cookieService.get('token');
   }
 

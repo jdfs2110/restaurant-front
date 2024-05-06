@@ -3,28 +3,32 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegistroComponent } from './pages/registro/registro.component';
 import { LineasComponent } from './pages/lineas/lineas.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-// TODO: quitar registro
+// TODO: quitar registro o ver que hacer con el
 export const routes: Routes = [
+  // {
+  //   path: '',
+  //   component: TODO
+  // },
   {
     path: 'login',
     component: LoginComponent,
     title: 'Inicio de sesión'
   },
   {
-    path: 'registro',
-    component: RegistroComponent
-  },
-  {
     path: 'lineas',
     component: LineasComponent
   },
   {
-    path: '404',
-    component: NotFoundComponent,
-    title: 'Página no encontrada'
+    path: 'admin/registro',
+    component: RegistroComponent
   },
-  {
-    path: '**',
-    redirectTo: '404'
-  }
+  // {
+  //   path: '404',
+  //   component: NotFoundComponent,
+  //   title: 'Página no encontrada'
+  // },
+  // {
+  //   path: '**',
+  //   redirectTo: '404'
+  // }
 ];

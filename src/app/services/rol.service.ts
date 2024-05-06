@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { env } from '@/app/env';
+import env from '@/app/env.json';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Rol } from "@/app/types/Rol";
@@ -10,7 +10,7 @@ import { Response } from '@/app/types/Response';
   providedIn: 'root'
 })
 export class RolService {
-  private url = `${env.API_URL}/roles`;
+  private url = `${env.API_URL}/roles`
 
   constructor(private http: HttpClient) { }
 

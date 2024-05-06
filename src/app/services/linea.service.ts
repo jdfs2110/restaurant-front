@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { env } from "@/app/env";
+import env from "@/app/env.json";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Linea } from '@/app/types/Linea';

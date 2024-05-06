@@ -1,6 +1,6 @@
 import { AuthService } from '@/app/services/auth.service';
 import { LoginForm } from '@/app/types/LoginForm';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
@@ -23,10 +23,16 @@ import { ErrorPComponent } from "@/app/components/error-p/error-p.component";
     ErrorPComponent
   ]
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   protected submitted: boolean = false;
   protected loginError: boolean = false;
   protected errorMessage: string = '';
+
+  ngOnInit(): void {
+    if (this.userSignal.user().id) {
+      this.redirect()
+    }
+  }
 
   loginForm = new FormGroup({
     email: new FormControl(null, [
@@ -105,5 +111,12 @@ export class LoginComponent {
 
   setCookie(user: User) {
     this.cookieService.set('user', JSON.stringify(user));
+  }
+
+  redirect() {
+    this.router.navigateByUrl('/');
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
   }
 }

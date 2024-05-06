@@ -10,6 +10,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button'
 import { RolService } from '@/app/services/rol.service';
 import { DropdownModule } from 'primeng/dropdown'
+import { ErrorPComponent } from '@/app/components/error-p/error-p.component';
+import { ErrorResponse } from '@/app/types/ErrorResponse';
 
 @Component({
   selector: 'app-registro',
@@ -19,33 +21,37 @@ import { DropdownModule } from 'primeng/dropdown'
     InputTextModule,
     ButtonModule,
     DropdownModule,
-    FormsModule
+    FormsModule,
+    ErrorPComponent
   ],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
 export class RegistroComponent implements OnInit {
   protected roles: Rol[] = [];
+  protected registerError: boolean = false;
+  protected errorMessage: string = '';
+
   protected registerForm = new FormGroup({
-    name: new FormControl('', [
+    name: new FormControl('si', [
       Validators.required,
       Validators.maxLength(40)
     ]),
-    email: new FormControl('', [
+    email: new FormControl('rrhh@jdfs.dev', [
       Validators.required,
       Validators.email
     ]),
-    password: new FormControl('', [
+    password: new FormControl('123456', [
       Validators.required,
       Validators.minLength(6),
       Validators.maxLength(40)
     ]),
-    password_confirmation: new FormControl('', [
+    password_confirmation: new FormControl('123456', [
       Validators.required,
       Validators.minLength(6),
       Validators.maxLength(40)
     ]),
-    id_rol: new FormControl(0, [Validators.required])
+    id_rol: new FormControl(3, [Validators.required])
   });
 
   constructor(
@@ -109,9 +115,6 @@ export class RegistroComponent implements OnInit {
   onSubmit() {
     const form = this.registerForm.value;
     console.log(form);
-    return;
-
-
 
     const registerForm: RegisterForm = {
       name: form.name ?? '',
@@ -127,10 +130,24 @@ export class RegistroComponent implements OnInit {
           const { data, message } = response;
           console.log(data);
           console.log(message);
+          this.registerError = false;
         },
-        (error) => {
-          console.log(error);
+        (e: any) => {
+          if (e.error.error.email !== null) {
+            this.setError(e.error.error.email);
+          } else {
+            this.setError('Ha ocurrido un error');
+          }
+          this.registerError = true;
         }
       )
+  }
+
+  setError(message: string) {
+    this.errorMessage = message;
+  }
+
+  getError() {
+    return this.errorMessage;
   }
 }

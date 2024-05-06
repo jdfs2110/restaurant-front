@@ -42,9 +42,9 @@
     "Vie",
     "Sáb"
   ],
-  "emptyFilterMessage": "Sin opciones disponibles",
+  "emptyFilterMessage": "No se han encontrado resultados",
   "emptyMessage": "No se han encontrado resultados",
-  "emptySearchMessage": "Sin opciones disponibles",
+  "emptySearchMessage": "No se han encontrado resultados",
   "emptySelectionMessage": "Ningún artículo seleccionado",
   "endsWith": "Termine con",
   "equals": "Igual a",
