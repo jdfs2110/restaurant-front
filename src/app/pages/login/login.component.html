@@ -1,16 +1,24 @@
 <main>
-  <form class="mt-10 flex gap-8 flex-col px-2" [formGroup]="loginForm" (submit)="onLogin()">
+  <form class="mt-10 flex gap-8 flex-col px-2" [formGroup]="loginForm" (submit)="onSubmit()">
     <span class="p-float-label">
       <input type="text" name="email" id="email" pInputText formControlName="email">
       <label for="email">Email</label>
     </span>
+    @if (submitted && loginForm.controls.email.invalid) {
+    <error-p>{{getEmailErrors()}}</error-p>
+    }
 
     <span class="p-float-label">
       <input type="text" name="password" id="password" pInputText formControlName="password" type="password">
-      <label for="password"> Password</label>
+      <label for="password">Password</label>
     </span>
+    @if (submitted && loginForm.controls.email.invalid) {
+    <error-p>{{getPasswordErrors()}}</error-p>
+    }
 
+    @if (loginError) {
+    <error-p>{{getLoginError()}}</error-p>
+    }
     <p-button label="submit" type="submit"></p-button>
   </form>
-  <p-toast key="login" position="top-right"></p-toast>
 </main>

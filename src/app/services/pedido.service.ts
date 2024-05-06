@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { API_URL } from "@/app/constants/url";
+import { env } from "@/app/env";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Pedido } from "@/app/types/Pedido";
@@ -11,17 +11,15 @@ import { Response } from '@/app/types/Response';
   providedIn: 'root'
 })
 export class PedidoService {
-  private url: string = `${API_URL}/pedidos`;
-  private token: string = '';
+  private url: string = `${env.API_URL}/pedidos`;
 
   constructor(private http: HttpClient) { }
-  // TODO: implement headers / token
 
   findAll(page: number = 1): Observable<Response<Pedido[]>> {
     return this.http.get<Response<Pedido[]>>(`${this.url}?page=${page}`);
   }
 
-  getPages(): Observable<Response<number>> { // No estoy seguro de si debería de ser number o Pedido 
+  getPages(): Observable<Response<number>> {
     return this.http.get<Response<number>>(`${this.url}/pages`);
   }
 
@@ -47,5 +45,9 @@ export class PedidoService {
 
   getFactura(id: number): Observable<Response<Factura>> {
     return this.http.get<Response<Factura>>(`${this.url}/${id}/factura`);
+  }
+
+  servirPedido(id: number): Observable<Response<any>> {
+    return this.http.post<Response<any>>(`${this.url}/pedidos/${id}`, null);
   }
 }

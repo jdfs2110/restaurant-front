@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { API_URL } from "@/app/constants/url";
+import { env } from "@/app/env";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { User } from "@/app/types/User";
@@ -11,12 +11,10 @@ import { Response } from "@/app/types/Response";
   providedIn: 'root'
 })
 export class UserService {
-  private url = `${API_URL}/usuarios`;
-  private registerURL = `${API_URL}/registro`;
-  private token: string = '';
+  private url = `${env.API_URL}/usuarios`;
+  private registerURL = `${env.API_URL}/registro`;
 
   constructor(private http: HttpClient) { }
-  // TODO: implement headers / token
 
   findAll(page: number = 1): Observable<Response<User[]>> {
     return this.http.get<Response<User[]>>(`${this.url}?page=${page}`);

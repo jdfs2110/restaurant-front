@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { API_URL } from "@/app/constants/url";
+import { env } from "@/app/env";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Producto, stockQuantity } from "@/app/types/Producto";
@@ -10,11 +10,9 @@ import { Response } from "@/app/types/Response";
   providedIn: 'root'
 })
 export class ProductoService {
-  private url = `${API_URL}/productos`;
-  private token: string = '';
+  private url = `${env.API_URL}/productos`;
 
   constructor(private http: HttpClient) { }
-  // TODO: implement headers / token
 
   findAll(page: number = 1): Observable<Response<Producto[]>> {
     return this.http.get<Response<Producto[]>>(`${this.url}?page=${page}`);
@@ -43,8 +41,6 @@ export class ProductoService {
   getStock(id: number): Observable<Response<Stock>> {
     return this.http.get<Response<Stock>>(`${this.url}/${id}/stock`);
   }
-
-  // any territory (terrorista)
 
   addStock(quantity: stockQuantity, id: number): Observable<Response<Stock>> {
     return this.http.post<Response<Stock>>(`${this.url}/${id}/stock/add`, quantity);

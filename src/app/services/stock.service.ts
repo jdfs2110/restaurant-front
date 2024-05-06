@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { API_URL } from "@/app/constants/url";
+import { env } from "@/app/env";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Stock } from "@/app/types/Stock";
@@ -9,11 +9,9 @@ import { Response } from '@/app/types/Response';
   providedIn: 'root'
 })
 export class StockService {
-  private url: string = `${API_URL}/stock`
-  private token: string = '';
+  private url: string = `${env.API_URL}/stock`
 
   constructor(private http: HttpClient) { }
-  // TODO: implement headers / token
 
   findAll(page: number = 1): Observable<Response<Stock[]>> {
     return this.http.get<Response<Stock[]>>(`${this.url}?page=${page}`);

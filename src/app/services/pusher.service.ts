@@ -6,7 +6,7 @@ import { env } from "@/app/env";
   providedIn: 'root'
 })
 export class PusherService {
-  private readonly key: string = env.PUSHER_KEY ?? '';
+  private readonly key: string = env.PUSHER_KEY;
 
   private pusher: Pusher = {} as Pusher;
 

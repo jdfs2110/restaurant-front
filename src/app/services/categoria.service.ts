@@ -1,20 +1,18 @@
 import { Injectable } from "@angular/core";
-import { API_URL } from '@/app/constants/url'
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Categoria } from "@/app/types/Categoria";
 import { Producto } from "@/app/types/Producto";
 import { Response } from "@/app/types/Response";
+import { env } from '@/app/env';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriaService {
-  private url = `${API_URL}/categorias`;
-  private token: string = ''; // implement this later
+  private url = `${env.API_URL}/categorias`;
 
   constructor(private http: HttpClient) { }
-  // TODO: implement Authorization headers.
 
   findAll(page: number = 1): Observable<Response<Categoria[]>> {
     return this.http.get<Response<Categoria[]>>(`${this.url}?page=${page}`);

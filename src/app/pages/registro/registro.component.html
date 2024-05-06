@@ -1,1 +1,29 @@
-<p>registro works!</p>
+<main>
+  <form class="mt-10 flex gap-8 flex-col px-2" [formGroup]="registerForm" (submit)="onSubmit()">
+    <span class="p-float-label">
+      <input type="text" name="name" id="name" pInputText formControlName="name">
+      <label for="name">Nombre</label>
+    </span>
+
+    <span class="p-float-label">
+      <input type="text" name="email" id="email" pInputText formControlName="email">
+      <label for="email">Email</label>
+    </span>
+
+    <span class="p-float-label">
+      <input type="text" name="password" id="password" pInputText formControlName="password" type="password">
+      <label for="password">Contraseña</label>
+    </span>
+
+    <span class="p-float-label">
+      <input type="text" name="password_confirmation" id="password_confirmation" pInputText
+        formControlName="password_confirmation" type="password">
+      <label for="password">Repetir contraseña</label>
+    </span>
+
+    <p-dropdown [options]="roles" optionLabel="nombre" optionValue="id" formControlName="id_rol"
+      placeholder="Selecciona el rol" [filter]="true" filterBy="nombre"></p-dropdown>
+
+    <p-button label="submit" type="submit"></p-button>
+  </form>
+</main>

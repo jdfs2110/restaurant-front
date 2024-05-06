@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { API_URL } from "../constants/url";
+import { env } from '@/app/env';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Rol } from "@/app/types/Rol";
@@ -10,18 +10,12 @@ import { Response } from '@/app/types/Response';
   providedIn: 'root'
 })
 export class RolService {
-  private url = `${API_URL}/roles`;
-  private token: string = ''
+  private url = `${env.API_URL}/roles`;
 
   constructor(private http: HttpClient) { }
-  // TODO: implement headers
 
-  findAll(page: number = 1): Observable<Response<Rol[]>> {
-    return this.http.get<Response<Rol[]>>(`${this.url}?page=${page}`);
-  }
-
-  getPages(): Observable<Response<number>> {
-    return this.http.get<Response<number>>(`${this.url}/pages`);
+  findAll(): Observable<Response<Rol[]>> {
+    return this.http.get<Response<Rol[]>>(`${this.url}`);
   }
 
   findById(id: number): Observable<Response<Rol>> {

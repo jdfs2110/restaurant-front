@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { API_URL } from "@/app/constants/url";
+import { env } from "@/app/env";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Linea } from '@/app/types/Linea';
@@ -9,11 +9,9 @@ import { Response } from "@/app/types/Response";
   providedIn: 'root'
 })
 export class LineaService {
-  private url: string = `${API_URL}/lineas`
-  private token: string = '';
+  private url: string = `${env.API_URL}/lineas`
 
   constructor(private http: HttpClient) { }
-  // TODO: implement headers / token
 
   findAll(page: number = 1): Observable<Response<Linea[]>> {
     return this.http.get<Response<Linea[]>>(`${this.url}?page=${page}`);
@@ -37,5 +35,17 @@ export class LineaService {
 
   delete(id: number): Observable<Response<Linea>> {
     return this.http.delete<Response<Linea>>(`${this.url}/${id}`);
+  }
+
+  getLineasOfCocina(): Observable<Response<Linea[]>> {
+    return this.http.get<Response<Linea[]>>(`${this.url}/lineas/tipo/cocina`);
+  }
+
+  getLineasOfBarra(): Observable<Response<Linea[]>> {
+    return this.http.get<Response<Linea[]>>(`${this.url}/lineas/tipo/barra`);
+  }
+
+  completarLinea(id: number): Observable<Response<any>> {
+    return this.http.post<Response<any>>(`${this.url}/${id}/completar`, null);
   }
 }

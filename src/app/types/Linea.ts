@@ -5,4 +5,7 @@ export type Linea = {
   id_producto: number;
   producto: string;
   id_pedido: number;
+  tipo: string;
+  estado: string | number;
+  estado_numero: number;
 }
