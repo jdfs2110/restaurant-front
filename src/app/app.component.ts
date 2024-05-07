@@ -5,11 +5,14 @@ import es from '@/assets/i18n/es.json'
 import { CookieService } from 'ngx-cookie-service';
 import { UserSignalService } from './services/user.signal.service';
 import { User } from './types/User';
-
+import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [
+    RouterOutlet,
+    ToastModule
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -26,6 +29,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.config.setTranslation(es);
+    this.config.ripple = true;
     this.user = this.getCookie();
     this.userSignal.updateUser(this.user || ({} as User))
   }

@@ -1,0 +1,15 @@
+label {
+  display: block;
+  font-size: 16px;
+}
+
+main {
+  min-width: 360px;
+  background: #C8DEFE;
+}
+
+@media (min-width: 1120px) {
+  form {
+    padding-inline: 16rem !important;
+  }
+}

@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import env from "@/app/env.json";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
@@ -38,11 +38,11 @@ export class LineaService {
   }
 
   getLineasOfCocina(): Observable<Response<Linea[]>> {
-    return this.http.get<Response<Linea[]>>(`${this.url}/lineas/tipo/cocina`);
+    return this.http.get<Response<Linea[]>>(`${this.url}/tipo/cocina`);
   }
 
   getLineasOfBarra(): Observable<Response<Linea[]>> {
-    return this.http.get<Response<Linea[]>>(`${this.url}/lineas/tipo/barra`);
+    return this.http.get<Response<Linea[]>>(`${this.url}/tipo/barra`);
   }
 
   completarLinea(id: number): Observable<Response<any>> {

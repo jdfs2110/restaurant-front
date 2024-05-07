@@ -5,9 +5,14 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   template: `
-    <p class="text-red-600"><ng-content></ng-content></p>
+    <p class="text-red-600 mb-1"><ng-content></ng-content></p>
   `,
-  styles: ``
+  styles: `
+  p {
+    margin: 0;
+    padding: 0;
+  }
+  `
 })
 export class ErrorPComponent {
 

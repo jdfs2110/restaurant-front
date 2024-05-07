@@ -14,7 +14,6 @@ export class AuthInterceptor implements HttpInterceptor {
         Accept: 'application/json'
       }
     })
-    console.log(updatedRequest)
 
     return next.handle(updatedRequest);
   }
