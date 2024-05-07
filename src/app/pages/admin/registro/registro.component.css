@@ -8,8 +8,8 @@ main {
   background: #C8DEFE;
 }
 
-@media (min-width: 1120px) {
+/* @media (min-width: 1120px) {
   form {
-    padding-inline: 16rem !important;
+    padding-inline: 12rem !important;
   }
-}
+} */
