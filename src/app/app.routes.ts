@@ -4,12 +4,13 @@ import { RegistroComponent } from './pages/admin/registro/registro.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { LineasCocinaComponent } from './pages/lineas-cocina/lineas-cocina.component';
 import { LineasBarraComponent } from './pages/lineas-barra/lineas-barra.component';
+import { HomeComponent } from './pages/home/home.component';
 
 export const routes: Routes = [
-  // {
-  //   path: '',
-  //   component: TODO
-  // },
+  {
+    path: '',
+    component: HomeComponent
+  },
   {
     path: 'login',
     component: LoginComponent,

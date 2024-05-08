@@ -11,6 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { User } from '@/app/types/User';
 import { UserSignalService } from '@/app/services/user.signal.service';
 import { ErrorPComponent } from "@/app/components/error-p/error-p.component";
+import { ToastService } from '@/app/lib/toast.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -51,7 +52,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private validationService: ValidationMessagesService,
     private cookieService: CookieService,
-    private userSignal: UserSignalService
+    private userSignal: UserSignalService,
+    private toaster: ToastService
   ) { }
 
   getLoginError(): string {
@@ -81,10 +83,11 @@ export class LoginComponent implements OnInit {
           this.setCookie(data)
           this.authService.setToken(token);
           this.userSignal.updateUser(data);
+          this.redirect();
         },
         (error) => {
-          const errorMessage = error.error.error; // Terrorista a niveles extraterresres
-          this.setLoginError(errorMessage);
+          this.toaster.smallToast('error', 'Error en el login');
+          this.setLoginError('Correo o contraseña incorrectos.');
           this.loginError = true;
         }
       )
