@@ -8,6 +8,7 @@
 - [ ] todo 😭
 - [ ] que el dropdown de estado de pedido en cocina no salga para cambiar a 'servido'
 - [ ] fix padding shit (login & registro)
+- [ ] arreglar el cierre de sesión cuando se pone ulr a pelo (ej: /lineas/cocina)
 
 ### Schizo posting
 

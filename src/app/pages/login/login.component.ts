@@ -117,7 +117,7 @@ export class LoginComponent implements OnInit {
   }
 
   redirect(): void {
-    this.router.navigateByUrl('/');
+    this.router.navigate(['/']);
     setTimeout(() => {
       window.location.reload();
     }, 100);

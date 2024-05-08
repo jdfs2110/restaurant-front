@@ -159,7 +159,8 @@ export class HeaderComponent implements OnInit {
         console.log(response);
 
         this.userSignal.clearUser()
-        this.cookieService.deleteAll();
+        this.cookieService.delete('token')
+        this.cookieService.delete('user')
         this.redirect();
       },
       error: (error) => {
