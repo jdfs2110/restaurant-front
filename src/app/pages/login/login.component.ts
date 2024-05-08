@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
     return this.errorMessage;
   }
 
-  setLoginError(message: string) {
+  setLoginError(message: string): void {
     this.errorMessage = message;
   }
 
@@ -77,23 +77,24 @@ export class LoginComponent implements OnInit {
     };
 
     this.authService.login(loginForm)
-      .subscribe(
-        (response: LoggedUserResponse) => {
+      .subscribe({
+        next: (response: LoggedUserResponse) => {
           const { data, token } = response;
           this.setCookie(data)
           this.authService.setToken(token);
           this.userSignal.updateUser(data);
           this.redirect();
         },
-        (error) => {
+        error: (error) => {
+          console.log(error);
           this.toaster.smallToast('error', 'Error en el login');
           this.setLoginError('Correo o contraseña incorrectos.');
           this.loginError = true;
         }
-      )
+      });
   }
 
-  getEmailErrors() {
+  getEmailErrors(): string {
     if (this.loginForm.controls.email.hasError('required')) return this.validationService.requiredMessage();
 
     if (this.loginForm.controls.email.hasError('email')) return 'El email no es válido.';
@@ -101,7 +102,7 @@ export class LoginComponent implements OnInit {
     return '';
   }
 
-  getPasswordErrors() {
+  getPasswordErrors(): string {
     if (this.loginForm.controls.password.hasError('required')) return this.validationService.requiredMessage();
 
     if (this.loginForm.controls.password.hasError('minlength')) return this.validationService.minLength(6);
@@ -111,14 +112,18 @@ export class LoginComponent implements OnInit {
     return '';
   }
 
-  setCookie(user: User) {
+  setCookie(user: User): void {
     this.cookieService.set('user', JSON.stringify(user));
   }
 
-  redirect() {
+  redirect(): void {
     this.router.navigateByUrl('/');
     setTimeout(() => {
       window.location.reload();
     }, 100);
+  }
+
+  mark(): void {
+    this.loginError = false;
   }
 }

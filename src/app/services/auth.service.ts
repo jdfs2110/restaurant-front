@@ -29,7 +29,7 @@ export class AuthService {
     return this.cookieService.get('token');
   }
 
-  logout(): void {
-    // TODO
+  logout(): Observable<any> {
+    return this.http.post<any>(`${this.url}/logout`, null);
   }
 }

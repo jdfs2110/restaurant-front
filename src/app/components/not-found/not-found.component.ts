@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   imports: [],
   template: `
   <main class="flex justify-content-center align-items-center min-h-screen ">
-    <img src="/assets/404.jpeg" alt="404 - not found" class="border-round border-white">  
+    <img src="/assets/images/404.jpeg" alt="404 - not found" class="border-round border-white">  
   </main>
   `,
   styles: `

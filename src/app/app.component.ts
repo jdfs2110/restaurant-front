@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
     if (cookie) {
       return JSON.parse(cookie)
     } else {
-      this.router.navigateByUrl('/login');
+      this.router.navigate(['/login']);
     }
   }
 }

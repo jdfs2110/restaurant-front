@@ -35,6 +35,10 @@ dashboard Mesero
 
 Admin panel (absolutamente todo 😲😲)
 
+-[ ] MegaMenu con categorias y to eso o que?
+
+--------
+
 - Usuarios > info, registrar usuario, bloquear
 
 ```ts
