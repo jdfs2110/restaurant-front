@@ -30,13 +30,13 @@ export const routes: Routes = [
     path: 'admin/registro',
     component: RegistroComponent
   },
-  // {
-  //   path: '404',
-  //   component: NotFoundComponent,
-  //   title: 'Página no encontrada'
-  // },
-  // {
-  //   path: '**',
-  //   redirectTo: '404'
-  // }
+  {
+    path: '404',
+    component: NotFoundComponent,
+    title: 'Página no encontrada'
+  },
+  {
+    path: '**',
+    redirectTo: '404'
+  }
 ];
