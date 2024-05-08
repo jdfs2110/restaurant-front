@@ -91,15 +91,6 @@ export class LineasComponent implements OnInit {
   completarLinea(id: number): void {
     this.lineaService.completarLinea(id).subscribe({
       next: (response: Response<any>) => {
-        // this.lineas.find((linea: Linea, index: number) => {
-        //   if (linea.id === id) {
-        //     this.lineas.splice(index, 1);
-
-        //     return true;
-        //   }
-
-        //   return false;
-        // });
         console.log(response.message);
       },
       error: (error) => {
