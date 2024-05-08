@@ -33,10 +33,10 @@
         <input type="text" name="password_confirmation" id="password_confirmation" pInputText
           formControlName="password_confirmation" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;"
           class="lg:w-full">
+        @if (submitted && passwordGroup.controls['password_confirmation'].invalid) {
+        <error-p class=" pb-1">{{getPasswordConfirmationErrors()}}</error-p>
+        }
       </div>
-      @if (submitted && passwordGroup.controls['password_confirmation'].invalid) {
-      <error-p class=" pb-1">{{getPasswordConfirmationErrors()}}</error-p>
-      }
     </div>
 
     <div class="field">

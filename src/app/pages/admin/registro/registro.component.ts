@@ -55,12 +55,12 @@ export class RegistroComponent implements OnInit {
 
   ngOnInit(): void {
     this.passwordGroup = new FormGroup({
-      password: new FormControl('123456', [
+      password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(40)
       ]),
-      password_confirmation: new FormControl('123456', [
+      password_confirmation: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(40)
@@ -70,11 +70,11 @@ export class RegistroComponent implements OnInit {
     this.passwordGroup.validator = RepeatPasswordValidator.repeatPassword();
 
     this.registerForm = new FormGroup({
-      name: new FormControl('asads', [
+      name: new FormControl('', [
         Validators.required,
         Validators.maxLength(40)
       ]),
-      email: new FormControl('asd@quee.so', [
+      email: new FormControl('', [
         Validators.required,
         Validators.email
       ]),
@@ -83,15 +83,15 @@ export class RegistroComponent implements OnInit {
     })
 
     this.adminService.checkIfAdmin();
-    this.rolService.findAll().subscribe(
-      (json: Response<Rol[]>) => {
+    this.rolService.findAll().subscribe({
+      next: (json: Response<Rol[]>) => {
         const { data } = json;
         this.roles = data;
       },
-      (error) => {
+      error: (error) => {
         console.log(error);
       }
-    )
+    })
   }
 
   getNameErrors() {

@@ -42,18 +42,27 @@ Admin panel (absolutamente todo 😲😲)
 - Usuarios > info, registrar usuario, bloquear
 
 ```ts
-completarLinea(id: number) {
-    this.lineaService.completarLinea(id).subscribe((response: Response<any>) => {
-      this.lineas.find((linea: Linea, index: number) => {
-        if (linea.id === id) {
-          this.lineas.splice(index, 1);
 
-          return true;
-        }
+  logout(): void {
+    this.authService.logout().subscribe({
+      next: (response: any) => {
+        console.log(response);
 
-        return false;
-      });
-      console.log(response.message);
+        this.userSignal.clearUser()
+        this.cookieService.deleteAll();
+        this.redirect();
+      },
+      error: (error) => {
+        console.log(error);
+      }
     })
+  }
+
+  redirect(): void {
+    this.router.navigateByUrl('/login');
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
   }
 ```

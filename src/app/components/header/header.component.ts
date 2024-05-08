@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
 
   adminMenuItems: MenuItem[]; // Maybe mega menu or dock if i have extra time
   regularMenuItems: MenuItem[];
+  meseroMenuItems: MenuItem[];
   rrhhMenuItems: MenuItem[];
 
   constructor(
@@ -36,24 +37,30 @@ export class HeaderComponent implements OnInit {
 
     this.adminMenuItems = [
       {
-        label: 'Roles',
-        icon: 'pi pi-tags',
-        routerLink: '/admin/roles'
-      },
-      {
-        label: 'Usuarios',
+        label: 'Empleados',
         icon: 'pi pi-user',
-        routerLink: '/admin/usuarios'
-      },
-      {
-        label: 'Categorías',
-        icon: 'pi pi-question', // no se que ponerle
-        routerLink: '/admin/categorias'
+        items: [
+          {
+            label: 'Usuarios',
+            icon: 'pi pi-user',
+            routerLink: '/admin/usuarios'
+          },
+          {
+            label: 'Roles',
+            icon: 'pi pi-tags',
+            routerLink: '/admin/roles'
+          }
+        ]
       },
       {
         label: 'Productos',
         icon: 'pi pi-shopping-bag',
         items: [
+          {
+            label: 'Categorías',
+            icon: 'pi pi-question', // no se que ponerle
+            routerLink: '/admin/categorias'
+          },
           {
             label: 'Todos los productos',
             icon: 'pi pi-shopping-bag',
@@ -67,39 +74,70 @@ export class HeaderComponent implements OnInit {
         ]
       },
       {
-        label: 'Mesas',
-        icon: 'pi pi-question', // no se que ponerle
-        routerLink: '/admin/mesas'
+        label: 'Restaurante',
+        icon: 'pi pi-shop',
+        items: [
+          {
+            label: 'Mesas',
+            icon: 'pi pi-question', // no se que ponerle
+            routerLink: '/admin/mesas'
+          },
+          {
+            label: 'Pedidos',
+            icon: 'pi pi-question', // no se que ponerle
+            routerLink: '/admin/pedidos'
+          },
+          {
+            label: 'Líneas',
+            icon: 'pi pi-list',
+            routerLink: '/admin/lineas'
+          },
+          {
+            label: 'Finanzas',
+            icon: 'pi pi-money-bill',
+            items: [
+              {
+                label: 'Facturas',
+                icon: 'pi pi-receipt',
+                routerLink: '/admin/facturas'
+              }
+            ]
+          }
+        ]
       },
-      {
-        label: 'Pedidos',
-        icon: 'pi pi-question', // no se que ponerle
-        routerLink: '/admin/pedidos'
-      },
-      {
-        label: 'Líneas',
-        icon: 'pi pi-list',
-        routerLink: '/admin/lineas'
-      },
-      {
-        label: 'Facturas',
-        icon: 'pi pi-receipt',
-        routerLink: '/admin/facturas'
-      }
     ];
 
     this.rrhhMenuItems = [ // Que carguen el mismo componente y que se compruebe si es rrhh o admin
       {
-        label: 'Roles',
-        icon: 'pi pi-tags',
-        routerLink: '/rrhh/roles'
-      },
-      {
-        label: 'Usuarios',
+        label: 'Empleados',
         icon: 'pi pi-user',
-        routerLink: '/rrhh/usuarios'
+        items: [
+          {
+            label: 'Usuarios',
+            icon: 'pi pi-user',
+            routerLink: '/rrhh/usuarios'
+          },
+          {
+            label: 'Roles',
+            icon: 'pi pi-tags',
+            routerLink: '/rrhh/roles'
+          }
+        ]
       },
     ];
+
+    this.meseroMenuItems = [
+      {
+        label: 'Mesas',
+        icon: 'pi pi-question', // no se que ponerle
+        routerLink: '/mesas'
+      },
+      {
+        label: 'Productos',
+        icon: 'pi pi-shopping-bag',
+        routerLink: '/productos'
+      }
+    ]
 
     this.regularMenuItems = [
       {
@@ -109,7 +147,8 @@ export class HeaderComponent implements OnInit {
       },
       {
         label: 'Productos',
-        icon: 'pi pi-shopping-bag'
+        icon: 'pi pi-shopping-bag',
+        routerLink: '/productos'
       }
     ];
   }
@@ -130,7 +169,7 @@ export class HeaderComponent implements OnInit {
   }
 
   redirect(): void {
-    this.router.navigateByUrl('/login');
+    this.router.navigate(['/login']);
 
     setTimeout(() => {
       window.location.reload();

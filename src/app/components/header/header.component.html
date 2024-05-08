@@ -1,42 +1,57 @@
-@if (user.id_rol === 4) {
-<p-menubar [model]="adminMenuItems">
+<header>
+  @if (user.id_rol === 4) {
+  <p-menubar [model]="adminMenuItems">
 
-  <ng-template pTemplate="start">
-    <i class="pi pi-crown hidden lg:inline"></i>
-    <p class="select-none" class="hidden lg:inline lg:px-2 lg:select-none lg:border-right-1 lg:mr-1">Administración</p>
-  </ng-template>
+    <ng-template pTemplate="start">
+      <i class="pi pi-crown hidden lg:inline"></i>
+      <p class="select-none" class="hidden lg:inline lg:px-2 lg:select-none lg:border-right-1 lg:mr-1">Administración
+      </p>
+    </ng-template>
 
-  <ng-template pTemplate="end" let-item let-root="root">
-    <div class="flex justify-content-center align-items-center gap-1 md:gap-2 lg:gap-4">
-      <p class="text-blue-500">{{user.name}}</p>
-      <p-button (click)="logout()" [link]="true">Cerrar sesión</p-button>
-    </div>
-  </ng-template>
+    <ng-template pTemplate="end" let-item let-root="root">
+      <div class="flex justify-content-center align-items-center gap-1 md:gap-2 lg:gap-4">
+        <p class="text-blue-500">{{user.name}}</p>
+        <p-button (click)="logout()" [link]="true">Cerrar sesión</p-button>
+      </div>
+    </ng-template>
 
-</p-menubar>
-} @else if (user.id_rol === 3) {
-<p-menubar [model]="rrhhMenuItems">
+  </p-menubar>
 
-  <ng-template pTemplate="start">
-    <i class="pi pi-user hidden lg:inline"></i>
-    <p class="select-none" class="hidden lg:inline lg:px-2 lg:select-none lg:border-right-1 lg:mr-1">RRHH</p>
-  </ng-template>
+  } @else if (user.id_rol === 3) {
+  <p-menubar [model]="rrhhMenuItems">
 
-  <ng-template pTemplate="end" let-item let-root="root">
-    <div class="flex justify-content-center align-items-center gap-1 md:gap-2 lg:gap-4">
-      <p class="text-green-500">{{user.name}}</p>
-      <p-button (click)="logout()" [link]="true">Cerrar sesión</p-button>
-    </div>
-  </ng-template>
+    <ng-template pTemplate="start">
+      <i class="pi pi-user hidden lg:inline"></i>
+      <p class="select-none" class="hidden lg:inline lg:px-2 lg:select-none lg:border-right-1 lg:mr-1">RRHH</p>
+    </ng-template>
 
-</p-menubar>
-} @else {
-<p-menubar [model]="regularMenuItems">
-  <ng-template pTemplate="end" let-item let-root="root">
-    <div class="flex justify-content-center align-items-center gap-1 md:gap-2 lg:gap-4">
-      <p>{{user.name}}</p>
-      <p-button (click)="logout()" [link]="true">Cerrar sesión</p-button>
-    </div>
-  </ng-template>
-</p-menubar>
-}
+    <ng-template pTemplate="end" let-item let-root="root">
+      <div class="flex justify-content-center align-items-center gap-1 md:gap-2 lg:gap-4">
+        <p class="text-green-500">{{user.name}}</p>
+        <p-button (click)="logout()" [link]="true">Cerrar sesión</p-button>
+      </div>
+    </ng-template>
+
+  </p-menubar>
+
+  } @else if (user.id_rol === 1) {
+  <p-menubar [model]="meseroMenuItems">
+    <ng-template pTemplate="end" let-item let-root="root">
+      <div class="flex justify-content-center align-items-center gap-1 md:gap-2 lg:gap-4">
+        <p>{{user.name}}</p>
+        <p-button (click)="logout()" [link]="true">Cerrar sesión</p-button>
+      </div>
+    </ng-template>
+  </p-menubar>
+
+  } @else {
+  <p-menubar [model]="regularMenuItems">
+    <ng-template pTemplate="end" let-item let-root="root">
+      <div class="flex justify-content-center align-items-center gap-1 md:gap-2 lg:gap-4">
+        <p>{{user.name}}</p>
+        <p-button (click)="logout()" [link]="true">Cerrar sesión</p-button>
+      </div>
+    </ng-template>
+  </p-menubar>
+  }
+</header>

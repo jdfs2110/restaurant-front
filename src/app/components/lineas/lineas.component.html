@@ -1,1 +1,17 @@
-<p>TODO</p>
+<app-header></app-header>
+<main>
+  @for (linea of lineas; track linea.id) {
+  <p-panel [toggleable]="true" [collapsed]="true">
+
+    <ng-template pTemplate="header">
+      <div class="flex align-items-center gap-2">
+        <p-avatar [image]="linea.producto_foto" shape="circle" size="large" />
+        <span class="font-medium">{{linea.cantidad}} {{linea.producto}}</span>
+      </div>
+    </ng-template>
+    <div>
+      <p>Nº Pedido: {{ linea.id_pedido }}</p>
+    </div>
+  </p-panel>
+  }
+</main>

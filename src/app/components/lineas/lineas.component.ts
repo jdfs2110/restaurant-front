@@ -6,11 +6,16 @@ import { Linea } from '@/app/types/Linea';
 import { NewLineaEvent } from '@/app/types/NewLineaEvent';
 import { Response } from '@/app/types/Response';
 import { Component, Input, OnInit } from '@angular/core';
-
+import { HeaderComponent } from "../header/header.component";
+import { PanelModule } from 'primeng/panel';
+import { AvatarModule } from 'primeng/avatar';
 @Component({
   selector: 'app-lineas',
   standalone: true,
   imports: [
+    HeaderComponent,
+    PanelModule,
+    AvatarModule
   ],
   templateUrl: './lineas.component.html',
   styleUrl: './lineas.component.css'
