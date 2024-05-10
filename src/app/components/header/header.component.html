@@ -8,10 +8,10 @@
       </p>
     </ng-template>
 
-    <ng-template pTemplate="end" let-item let-root="root">
-      <div class="flex justify-content-center align-items-center gap-1 md:gap-2 lg:gap-4">
+    <ng-template pTemplate="end">
+      <div class="flex justify-content-center align-items-center gap-2 lg:gap-4">
         <p class="text-blue-500">{{user.name}}</p>
-        <p-button (click)="logout()" [link]="true">Cerrar sesión</p-button>
+        <p-button (click)="logout()" [link]="true" styleClass="lg:p-1">Cerrar sesión</p-button>
       </div>
     </ng-template>
 
