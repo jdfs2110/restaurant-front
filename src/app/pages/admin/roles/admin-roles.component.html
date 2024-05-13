@@ -1,6 +1,7 @@
 <main>
   <div class="card">
-    <p-table [value]="roles">
+    <p-table [value]="roles" styleClass="p-datatable-gridlines p-datatable-striped" [breakpoint]="'600px'"
+      responsiveLayout="scroll" [tableStyle]="{'min-width': '375px'}" scrollHeight="flex">
 
       <ng-template pTemplate="header">
         <tr>
