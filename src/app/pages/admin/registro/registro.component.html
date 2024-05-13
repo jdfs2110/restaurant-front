@@ -1,4 +1,4 @@
-<main class="min-h-screen flex justify-content-center align-items-center">
+<main class="flex justify-content-center align-items-center">
   <form class="bg-white flex flex-column gap-2 shadow-1 px-4 py-6 md:p-8 lg:w-7" [formGroup]="registerForm"
     (submit)="onSubmit()">
     <div class="field">
@@ -18,7 +18,7 @@
       }
     </div>
 
-    <div formGroupName="passwords" class="lg:flex lg:flex-row lg:gap-4">
+    <div formGroupName="passwords" class="flex gap-4 flex-column lg:flex-row">
       <div class="field" class="lg:flex-1">
         <label for="password">Contraseña</label>
         <input type="text" name="password" id="password" pInputText formControlName="password" type="password"
@@ -55,7 +55,7 @@
 
     <div class="flex justify-content-around mt-2">
       <p-button label="Limpiar" type="reset" (click)="resetForm()" severity="info" styleClass="w-full"></p-button>
-      <p-button label="Enviar" type="submit" styleClass="w-full"></p-button>
+      <p-button label="Enviar" type="submit" styleClass="w-full" [loading]="loading"></p-button>
     </div>
   </form>
 </main>

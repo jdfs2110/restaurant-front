@@ -10,7 +10,12 @@ main {
 
 @media (min-width: 1024px) {
   form {
-    padding-inline: 12rem !important;
+    padding-inline: 14rem !important;
     padding-block: 8rem !important
   }
+}
+
+error-p {
+  font-size: 13px;
+  /* TODO: arreglar el error de minlength para que no haga mas grande la pantalla */
 }

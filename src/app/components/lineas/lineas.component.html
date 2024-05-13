@@ -22,7 +22,7 @@
   <p-dataView #dv [value]="lineas" styleClass="hidden lg:block">
     <ng-template pTemplate="list" let-products>
       <div class="grid grid-nogutter">
-        <div class="col-12" *ngFor="let item of lineas; let first = first" class="col-12">
+        <div class="col-12" *ngFor="let item of lineas; let first = first; track item.id" class="col-12">
           <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3"
             [ngClass]="{ 'border-top-1 surface-border': !first }">
             <div class="md:w-10rem relative">

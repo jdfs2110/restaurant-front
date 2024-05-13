@@ -7,8 +7,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { LoggedUserResponse } from '@/app/types/LoggedUserResponse';
 import { ValidationMessagesService } from '@/app/services/validation-messages.service';
-import { CookieService } from 'ngx-cookie-service';
-import { User } from '@/app/types/User';
 import { UserSignalService } from '@/app/services/user.signal.service';
 import { ErrorPComponent } from "@/app/components/error-p/error-p.component";
 import { ToastService } from '@/app/lib/toast.service';
@@ -28,6 +26,7 @@ export class LoginComponent implements OnInit {
   protected submitted: boolean = false;
   protected loginError: boolean = false;
   protected errorMessage: string = '';
+  protected loading: boolean = false;
 
   ngOnInit(): void {
     if (this.userSignal.user().id) {
@@ -51,7 +50,6 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private validationService: ValidationMessagesService,
-    private cookieService: CookieService,
     private userSignal: UserSignalService,
     private toaster: ToastService
   ) { }
@@ -65,9 +63,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading = true;
     this.submitted = true;
     const form = this.loginForm.value;
     if (this.loginForm.invalid) {
+      this.loading = false;
       return;
     }
 
@@ -80,12 +80,13 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: (response: LoggedUserResponse) => {
           const { data, token } = response;
-          this.setCookie(data)
+          console.log(data);
           this.authService.setToken(token);
           this.userSignal.updateUser(data);
           this.redirect();
         },
         error: (error) => {
+          this.loading = false;
           console.log(error);
           this.toaster.smallToast('error', 'Error en el login');
           this.setLoginError('Correo o contraseña incorrectos.');
@@ -112,15 +113,11 @@ export class LoginComponent implements OnInit {
     return '';
   }
 
-  setCookie(user: User): void {
-    this.cookieService.set('user', JSON.stringify(user));
-  }
-
   redirect(): void {
     this.router.navigate(['/']);
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 500);
   }
 
   mark(): void {

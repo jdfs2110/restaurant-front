@@ -1,2 +1,10 @@
+@defer {
 <p-toast></p-toast>
 <router-outlet />
+}
+@placeholder {
+<div class="flex justify-content-center align-items-center min-h-screen gap-4">
+  <p>Cargando...</p>
+  <p-progressSpinner ariaLabel="loading" styleClass="w-4rem h-4rem" strokeWidth="5" animationDuration=".5s" />
+</div>
+}

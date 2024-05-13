@@ -14,9 +14,9 @@ export class AdminService {
   checkIfAdmin(): void {
     if (this.userSignal.user().id_rol !== 4) {
       this.router.navigateByUrl('/');
-      setTimeout(() => {
-        window.location.reload();
-      }, 100);
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 100);
     }
   }
 }

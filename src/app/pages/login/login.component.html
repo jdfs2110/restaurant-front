@@ -1,6 +1,6 @@
 <main class="min-h-screen flex justify-content-center align-items-center">
   <form class="" [formGroup]="loginForm" (submit)="onSubmit()"
-    class="bg-white flex flex-column shadow-1 px-5 py-6 md:p-8">
+    class="bg-white flex flex-column shadow-1 px-6 py-6 md:p-8">
     <div class="field">
       <label for="email">Correo electrónico</label>
       <input type="text" name="email" id="email" pInputText formControlName="email" (click)="mark()">
@@ -21,6 +21,6 @@
       }
     </div>
 
-    <p-button label="Enviar" type="submit" styleClass="w-full"></p-button>
+    <p-button label="Enviar" type="submit" styleClass="w-full" [loading]="loading" iconPos="right" />
   </form>
 </main>

@@ -39,8 +39,8 @@ export class PedidoService {
     return this.http.delete<Response<Pedido>>(`${this.url}/${id}`);
   }
 
-  getLineas(id: number): Observable<Response<Linea>> {
-    return this.http.get<Response<Linea>>(`${this.url}/${id}/lineas`);
+  getLineas(id: number): Observable<Response<Linea[]>> {
+    return this.http.get<Response<Linea[]>>(`${this.url}/${id}/lineas`);
   }
 
   getFactura(id: number): Observable<Response<Factura>> {
@@ -48,6 +48,6 @@ export class PedidoService {
   }
 
   servirPedido(id: number): Observable<Response<any>> {
-    return this.http.post<Response<any>>(`${this.url}/pedidos/${id}`, null);
+    return this.http.post<Response<any>>(`${this.url}/${id}/servir`, null);
   }
 }

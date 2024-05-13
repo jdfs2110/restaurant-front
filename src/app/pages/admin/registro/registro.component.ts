@@ -20,10 +20,13 @@ import { ErrorPComponent } from '@/app/components/error-p/error-p.component';
 import { AdminService } from '../admin.service';
 import { RepeatPasswordValidator } from '@/app/lib/RepeatPasswordValidator';
 import { ToastService } from '@/app/lib/toast.service';
+import { HeaderComponent } from "../../../components/header/header.component";
 
 @Component({
   selector: 'app-registro',
   standalone: true,
+  templateUrl: './registro.component.html',
+  styleUrl: './registro.component.css',
   imports: [
     ReactiveFormsModule,
     InputTextModule,
@@ -31,13 +34,13 @@ import { ToastService } from '@/app/lib/toast.service';
     DropdownModule,
     FormsModule,
     ErrorPComponent,
-  ],
-  templateUrl: './registro.component.html',
-  styleUrl: './registro.component.css'
+    HeaderComponent
+  ]
 })
 export class RegistroComponent implements OnInit {
   protected registerForm: FormGroup;
   protected passwordGroup: FormGroup;
+  protected loading: boolean = false;
 
   protected roles: Rol[] = [];
 
@@ -49,7 +52,6 @@ export class RegistroComponent implements OnInit {
     private validationService: ValidationMessagesService,
     private userService: UserService,
     private rolService: RolService,
-    private adminService: AdminService,
     private toaster: ToastService
   ) { }
 
@@ -79,10 +81,9 @@ export class RegistroComponent implements OnInit {
         Validators.email
       ]),
       passwords: this.passwordGroup,
-      id_rol: new FormControl(3, [Validators.required])
+      id_rol: new FormControl(null, [Validators.required])
     })
 
-    this.adminService.checkIfAdmin();
     this.rolService.findAll().subscribe({
       next: (json: Response<Rol[]>) => {
         const { data } = json;
@@ -146,9 +147,11 @@ export class RegistroComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    this.loading = true;
     const form = this.registerForm.value;
 
     if (this.registerForm.invalid) {
+      this.loading = false;
       return;
     };
 
@@ -172,6 +175,7 @@ export class RegistroComponent implements OnInit {
           this.toaster.smallToast('success', message);
         },
         error: (e: any) => {
+          this.loading = false;
           if (e.error.error.email !== null) {
             this.setError(e.error.error.email);
           } else {

@@ -18,9 +18,7 @@ import { MenubarModule } from 'primeng/menubar';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit {
-  user: User = {} as User;
-
-  adminMenuItems: MenuItem[]; // Maybe mega menu or dock if i have extra time
+  adminMenuItems: MenuItem[]; // Maybe dock if i have extra time
   regularMenuItems: MenuItem[];
   meseroMenuItems: MenuItem[];
   rrhhMenuItems: MenuItem[];
@@ -32,9 +30,19 @@ export class HeaderComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit(): void {
-    this.user = this.userSignal.user()
+  protected get name(): string {
+    return this.userSignal.user().name
+  }
 
+  protected get idRol(): number {
+    return this.userSignal.user().id_rol;
+  }
+
+  protected get rol(): string {
+    return this.userSignal.user().rol;
+  }
+
+  ngOnInit(): void {
     this.adminMenuItems = [
       {
         label: 'Empleados',
@@ -43,7 +51,18 @@ export class HeaderComponent implements OnInit {
           {
             label: 'Usuarios',
             icon: 'pi pi-user',
-            routerLink: '/admin/usuarios'
+            items: [
+              {
+                label: 'Todos los usuarios',
+                icon: 'pi pi-users',
+                routerLink: '/admin/usuarios'
+              },
+              {
+                label: 'Nuevo usuario',
+                icon: 'pi pi-plus',
+                routerLink: '/admin/registro'
+              }
+            ]
           },
           {
             label: 'Roles',
@@ -143,7 +162,7 @@ export class HeaderComponent implements OnInit {
       {
         label: 'Líneas',
         icon: 'pi pi-list',
-        routerLink: `/lineas/${this.user.rol}`
+        routerLink: `/lineas/${this.rol}`
       },
       {
         label: 'Productos',
@@ -158,9 +177,8 @@ export class HeaderComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
 
-        this.userSignal.clearUser()
-        this.cookieService.delete('token')
-        this.cookieService.delete('user')
+        this.userSignal.clearUser();
+        this.cookieService.deleteAll();
         this.redirect();
       },
       error: (error) => {
@@ -172,8 +190,8 @@ export class HeaderComponent implements OnInit {
   redirect(): void {
     this.router.navigate(['/login']);
 
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 100);
   }
 }
