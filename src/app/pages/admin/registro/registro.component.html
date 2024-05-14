@@ -54,7 +54,8 @@
     }
 
     <div class="flex justify-content-around mt-2">
-      <p-button label="Limpiar" type="reset" (click)="resetForm()" severity="info" styleClass="w-full"></p-button>
+      <p-button label="Limpiar" type="reset" (click)="resetForm()" severity="info" styleClass="w-full"
+        [link]="true"></p-button>
       <p-button label="Enviar" type="submit" styleClass="w-full" [loading]="loading"></p-button>
     </div>
   </form>
