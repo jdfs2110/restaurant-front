@@ -4,12 +4,12 @@ import { UserSignalService } from '@/app/services/user.signal.service';
 import { Response } from '@/app/types/Response';
 import { User } from '@/app/types/User';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { TableLazyLoadEvent, TableModule } from 'primeng/table';
+import { Table, TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { AutoCompleteCompleteEvent, AutoCompleteModule, AutoCompleteSelectEvent } from 'primeng/autocomplete';
 @Component({
@@ -33,6 +33,8 @@ export class AdminUsuariosComponent implements OnInit {
   protected users: User[] = [];
   protected loading: boolean = false;
   protected buttonLoading: boolean = false;
+  @ViewChild('p-table') table: Table
+  protected first = 0;
 
   protected filteredUsers: any[] = [];
 
@@ -46,6 +48,7 @@ export class AdminUsuariosComponent implements OnInit {
   get userId(): number {
     return this.userSignal.user().id;
   }
+
 
   ngOnInit(): void {
     this.loading = true;
@@ -82,8 +85,8 @@ export class AdminUsuariosComponent implements OnInit {
     this.fetchUsers(page);
   }
 
-  showDialog(event: Event, id: number) {
-    if (id === this.userId) {
+  showDialog(event: Event, user: User) {
+    if (user.id === this.userId) {
       this.toaster.smallToast('error', 'No te puedes eliminar a ti mismo.');
       return;
     }
@@ -94,33 +97,23 @@ export class AdminUsuariosComponent implements OnInit {
       header: 'Eliminación de usuario',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
-      accept: () => { this.deleteUser(id) }
+      accept: () => { this.deleteUser(user) }
     });
   }
 
-  deleteUser(id: number) {
-    this.userService.delete(id).subscribe({
+  deleteUser(user: User) {
+    const pos = this.users.indexOf(user);
+    this.users = this.users.filter((u: User) => { return u.id !== user.id })
+    this.userService.delete(user.id).subscribe({
       next: (response: Response<User>) => {
         const { message } = response;
         this.toaster.smallToast('success', message);
-        this.findAndDelete(id);
       },
       error: (error: any) => {
+        this.users.splice(pos, 0, user);
         this.toaster.detailedToast('error', 'Error al eliminar el usuario', error.error.error)
       }
     })
-  }
-
-  findAndDelete(id: number) {
-    this.users.find((user: User, index: number) => {
-      if (user.id === id) {
-        this.users.splice(index, 1);
-
-        return true;
-      }
-
-      return false;
-    });
   }
 
   filterUser(event: AutoCompleteCompleteEvent) {
@@ -149,6 +142,7 @@ export class AdminUsuariosComponent implements OnInit {
 
   refreshTable() {
     this.buttonLoading = true;
+    this.first = 0;
     this.fetchUsers(1);
     this.userService.getPages().subscribe({
       next: (response: Response<number>) => {

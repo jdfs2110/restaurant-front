@@ -12,7 +12,7 @@
     </p-toolbar>
     <p-table styleClass="p-datatable-gridlines" [value]="users" [lazy]="true" (onLazyLoad)="loadUsers($event)"
       [paginator]="true" [rows]="paginationLimit" [loading]="loading" [totalRecords]="totalUsers"
-      responsiveLayout="stack" [tableStyle]="{'min-width': '375px'}" dataKey="id">
+      responsiveLayout="stack" [tableStyle]="{'min-width': '375px'}" dataKey="id" [(first)]="first">
       <ng-template pTemplate="header">
         <tr>
           <th>ID</th>
@@ -38,12 +38,12 @@
               <p-button label="Editar" severity="secondary" styleClass="hidden md:inline"
                 [routerLink]="['/admin/usuarios/' + user.id]" />
               <p-button label="Eliminar" severity="danger" styleClass="hidden md:inline"
-                (onClick)="showDialog($event, user.id)" />
+                (onClick)="showDialog($event, user)" />
 
               <p-button [rounded]="true" icon="pi pi-pencil" severity="secondary" styleClass="md:hidden"
                 [routerLink]="['/admin/usuarios/' + user.id]" />
               <p-button [rounded]="true" icon="pi pi-trash" severity="danger" styleClass="md:hidden"
-                (onClick)="showDialog($event, user.id)" />
+                (onClick)="showDialog($event, user)" />
             </div>
           </td>
         </tr>
