@@ -171,7 +171,7 @@ export class RegistroComponent implements OnInit {
 
           const { message } = response;
           this.registerError = false;
-
+          this.loading = false;
           this.toaster.smallToast('success', message);
         },
         error: (e: any) => {
