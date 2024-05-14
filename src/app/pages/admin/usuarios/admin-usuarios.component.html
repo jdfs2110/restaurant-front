@@ -1,1 +1,54 @@
-<p>admin-usuarios works!</p>
+<main class="md:w-10 md:mx-auto">
+  <div class="card">
+    <p-toolbar styleClass="mt-2">
+      <div class="p-toolbar-group-start">
+        <strong>Usuarios</strong>
+      </div>
+      <div class="p-toolbar-group-end flex gap-4">
+        <p-button [icon]="getIconClass()" [rounded]="true" (onClick)="refreshTable()"></p-button>
+        <p-autoComplete field="name" (completeMethod)="filterUser($event)" [suggestions]="filteredUsers"
+          (onSelect)="onSelect($event)" placeholder="Buscar usuario"></p-autoComplete>
+      </div>
+    </p-toolbar>
+    <p-table styleClass="p-datatable-gridlines" [value]="users" [lazy]="true" (onLazyLoad)="loadUsers($event)"
+      [paginator]="true" [rows]="paginationLimit" [loading]="loading" [totalRecords]="totalUsers"
+      responsiveLayout="stack" [tableStyle]="{'min-width': '375px'}" dataKey="id">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Correo electrónico</th>
+          <th>Estado</th>
+          <th>Fecha de ingreso</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.estado === true ? 'Alta' : 'Baja' }}</td>
+          <td>{{ user.fecha_ingreso }}</td>
+          <td>{{ user.id_rol }} ({{ user.rol | titlecase }})</td>
+          <td class="px-0 md:px-3">
+            <div class="flex gap-2 md:gap-4 align-items-center">
+              <p-button label="Editar" severity="secondary" styleClass="hidden md:inline"
+                [routerLink]="['/admin/usuarios/' + user.id]" />
+              <p-button label="Eliminar" severity="danger" styleClass="hidden md:inline"
+                (onClick)="showDialog($event, user.id)" />
+
+              <p-button [rounded]="true" icon="pi pi-pencil" severity="secondary" styleClass="md:hidden"
+                [routerLink]="['/admin/usuarios/' + user.id]" />
+              <p-button [rounded]="true" icon="pi pi-trash" severity="danger" styleClass="md:hidden"
+                (onClick)="showDialog($event, user.id)" />
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <p-confirmDialog />
+</main>

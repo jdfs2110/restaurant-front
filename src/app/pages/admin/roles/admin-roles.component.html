@@ -1,13 +1,22 @@
-<main>
+<main class="md:w-10 md:mx-auto">
   <div class="card">
+    <p-toolbar styleClass="mt-2">
+      <div class="p-toolbar-group-start">
+        <strong>Roles</strong>
+      </div>
+    </p-toolbar>
     <p-table [value]="roles" styleClass="p-datatable-gridlines p-datatable-striped" [breakpoint]="'600px'"
-      responsiveLayout="scroll" [tableStyle]="{'min-width': '375px'}" scrollHeight="flex">
+      responsiveLayout="stack" [tableStyle]="{'min-width': '375px'}" scrollHeight="flex" [paginator]="true" [rows]="5">
 
       <ng-template pTemplate="header">
         <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Acciones</th>
+          <th pSortableColumn="id" class="md:w-3">
+            ID <p-sortIcon field="id" />
+          </th>
+          <th pSortableColumn="nombre" class="md:w-3">
+            Nombre <p-sortIcon field="nombre" />
+          </th>
+          <th class="md:w-6">Acciones</th>
         </tr>
       </ng-template>
 
@@ -15,10 +24,20 @@
         <tr>
           <td>{{ rol.id }}</td>
           <td>{{ rol.nombre }}</td>
+
           <td>
-            <div class="flex gap-2">
-              <p-button label="Editar" severity="secondary"></p-button>
-              <p-button label="Eliminar" severity="danger"></p-button>
+            <div class="flex gap-2 justify-content-start">
+              <p-button label="Editar" severity="secondary" styleClass="hidden md:inline"
+                [routerLink]="['/admin/roles/' + rol.id]" [disabled]="rol.id === 4" />
+              <p-button label="Eliminar" severity="danger" styleClass="hidden md:inline"
+                (onClick)="showDialog($event, rol.id)" [disabled]="rol.id === 4" />
+              <p-button label="Ver Usuarios" styleClass="hidden md:inline" (onClick)="true" />
+
+              <p-button [rounded]="true" icon="pi pi-pencil" severity="secondary" styleClass="md:hidden"
+                [routerLink]="['/admin/roles/' + rol.id]" [disabled]="rol.id === 4" />
+              <p-button [rounded]="true" icon="pi pi-trash" severity="danger" styleClass="md:hidden"
+                (onClick)="showDialog($event, rol.id)" [disabled]="rol.id === 4" />
+              <p-button [rounded]="true" icon="pi pi-users" styleClass="md:hidden" (onClick)="true" />
             </div>
           </td>
         </tr>
@@ -26,4 +45,5 @@
 
     </p-table>
   </div>
+  <p-confirmDialog />
 </main>

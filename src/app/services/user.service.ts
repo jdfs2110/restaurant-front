@@ -43,4 +43,8 @@ export class UserService {
   findPedidosManagedByUser(id: number): Observable<Response<Pedido[]>> { // Voy a tener que cambiarle de nombre a esta función, es horrible xdd
     return this.http.get<Response<Pedido[]>>(`${this.url}/${id}/pedidos`);
   }
+
+  findUsersWithSimilarName(name: string): Observable<Response<User[]>> {
+    return this.http.get<Response<User[]>>(`${this.url}/similar/${name}`);
+  }
 }
