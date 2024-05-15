@@ -49,4 +49,8 @@ export class ProductoService {
   reduceStock(quantity: stockQuantity, id: number): Observable<Response<Stock>> {
     return this.http.post<Response<Stock>>(`${this.url}/${id}/stock/reduce`, quantity);
   }
+
+  findProductsWithSimilarName(name: string): Observable<Response<Producto[]>> {
+    return this.http.get<Response<Producto[]>>(`${this.url}/similar/${name}`);
+  }
 }

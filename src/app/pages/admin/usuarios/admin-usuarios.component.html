@@ -35,13 +35,12 @@
           <td>{{ user.id_rol }} ({{ user.rol | titlecase }})</td>
           <td class="px-0 md:px-3">
             <div class="flex gap-2 md:gap-4 align-items-center">
-              <p-button label="Editar" severity="secondary" styleClass="hidden md:inline"
-                [routerLink]="['/admin/usuarios/' + user.id]" />
+
+              <app-admin-user-edit [user]="user" [roles]="roles" (onUpdate)="updateUser($event)"></app-admin-user-edit>
+
               <p-button label="Eliminar" severity="danger" styleClass="hidden md:inline"
                 (onClick)="showDialog($event, user)" />
 
-              <p-button [rounded]="true" icon="pi pi-pencil" severity="secondary" styleClass="md:hidden"
-                [routerLink]="['/admin/usuarios/' + user.id]" />
               <p-button [rounded]="true" icon="pi pi-trash" severity="danger" styleClass="md:hidden"
                 (onClick)="showDialog($event, user)" />
             </div>

@@ -41,4 +41,8 @@ export class CategoriaService {
   findAllProductsByCategoryId(id: number): Observable<Response<Producto[]>> { // El naming me esta asustando
     return this.http.get<Response<Producto[]>>(`${this.url}/${id}/productos`);
   }
+
+  findCategoriesWithSimilarName(name: string): Observable<Response<Categoria[]>> {
+    return this.http.get<Response<Categoria[]>>(`${this.url}/similar/${name}`);
+  }
 }

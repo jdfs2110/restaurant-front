@@ -17,6 +17,8 @@
 
 será que devuelvo el created_at de las lineas para filtrar por fecha en el dashboard de cocina/barra?
 
+devuelvo el estado del pedido con las lineas para deshabilitar la edicion en el panel de administrador si el pedido esta servido?
+
 #### Mini esquema de navegación
 
 2 dashboards distintos [cocina, mesero] ¿?
@@ -39,7 +41,7 @@ dashboard Mesero
 
 Admin panel (absolutamente todo 😲😲)
 
--[x] MegaMenu con categorias y to eso o que?
+- [x] MegaMenu con categorias y to eso o que?
 
 --------
 

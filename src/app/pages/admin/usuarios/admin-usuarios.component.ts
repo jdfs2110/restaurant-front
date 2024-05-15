@@ -12,6 +12,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { Table, TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { AutoCompleteCompleteEvent, AutoCompleteModule, AutoCompleteSelectEvent } from 'primeng/autocomplete';
+import { AdminUserEditDialogComponent } from "../../../components/admin/user-edit-dialog/user-edit-dialog.component";
+import { Rol } from '@/app/types/Rol';
+import { RolService } from '@/app/services/rol.service';
 @Component({
   selector: 'app-admin-usuarios',
   standalone: true,
@@ -24,13 +27,15 @@ import { AutoCompleteCompleteEvent, AutoCompleteModule, AutoCompleteSelectEvent 
     ButtonModule,
     RouterLink,
     ConfirmDialogModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    AdminUserEditDialogComponent
   ]
 })
 export class AdminUsuariosComponent implements OnInit {
   protected totalUsers: number;
-  protected paginationLimit: number = 10;
+  protected paginationLimit: number = 1;
   protected users: User[] = [];
+  protected roles: Rol[];
   protected loading: boolean = false;
   protected buttonLoading: boolean = false;
   @ViewChild('p-table') table: Table
@@ -42,7 +47,8 @@ export class AdminUsuariosComponent implements OnInit {
     private userService: UserService,
     private userSignal: UserSignalService,
     private dialogService: ConfirmationService,
-    private toaster: ToastService
+    private toaster: ToastService,
+    private rolService: RolService
   ) { }
 
   get userId(): number {
@@ -52,6 +58,15 @@ export class AdminUsuariosComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
+    this.rolService.findAll().subscribe({
+      next: (response: Response<Rol[]>) => {
+        const { data } = response;
+        this.roles = data;
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    })
     this.userService.getPages().subscribe({
       next: (response: Response<number>) => {
         const { data, message } = response;
@@ -117,11 +132,12 @@ export class AdminUsuariosComponent implements OnInit {
   }
 
   filterUser(event: AutoCompleteCompleteEvent) {
-    const query = event.query
+    const query = event.query;
     if (query === '') {
       this.filteredUsers = [];
       return;
     }
+
     this.userService.findUsersWithSimilarName(query).subscribe({
       next: (response: Response<User[]>) => {
         console.log(response);
@@ -158,5 +174,15 @@ export class AdminUsuariosComponent implements OnInit {
 
   getIconClass() {
     return this.buttonLoading ? 'pi pi-spin pi-sync' : 'pi pi-sync'
+  }
+
+  updateUser(user: User) {
+    this.users = this.users.map((u: User) => {
+      if (u.id === user.id) {
+        return user;
+      }
+
+      return u
+    })
   }
 }

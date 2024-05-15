@@ -16,8 +16,6 @@ import { AdminStockComponent } from './pages/admin/stock/admin-stock.component';
 import { AdminPedidosComponent } from './pages/admin/pedidos/admin-pedidos.component';
 import { AdminLineasComponent } from './pages/admin/lineas/admin-lineas.component';
 import { AdminFacturasComponent } from './pages/admin/facturas/admin-facturas.component';
-import { AdminRolDetailedComponent } from './pages/admin/roles/admin-rol-detailed.component';
-import { AdminUsuarioDetailedComponent } from './pages/admin/usuarios/admin-usuario-detailed.component';
 
 export const routes: Routes = [
   {
@@ -61,17 +59,9 @@ export const routes: Routes = [
         title: 'Roles - Panel de administración'
       },
       {
-        path: 'roles/:id',
-        component: AdminRolDetailedComponent
-      },
-      {
         path: 'usuarios',
         component: AdminUsuariosComponent,
         title: 'Usuarios - Panel de administración'
-      },
-      {
-        path: 'usuarios/:id',
-        component: AdminUsuarioDetailedComponent
       },
       {
         path: 'categorias',

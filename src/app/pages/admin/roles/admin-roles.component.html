@@ -4,6 +4,9 @@
       <div class="p-toolbar-group-start">
         <strong>Roles</strong>
       </div>
+      <div class="p-toolbar-group-end">
+        <app-create-rol (newRol)="pushRol($event)"></app-create-rol>
+      </div>
     </p-toolbar>
     <p-table [value]="roles" styleClass="p-datatable-gridlines p-datatable-striped" [breakpoint]="'600px'"
       responsiveLayout="stack" [tableStyle]="{'min-width': '375px'}" scrollHeight="flex" [paginator]="true" [rows]="5">
@@ -27,17 +30,16 @@
 
           <td>
             <div class="flex gap-2 justify-content-start">
-              <p-button label="Editar" severity="secondary" styleClass="hidden md:inline"
-                [routerLink]="['/admin/roles/' + rol.id]" [disabled]="rol.id === 4" />
-              <p-button label="Eliminar" severity="danger" styleClass="hidden md:inline"
-                (onClick)="showDialog($event, rol.id)" [disabled]="rol.id === 4" />
-              <p-button label="Ver Usuarios" styleClass="hidden md:inline" (onClick)="true" />
 
-              <p-button [rounded]="true" icon="pi pi-pencil" severity="secondary" styleClass="md:hidden"
-                [routerLink]="['/admin/roles/' + rol.id]" [disabled]="rol.id === 4" />
+              <app-rol-edit-dialog [rol]="rol" (onUpdate)="updateRol($event)"></app-rol-edit-dialog>
+
+              <p-button label="Eliminar" severity="danger" styleClass="hidden md:inline"
+                (onClick)="showDialog($event, rol)" [disabled]="rol.id === 4" />
+
               <p-button [rounded]="true" icon="pi pi-trash" severity="danger" styleClass="md:hidden"
-                (onClick)="showDialog($event, rol.id)" [disabled]="rol.id === 4" />
-              <p-button [rounded]="true" icon="pi pi-users" styleClass="md:hidden" (onClick)="true" />
+                (onClick)="showDialog($event, rol)" [disabled]="rol.id === 4" />
+
+              <app-users-by-rol [rol]="rol"></app-users-by-rol>
             </div>
           </td>
         </tr>
