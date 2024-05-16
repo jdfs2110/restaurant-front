@@ -1,14 +1,14 @@
-<main class="md:w-10 md:mx-auto">
+<main class="md:w-10 md:mx-auto md:mb-2">
   <div class="card">
-    <p-toolbar styleClass="mt-2">
+    <p-toolbar styleClass="mt-2 sticky top-0 z-1">
       <div class="p-toolbar-group-start">
         <strong>Categorias</strong>
       </div>
       <div class="p-toolbar-group-end flex gap-2">
-        <p-button icon="pi pi-plus" [rounded]="true"></p-button>
+        <app-create-category (onCreate)="refreshTable()"></app-create-category>
         <p-button [icon]="getIconClass()" [rounded]="true" (onClick)="refreshTable()" />
         <p-autoComplete field="nombre" (completeMethod)="filterCategory($event)" [suggestions]="filteredCategories"
-          (onSelect)="onSelect($event)" placeholder="Buscar categoría"></p-autoComplete>
+          (onSelect)="onSelect($event)" placeholder="Buscar categoría" [showClear]="true"></p-autoComplete>
       </div>
     </p-toolbar>
     <p-table styleClass="p-datatable-gridlines" [value]="categories" [lazy]="true" (onLazyLoad)="loadCategories($event)"
@@ -29,20 +29,23 @@
           <td>{{ category.id }}</td>
           <td>{{ category.nombre }}</td>
           <td>
-            <p-image [src]="category.foto" [alt]="category.nombre" width="200" height="100" [preview]="true"></p-image>
+            <p-image [src]="category.foto" [alt]="category.nombre" width="150" height="100" [preview]="true"></p-image>
           </td>
           <td class="px-0 md:px-3">
-            <div class="flex gap-2 md:gap-4 align-items-center">
+            <div class="flex gap-2 justify-content-start align-items-center">
 
               <app-categoria-edit-dialog [category]="category"
                 (onUpdate)="updateCategory($event)"></app-categoria-edit-dialog>
 
-              <p-button label="Eliminar" severity="danger" styleClass="hidden md:inline"
+              <p-button label="Eliminar" severity="danger" styleClass="hidden md:inline md:ml-2"
                 (onClick)="showDialog($event, category)" />
 
               <p-button [rounded]="true" icon="pi pi-trash" severity="danger" styleClass="md:hidden"
                 (onClick)="showDialog($event, category)" />
+
+              <app-products-by-category [category]="category"></app-products-by-category>
             </div>
+          </td>
         </tr>
       </ng-template>
 

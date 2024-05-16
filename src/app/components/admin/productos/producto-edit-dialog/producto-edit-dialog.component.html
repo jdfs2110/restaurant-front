@@ -1,0 +1,53 @@
+<p-button [rounded]="true" icon="pi pi-pencil" severity="secondary" styleClass="ml-2 md:hidden"
+  (onClick)="showEditDialog()" />
+<p-button label="Editar" severity="secondary" styleClass="hidden md:inline" (onClick)="showEditDialog()" />
+
+<p-dialog [(visible)]="isVisible" [modal]="true" [draggable]="false" (onHide)="refresh($event)">
+  <ng-template pTemplate="header">
+    <span class="font-bold white-space-nowrap">
+      Información de {{ product.nombre }}
+    </span>
+  </ng-template>
+  <span class="p-text-secondary block mb-4">Actualizar información del producto</span>
+
+  <form [formGroup]="productoForm" (submit)="onSubmit($event)">
+
+    <div class="field">
+      <input type="file" hidden id="fotoInput" (change)="onSelectFile($event)" accept="image/*">
+      <div class="hovereable relative max-w-min cursor-pointer border-circle mx-auto">
+        <p-image onclick="fotoInput.click()" [src]="this.currentImage" [alt]="product.nombre" height="130" width="150"
+          [imageStyle]="{'object-fit': 'cover'}" imageClass="border-round">
+        </p-image>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="id">ID</label>
+      <input type="text" pInputText name="id" [value]="product.id" [disabled]="true" class="w-full">
+    </div>
+
+    <div class="field">
+      <label for="activo">Categoría</label>
+      <p-dropdown formControlName="id_categoria" [options]="categories" optionLabel="nombre" optionValue="id"
+        placeholder="Selecciona la categoría" styleClass="w-full" [showClear]="true" [filter]="true" filterBy="nombre"
+        [showClear]="true"></p-dropdown>
+    </div>
+
+    <div class="field">
+      <label for="nombre">Nombre</label>
+      <input type="text" pInputText name="nombre" formControlName="nombre" class="w-full">
+    </div>
+
+    <div class="field">
+      <label for="precio">Precio</label>
+      <input type="number" pInputText name="precio" formControlName="precio" class="w-full">
+    </div>
+
+    <div class="field">
+      <label for="cantidad">Stock</label>
+      <input type="number" pInputText name="cantidad" formControlName="cantidad" class="w-full">
+    </div>
+
+    <p-button type="submit" styleClass="w-full" label="Editar producto" [loading]="isLoading" iconPos="right" />
+  </form>
+</p-dialog>

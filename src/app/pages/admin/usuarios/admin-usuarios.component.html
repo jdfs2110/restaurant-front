@@ -1,13 +1,14 @@
 <main class="md:w-10 md:mx-auto">
   <div class="card">
-    <p-toolbar styleClass="mt-2">
+    <p-toolbar styleClass="mt-2 sticky top-0 z-1">
       <div class="p-toolbar-group-start">
         <strong>Usuarios</strong>
       </div>
-      <div class="p-toolbar-group-end flex gap-4">
+      <div class="p-toolbar-group-end flex gap-2">
+        <p-button icon="pi pi-plus" [rounded]="true" (onClick)="register()" />
         <p-button [icon]="getIconClass()" [rounded]="true" (onClick)="refreshTable()"></p-button>
         <p-autoComplete field="name" (completeMethod)="filterUser($event)" [suggestions]="filteredUsers"
-          (onSelect)="onSelect($event)" placeholder="Buscar usuario"></p-autoComplete>
+          (onSelect)="onSelect($event)" placeholder="Buscar usuario" [showClear]="true"></p-autoComplete>
       </div>
     </p-toolbar>
     <p-table styleClass="p-datatable-gridlines" [value]="users" [lazy]="true" (onLazyLoad)="loadUsers($event)"

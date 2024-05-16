@@ -7,10 +7,12 @@ import { ConfirmationService } from 'primeng/api';
 import { AutoCompleteCompleteEvent, AutoCompleteModule, AutoCompleteSelectEvent } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { Table, TableLazyLoadEvent, TableModule } from 'primeng/table';
+import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CategoriaEditDialogComponent } from "../../../components/admin/categorias/categoria-edit-dialog/categoria-edit-dialog.component";
 import { ImageModule } from 'primeng/image';
+import { CreateCategoryComponent } from "../../../components/admin/categorias/create-category/create-category.component";
+import { ProductsByCategoryComponent } from "../../../components/admin/categorias/products-by-category/products-by-category.component";
 @Component({
   selector: 'app-admin-categorias',
   standalone: true,
@@ -23,7 +25,9 @@ import { ImageModule } from 'primeng/image';
     AutoCompleteModule,
     ConfirmDialogModule,
     CategoriaEditDialogComponent,
-    ImageModule
+    ImageModule,
+    CreateCategoryComponent,
+    ProductsByCategoryComponent
   ]
 })
 export class AdminCategoriasComponent implements OnInit {
@@ -32,7 +36,6 @@ export class AdminCategoriasComponent implements OnInit {
   protected categories: Categoria[] = [];
   protected loading: boolean = false;
   protected buttonLoading: boolean = false;
-  @ViewChild('p-table') table: Table
   protected first = 0;
 
   protected filteredCategories: any[] = [];
@@ -43,8 +46,7 @@ export class AdminCategoriasComponent implements OnInit {
     private toaster: ToastService
   ) { }
 
-  ngOnInit() {
-    this.loading = true;
+  fetchPages() {
     this.categoriaService.getPages().subscribe({
       next: (response: Response<number>) => {
         const { data, message } = response;
@@ -55,6 +57,11 @@ export class AdminCategoriasComponent implements OnInit {
         console.log(error);
       }
     })
+  }
+
+  ngOnInit() {
+    this.loading = true;
+    this.fetchPages();
   }
 
   fetchCategories(page: number) {
@@ -85,7 +92,7 @@ export class AdminCategoriasComponent implements OnInit {
       header: 'Eliminación de categoría',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
-      accept: () => { console.log('accepted') }
+      accept: () => { this.deleteCategory(category) }
     });
   }
 
@@ -131,16 +138,7 @@ export class AdminCategoriasComponent implements OnInit {
     this.buttonLoading = true;
     this.first = 0;
     this.fetchCategories(1);
-    this.categoriaService.getPages().subscribe({
-      next: (response: Response<number>) => {
-        const { data, message } = response;
-        this.totalCategories = data;
-        this.paginationLimit = Number(message);
-      },
-      error: (error: any) => {
-        console.log(error);
-      }
-    })
+    this.fetchPages();
   }
 
   getIconClass() {

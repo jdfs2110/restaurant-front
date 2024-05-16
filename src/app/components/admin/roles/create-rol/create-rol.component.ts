@@ -42,6 +42,12 @@ export class CreateRolComponent {
     this.isVisible = true;
   }
 
+  refresh(event: any) {
+    this.rolForm.reset();
+    this.submitted = false;
+    this.isLoading = false;
+  }
+
   constructor(
     private validationService: ValidationMessagesService,
     private rolService: RolService,

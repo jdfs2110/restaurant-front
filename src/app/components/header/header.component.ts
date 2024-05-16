@@ -76,14 +76,14 @@ export class HeaderComponent implements OnInit {
         icon: 'pi pi-shopping-bag',
         items: [
           {
-            label: 'Categorías',
-            icon: 'pi pi-question', // no se que ponerle
-            routerLink: '/admin/categorias'
-          },
-          {
             label: 'Todos los productos',
             icon: 'pi pi-shopping-bag',
             routerLink: '/admin/productos'
+          },
+          {
+            label: 'Categorías',
+            icon: 'pi pi-question', // no se que ponerle
+            routerLink: '/admin/categorias'
           },
           {
             label: 'Stock',

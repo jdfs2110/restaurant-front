@@ -20,6 +20,11 @@ import { AdminFacturasComponent } from './pages/admin/facturas/admin-facturas.co
 export const routes: Routes = [
   {
     path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'home',
     component: HomeComponent,
     title: 'Home - Restaurant'
   },

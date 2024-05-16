@@ -3,7 +3,8 @@ import { ToastService } from "@/app/lib/toast.service";
 import { CategoriaService } from "@/app/services/categoria.service";
 import { ValidationMessagesService } from "@/app/services/validation-messages.service";
 import { Categoria } from "@/app/types/Categoria";
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Response } from "@/app/types/Response";
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ConfirmationService } from "primeng/api";
 import { ButtonModule } from "primeng/button";
@@ -27,6 +28,8 @@ import { InputTextModule } from "primeng/inputtext";
 export class CategoriaEditDialogComponent implements OnInit {
   @Input({ required: true }) category: Categoria;
   @Output() onUpdate = new EventEmitter<Categoria>;
+  protected inputImage: Blob;
+  protected currentImage: string = '';
 
   protected isVisible: boolean = false;
   protected isLoading: boolean = false;
@@ -37,7 +40,7 @@ export class CategoriaEditDialogComponent implements OnInit {
       Validators.required,
       Validators.maxLength(40)
     ]),
-    foto: new FormControl(null, [Validators.required])
+    foto: new FormControl(null)
   })
   protected formdata = new FormData();
 
@@ -53,7 +56,12 @@ export class CategoriaEditDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentImage = this.category.foto
     this.categoriaForm.controls.nombre.setValue(this.category.nombre);
+  }
+
+  refresh(event: any) {
+    this.currentImage = this.category.foto
   }
 
   getNombreErrors() {
@@ -66,12 +74,6 @@ export class CategoriaEditDialogComponent implements OnInit {
     return '';
   }
 
-  getFotoErrors() {
-    if (this.categoriaForm.controls.foto.hasError('required')) return this.validationService.requiredMessage();
-
-    return '';
-  }
-
   onSubmit(event: Event) {
     this.confirmer.confirm({
       target: event.target as EventTarget,
@@ -79,7 +81,7 @@ export class CategoriaEditDialogComponent implements OnInit {
       header: 'Editar categoría',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
-      accept: () => { console.log('accepted') }
+      accept: () => { this.onEdit() }
     })
   }
 
@@ -87,9 +89,38 @@ export class CategoriaEditDialogComponent implements OnInit {
     this.submitted = true;
     this.isLoading = true;
 
+    if (this.categoriaForm.invalid) {
+      this.isLoading = false;
+      return;
+    }
+
+    const nombre = this.categoriaForm.controls.nombre.value ?? this.category.nombre
+    this.formdata.set('nombre', nombre);
+
+    this.formdata.set('foto', '');
+
+    if (this.inputImage !== undefined) {
+      this.formdata.set('foto', this.inputImage);
+    }
+
+    this.categoriaService.update(this.formdata, this.category.id).subscribe({
+      next: (response: Response<Categoria>) => {
+        const { data, message } = response;
+        this.onUpdate.emit(data);
+        this.toaster.smallToast('success', message);
+      },
+      error: (error: any) => {
+        if (error.error.error) {
+          this.toaster.detailedToast('error', 'Error al actualizar la categoría', error.error.error);
+        } else {
+          this.toaster.smallToast('error', 'Error al actualizar la categoría');
+        }
+      }
+    })
   }
 
   onSelectFile(event: any) {
-    // TODO
+    this.inputImage = event.target.files[0];
+    this.currentImage = URL.createObjectURL(event.target.files[0]);
   }
 }

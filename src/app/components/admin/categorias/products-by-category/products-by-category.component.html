@@ -1,0 +1,47 @@
+<p-button label="Ver Productos" styleClass="hidden md:inline" (onClick)="showDialog()" />
+<p-button [rounded]="true" icon="pi pi-shopping-bag" styleClass="md:hidden" (onClick)="showDialog()" />
+<p-dialog [(visible)]="isVisible" [modal]="true" [draggable]="false" [maximizable]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+  <ng-template pTemplate="header">
+    <span class="white-space-nowrap">
+      Productos de la categoría {{ category.nombre }}
+    </span>
+  </ng-template>
+
+  <p-dataView #dv [value]="products" [rows]="5" [paginator]="true">
+    <ng-template pTemplate="list" let-products>
+      <div class="grid grid-nogutter">
+        <div class="col-12" *ngFor="let item of products; let first = first" class="col-12">
+          <div class="flex flex-column sm:flex-row sm:align-items-center p-4 gap-3"
+            [ngClass]="{ 'border-top-1 surface-border': !first }">
+            <div class="md:w-10rem relative">
+              <img class="block xl:block mx-auto border-round" [src]="item.foto" width="140" height="140"
+                [alt]="item.nombre" />
+            </div>
+            <div class="flex flex-column md:flex-row justify-content-between md:align-items-center flex-1 gap-4">
+              <div class="flex flex-row md:flex-column justify-content-between align-items-start gap-2">
+                <div>
+                  <span class="font-medium text-secondary text-sm">{{ item.categoria }}</span>
+                  <div class="text-lg font-medium text-900 mt-2">{{ item.nombre }}</div>
+                </div>
+
+              </div>
+              <div class="flex flex-column md:align-items-end gap-5">
+                <span class="text-xl font-semibold text-900">Precio: {{ item.precio + '€' }}</span>
+                <div class="inline-flex align-items-center">
+                  <span class="text-sm">Estado:</span>
+                  <div class="surface-100 p-1" style="border-radius: 30px">
+                    <div class="surface-0 flex align-items-center gap-2 justify-content-center py-1 px-2"
+                      style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
+                      <span class="text-900 font-medium text-sm">{{ item.activo ? 'Activo' : 'Inactivo' }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataView>
+</p-dialog>

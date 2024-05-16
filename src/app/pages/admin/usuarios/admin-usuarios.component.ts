@@ -4,8 +4,8 @@ import { UserSignalService } from '@/app/services/user.signal.service';
 import { Response } from '@/app/types/Response';
 import { User } from '@/app/types/User';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -38,7 +38,6 @@ export class AdminUsuariosComponent implements OnInit {
   protected roles: Rol[];
   protected loading: boolean = false;
   protected buttonLoading: boolean = false;
-  @ViewChild('p-table') table: Table
   protected first = 0;
 
   protected filteredUsers: any[] = [];
@@ -184,5 +183,10 @@ export class AdminUsuariosComponent implements OnInit {
 
       return u
     })
+  }
+
+  private router: Router = inject(Router);
+  register() {
+    this.router.navigate(['/admin/registro'])
   }
 }

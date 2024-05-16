@@ -1,0 +1,5 @@
+@media (min-width: 1200px) {
+  p-dialog ::ng-deep .p-dialog {
+    width: 1000px;
+  }
+}

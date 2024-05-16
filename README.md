@@ -46,3 +46,11 @@ Admin panel (absolutamente todo 😲😲)
 --------
 
 - Usuarios > info, registrar usuario, bloquear
+
+```ts
+getFotoErrors() {
+    if (this.categoriaForm.controls.foto.hasError('required')) return this.validationService.requiredMessage();
+
+    return '';
+  }
+```

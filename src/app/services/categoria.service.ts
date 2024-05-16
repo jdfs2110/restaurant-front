@@ -22,6 +22,10 @@ export class CategoriaService {
     return this.http.get<Response<number>>(`${this.url}/pages`);
   }
 
+  all(): Observable<Response<Categoria[]>> {
+    return this.http.get<Response<Categoria[]>>(`${this.url}/all`);
+  }
+
   findById(id: number): Observable<Response<Categoria>> {
     return this.http.get<Response<Categoria>>(`${this.url}/${id}`);
   }
