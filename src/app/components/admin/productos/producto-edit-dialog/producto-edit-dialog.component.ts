@@ -78,30 +78,16 @@ export class ProductoEditDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getStock();
-    console.log(this.product);
     this.currentImage = this.product.foto;
     this.productoForm.controls.nombre.setValue(this.product.nombre);
     this.productoForm.controls.precio.setValue(this.product.precio);
     this.productoForm.controls.activo.setValue(this.product.activo ? 1 : 0);
+    this.productoForm.controls.cantidad.setValue(this.product.cantidad);
     this.productoForm.controls.id_categoria.setValue(this.product.id_categoria);
   }
 
   refresh(event: any) {
     this.currentImage = this.product.foto;
-  }
-
-  getStock() {
-    this.productoService.getStock(this.product.id).subscribe({
-      next: (response: Response<Stock>) => {
-        const { data } = response;
-        this.stock = data;
-        this.productoForm.controls.cantidad.setValue(this.stock.cantidad);
-      },
-      error: si => {
-        console.log(si);
-      }
-    })
   }
 
   getNombreErrors() {
@@ -136,6 +122,12 @@ export class ProductoEditDialogComponent implements OnInit {
     if (idCategoria.hasError('required')) return this.validationService.requiredMessage();
 
     return '';
+  }
+
+  getCantidadErrors() {
+    const cantidad = this.productoForm.controls.cantidad;
+
+    return cantidad.hasError('required') ? this.validationService.requiredMessage() : '';
   }
 
   onSubmit(event: Event) {

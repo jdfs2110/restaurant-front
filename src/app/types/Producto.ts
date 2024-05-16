@@ -6,6 +6,7 @@ export type Producto = {
   foto: string;
   id_categoria: number;
   categoria: string;
+  cantidad: number;
 }
 
 export type stockQuantity = {

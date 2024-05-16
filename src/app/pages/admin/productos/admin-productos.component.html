@@ -5,7 +5,7 @@
         <strong>Productos</strong>
       </div>
       <div class="toolbar-group-end flex gap-2">
-        <p-button icon="pi pi-plus" [rounded]="true" /> <!--change-->
+        <app-create-product [categories]="categories"></app-create-product>
         <p-button [icon]="getIconClass()" [rounded]="true" (onClick)="refreshTable()" />
         <p-autoComplete field="nombre" (completeMethod)="filterProduct($event)" [suggestions]="filteredProducts"
           (onSelect)="onSelect($event)" placeholder="Buscar producto" [showClear]="true"></p-autoComplete>
@@ -21,7 +21,7 @@
           <th>Nombre</th>
           <th>Foto</th>
           <th>Precio</th>
-          <th>Disponibilidad</th>
+          <th>Cantidad</th>
           <th>Categoria</th>
           <th>Acciones</th>
         </tr>
@@ -36,7 +36,7 @@
               [style]="{'object-fit': 'cover'}"></p-image>
           </td>
           <td>{{ product.precio }}€</td>
-          <td>{{ product.activo ? 'Con stock' : 'Sin stock' }}</td>
+          <td>{{ product.cantidad }}</td>
           <td>{{ product.id_categoria }} ({{ product.categoria }})</td>
           <td class="px-0 md:px-3">
             <div class="flex gap-2 justify-content-start align-items-center">

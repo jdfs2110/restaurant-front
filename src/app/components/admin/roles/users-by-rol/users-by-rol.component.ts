@@ -43,8 +43,7 @@ export class UsersByRolComponent implements OnInit {
       next: (response: Response<User[]>) => {
         if (response === null) return; // El nocontent
 
-        const { data, message } = response;
-        console.log(data, message);
+        const { data } = response;
 
         this.users = data;
       },

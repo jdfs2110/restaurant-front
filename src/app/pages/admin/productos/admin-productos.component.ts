@@ -13,6 +13,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ProductoEditDialogComponent } from "../../../components/admin/productos/producto-edit-dialog/producto-edit-dialog.component";
 import { Categoria } from '@/app/types/Categoria';
 import { CategoriaService } from '@/app/services/categoria.service';
+import { CreateProductComponent } from "../../../components/admin/productos/create-product/create-product.component";
 
 @Component({
   selector: 'app-admin-productos',
@@ -26,7 +27,8 @@ import { CategoriaService } from '@/app/services/categoria.service';
     AutoCompleteModule,
     ConfirmDialogModule,
     ImageModule,
-    ProductoEditDialogComponent
+    ProductoEditDialogComponent,
+    CreateProductComponent
   ]
 })
 export class AdminProductosComponent implements OnInit {
@@ -77,10 +79,10 @@ export class AdminProductosComponent implements OnInit {
     })
   }
 
-
   fetchProducts(page: number) {
     this.productoService.findAll(page).subscribe({
       next: (response: Response<Producto[]>) => {
+        console.log(response);
         const { data } = response;
 
         this.products = data;
@@ -94,6 +96,8 @@ export class AdminProductosComponent implements OnInit {
   }
 
   loadProducts(event: TableLazyLoadEvent) {
+    console.log('lazy');
+
     this.loading = true;
     const page = (event.first! / event.rows!) + 1;
     this.fetchProducts(page);

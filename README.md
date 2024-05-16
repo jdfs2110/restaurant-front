@@ -4,6 +4,7 @@
 
 - [ ] todo 😭
 - [ ] CHECK MESAS TODO
+- [ ] cantdiad productos aadsad
 - [ ] File uploading (foto categoría, producto)
 - [ ] que la cantidad de stock no pueda ser negativa al añadir/editar la línea del producto
 - [ ] cuando el stock de un producto llega a 0 se inhabilita

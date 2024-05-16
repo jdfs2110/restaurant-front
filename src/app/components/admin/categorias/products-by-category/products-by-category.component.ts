@@ -44,8 +44,7 @@ export class ProductsByCategoryComponent implements OnInit {
       next: (response: Response<Producto[]>) => {
         if (response === null) return;
 
-        const { data, message } = response;
-        console.log(data, message);
+        const { data } = response;
 
         this.products = data;
       },
