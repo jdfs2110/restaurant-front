@@ -18,7 +18,7 @@ import { MenubarModule } from 'primeng/menubar';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit {
-  adminMenuItems: MenuItem[]; // Maybe dock if i have extra time
+  adminMenuItems: MenuItem[];
   regularMenuItems: MenuItem[];
   meseroMenuItems: MenuItem[];
   rrhhMenuItems: MenuItem[];
@@ -82,14 +82,9 @@ export class HeaderComponent implements OnInit {
           },
           {
             label: 'Categorías',
-            icon: 'pi pi-question', // no se que ponerle
+            icon: 'pi pi-list',
             routerLink: '/admin/categorias'
           },
-          {
-            label: 'Stock',
-            icon: 'pi pi-question', // no se que ponerle,
-            routerLink: '/admin/stock'
-          }
         ]
       },
       {
@@ -105,11 +100,6 @@ export class HeaderComponent implements OnInit {
             label: 'Pedidos',
             icon: 'pi pi-question', // no se que ponerle
             routerLink: '/admin/pedidos'
-          },
-          {
-            label: 'Líneas',
-            icon: 'pi pi-list',
-            routerLink: '/admin/lineas'
           },
           {
             label: 'Finanzas',
@@ -162,7 +152,7 @@ export class HeaderComponent implements OnInit {
       {
         label: 'Líneas',
         icon: 'pi pi-list',
-        routerLink: `/lineas/${this.rol}`
+        routerLink: `${this.idRol === 2 ? '/lineas/cocina' : '/lineas/barra'}`
       },
       {
         label: 'Productos',

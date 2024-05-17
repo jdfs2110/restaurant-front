@@ -104,6 +104,7 @@ export class RolEditDialogComponent implements OnInit {
         this.isVisible = false;
       },
       error: (error: any) => {
+        this.isLoading = false;
         console.log(error);
 
         if (error.error.error) {

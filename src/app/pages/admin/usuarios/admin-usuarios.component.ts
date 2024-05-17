@@ -9,12 +9,13 @@ import { Router, RouterLink } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { Table, TableLazyLoadEvent, TableModule } from 'primeng/table';
+import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { AutoCompleteCompleteEvent, AutoCompleteModule, AutoCompleteSelectEvent } from 'primeng/autocomplete';
-import { AdminUserEditDialogComponent } from "../../../components/admin/user-edit-dialog/user-edit-dialog.component";
+import { AdminUserEditDialogComponent } from "../../../components/admin/usuarios/user-edit-dialog/user-edit-dialog.component";
 import { Rol } from '@/app/types/Rol';
 import { RolService } from '@/app/services/rol.service';
+import { UserEditPasswordComponent } from "../../../components/admin/usuarios/user-edit-password/user-edit-password.component";
 @Component({
   selector: 'app-admin-usuarios',
   standalone: true,
@@ -28,7 +29,8 @@ import { RolService } from '@/app/services/rol.service';
     RouterLink,
     ConfirmDialogModule,
     AutoCompleteModule,
-    AdminUserEditDialogComponent
+    AdminUserEditDialogComponent,
+    UserEditPasswordComponent
   ]
 })
 export class AdminUsuariosComponent implements OnInit {
@@ -45,7 +47,7 @@ export class AdminUsuariosComponent implements OnInit {
   constructor(
     private userService: UserService,
     private userSignal: UserSignalService,
-    private dialogService: ConfirmationService,
+    private confirmer: ConfirmationService,
     private toaster: ToastService,
     private rolService: RolService
   ) { }
@@ -105,7 +107,7 @@ export class AdminUsuariosComponent implements OnInit {
       return;
     }
 
-    this.dialogService.confirm({
+    this.confirmer.confirm({
       target: event.target as EventTarget,
       message: '¿Está seguro que desea eliminar el usuario?',
       header: 'Eliminación de usuario',
@@ -125,7 +127,7 @@ export class AdminUsuariosComponent implements OnInit {
       },
       error: (error: any) => {
         this.users.splice(pos, 0, user);
-        this.toaster.detailedToast('error', 'Error al eliminar el usuario', error.error.error)
+        this.toaster.smallToast('error', 'Error al eliminar el usuario')
       }
     })
   }
@@ -188,5 +190,35 @@ export class AdminUsuariosComponent implements OnInit {
   private router: Router = inject(Router);
   register() {
     this.router.navigate(['/admin/registro'])
+  }
+
+  promptTokenRemoval(event: Event, user: User) {
+    if (user.id === this.userId) {
+      this.toaster.smallToast('error', 'No te puedes revocar los tokens a ti mismo.');
+      return;
+    }
+
+    this.confirmer.confirm({
+      target: event.target as EventTarget,
+      message: `¿Está seguro que desea cerrar todas las sesiones al usuario ${user.name}?`,
+      header: 'Cerrar sesiones',
+      icon: 'pi pi-exclamation-triangle',
+      rejectButtonStyleClass: 'p-button-text',
+      accept: () => { this.revokeTokens(user) }
+    });
+  }
+
+  revokeTokens(user: User) {
+    this.userService.revokeTokens(user.id).subscribe({
+      next: (response: Response<any>) => {
+        const { message } = response;
+        this.toaster.smallToast('success', message);
+      },
+      error: (error: any) => {
+        console.log(error);
+
+        this.toaster.smallToast('error', 'Error al revocar los tokens del usuario.')
+      }
+    })
   }
 }

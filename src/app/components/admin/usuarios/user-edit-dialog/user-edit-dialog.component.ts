@@ -1,19 +1,18 @@
 import { RepeatPasswordValidator } from '@/app/lib/RepeatPasswordValidator';
 import { ToastService } from '@/app/lib/toast.service';
-import { RolService } from '@/app/services/rol.service';
 import { UserService } from '@/app/services/user.service';
 import { ValidationMessagesService } from '@/app/services/validation-messages.service';
 import { Response } from '@/app/types/Response';
 import { Rol } from '@/app/types/Rol';
-import { User, UserEdit } from '@/app/types/User';
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { User } from '@/app/types/User';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
-import { ErrorPComponent } from "../../error-p/error-p.component";
+import { ErrorPComponent } from "../../../error-p/error-p.component";
 import { UserSignalService } from '@/app/services/user.signal.service';
 
 @Component({
@@ -46,7 +45,6 @@ export class AdminUserEditDialogComponent implements OnInit {
   ];
   protected isVisible: boolean = false;
   protected userForm: FormGroup;
-  protected passwordGroup: FormGroup;
   protected submitted = false;
   protected isLoading = false;
 
@@ -67,21 +65,6 @@ export class AdminUserEditDialogComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.passwordGroup = new FormGroup({
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(40)
-      ]),
-      password_confirmation: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(40)
-      ])
-    })
-
-    this.passwordGroup.validator = RepeatPasswordValidator.repeatPassword();
-
     this.userForm = new FormGroup({
       name: new FormControl(this.user.name, [
         Validators.required,
@@ -91,7 +74,6 @@ export class AdminUserEditDialogComponent implements OnInit {
         Validators.required,
         Validators.email
       ]),
-      passwords: this.passwordGroup,
       estado: new FormControl(this.user.estado, [Validators.required]),
       id_rol: new FormControl(this.user.id_rol, [Validators.required])
     })
@@ -113,28 +95,6 @@ export class AdminUserEditDialogComponent implements OnInit {
     if (email.hasError('required')) return this.validationService.requiredMessage();
 
     if (email.hasError('email')) return 'El email no es válido';
-
-    return '';
-  }
-
-  getPasswordErrors() {
-    const password = this.passwordGroup.controls['password'];
-
-    if (password.hasError('required')) return this.validationService.requiredMessage();
-
-    if (password.hasError('minlength')) return this.validationService.minLength(6);
-
-    if (password.hasError('maxlength')) return this.validationService.maxLength(40);
-
-    return '';
-  }
-
-  getPasswordConfirmationErrors() {
-    const passwordConfirmation = this.passwordGroup.controls['password_confirmation'];
-
-    if (passwordConfirmation.hasError('required')) return 'Debes repetir la contraseña';
-
-    if (passwordConfirmation.hasError('notEquivalent')) return 'Las contraseñas no coinciden.';
 
     return '';
   }
@@ -182,12 +142,10 @@ export class AdminUserEditDialogComponent implements OnInit {
       return;
     }
 
-    const user: UserEdit = {
+    const user: User = {
       id: this.user.id,
       name: formValue['name'] ?? this.user.name,
       email: formValue['email'] ?? this.user.email,
-      password: formValue['passwords'].password ?? '',
-      password_confirmation: formValue['passwords'].password_confirmation ?? '',
       estado: formValue['estado'] ?? this.user.estado,
       fecha_ingreso: this.user.fecha_ingreso,
       id_rol: formValue['id_rol'] ?? this.user.id_rol,
@@ -198,12 +156,16 @@ export class AdminUserEditDialogComponent implements OnInit {
       next: (response: Response<User>) => {
         const { data, message } = response;
         console.log(data, message);
+        if (this.user.id === this.userId) {
+          this.userSignal.updateUser(data);
+        }
         this.onUpdate.emit(data);
         this.toaster.smallToast('success', message);
         this.isLoading = false;
         this.isVisible = false;
       },
       error: (error: any) => {
+        this.isLoading = false;
         console.log(error);
         if (error.error.error) {
           this.toaster.smallToast('error', error.error.error);

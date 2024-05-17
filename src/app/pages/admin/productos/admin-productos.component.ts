@@ -152,8 +152,20 @@ export class AdminProductosComponent implements OnInit {
   }
 
   onSelect(event: AutoCompleteSelectEvent) {
-    this.products = [event.value];
+    this.findById(event.value.id)
     this.totalProducts = 1;
+  }
+
+  findById(id: number) {
+    this.productoService.findById(id).subscribe({
+      next: (response: Response<Producto>) => {
+        this.products = [response.data];
+      },
+      error: (error: any) => {
+        console.log(error);
+
+      }
+    })
   }
 
   refreshTable() {

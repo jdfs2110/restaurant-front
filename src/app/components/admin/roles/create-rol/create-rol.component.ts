@@ -90,12 +90,13 @@ export class CreateRolComponent {
         this.isVisible = false;
       },
       error: (error: any) => {
+        this.isLoading = false;
         console.log(error);
 
         if (error.error.error) {
           this.toaster.smallToast('error', error.error.error)
         } else {
-          this.toaster.smallToast('error', 'Error al actualizar el rol.')
+          this.toaster.smallToast('error', 'Error al crear el rol.')
         }
       }
     })

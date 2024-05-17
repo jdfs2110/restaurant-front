@@ -1,4 +1,4 @@
-<main class="md:w-10 md:mx-auto">
+<main class="md:w-6 md:mx-auto">
   <div class="card">
     <p-toolbar styleClass="mt-2">
       <div class="p-toolbar-group-start">
@@ -8,8 +8,8 @@
         <app-create-rol (newRol)="pushRol($event)"></app-create-rol>
       </div>
     </p-toolbar>
-    <p-table [value]="roles" styleClass="p-datatable-gridlines p-datatable-striped" [breakpoint]="'600px'"
-      responsiveLayout="stack" [tableStyle]="{'min-width': '375px'}" scrollHeight="flex" [paginator]="true" [rows]="5">
+    <p-table [value]="roles" styleClass="p-datatable-gridlines" [breakpoint]="'600px'" responsiveLayout="stack"
+      [tableStyle]="{'min-width': '375px'}" scrollHeight="flex" [paginator]="true" [rows]="5">
 
       <ng-template pTemplate="header">
         <tr>

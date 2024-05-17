@@ -1,0 +1,19 @@
+p-table ::ng-deep .p-datatable-loading-overlay {
+  opacity: .4;
+}
+
+main {
+  height: calc(100dvh - 70px - 1rem);
+}
+
+@media screen and (min-width: 992px) {
+  .lg\:table-cell {
+    display: table-cell !important;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  .sm\:table-cell {
+    display: table-cell !important;
+  }
+}

@@ -108,8 +108,12 @@ export class CategoriaEditDialogComponent implements OnInit {
         const { data, message } = response;
         this.onUpdate.emit(data);
         this.toaster.smallToast('success', message);
+        this.isLoading = false;
+        this.isVisible = false;
+        this.submitted = false;
       },
       error: (error: any) => {
+        this.isLoading = false;
         if (error.error.error) {
           this.toaster.detailedToast('error', 'Error al actualizar la categoría', error.error.error);
         } else {

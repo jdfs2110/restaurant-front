@@ -1,0 +1,48 @@
+<p-button label="Ver Lineas" styleClass="hidden md:inline" (onClick)="showLineasDialog()" />
+<p-button [rounded]="true" icon="pi pi-list" styleClass="md:hidden" (onClick)="showLineasDialog()" />
+<p-dialog [(visible)]="isVisible" [modal]="true" [draggable]="false" [maximizable]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+
+  <ng-template pTemplate="header">
+    <span class="white-space-nowrap">
+      Lineas del pedido {{ pedido.id }}
+    </span>
+  </ng-template>
+
+  <div class="card">
+    <p-table styleClass="p-datatable-gridlines" [value]="lineas" [paginator]="true" [rows]="10" responsiveLayout="stack"
+      [tableStyle]="{'min-width': '375px'}" [rowsPerPageOptions]="[5, 10, 15]">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th>ID</th>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Tipo</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-linea>
+        <tr>
+          <td>{{ linea.id }}</td>
+          <td>{{ linea.producto }}</td>
+          <td>{{ linea.cantidad }}</td>
+          <td>{{ linea.tipo }}</td>
+          <td>{{ linea.estado }}</td>
+          <td class="px-0 md:px-3">
+            <div class="flex gap-2 justify-content-start align-items-center">
+
+              <p-button label="Eliminar" severity="danger" styleClass="hidden md:inline md:ml-2"
+                (onClick)="showDialog($event, linea)" />
+
+              <p-button [rounded]="true" icon="pi pi-trash" severity="danger" styleClass="md:hidden"
+                (onClick)="showDialog($event, linea)" />
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</p-dialog>

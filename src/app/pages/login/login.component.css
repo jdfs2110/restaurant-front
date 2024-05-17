@@ -5,6 +5,7 @@ label {
 
 main {
   min-width: 360px;
+  min-height: 100dvh;
   /* background: #C8DEFE; */
 }
 

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import env from "@/app/env.json";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { User, UserEdit } from "@/app/types/User";
+import { AdminChangeUserPassword, User } from "@/app/types/User";
 import { RegisterForm } from "@/app/types/RegisterForm";
 import { Pedido } from "@/app/types/Pedido";
 import { Response } from "@/app/types/Response";
@@ -32,7 +32,7 @@ export class UserService {
     return this.http.post<Response<User>>(`${this.registerURL}`, registerForm);
   }
 
-  update(user: UserEdit, id: number): Observable<Response<User>> {
+  update(user: User, id: number): Observable<Response<User>> {
     return this.http.put<Response<User>>(`${this.url}/${id}`, user);
   }
 
@@ -46,5 +46,13 @@ export class UserService {
 
   findUsersWithSimilarName(name: string): Observable<Response<User[]>> {
     return this.http.get<Response<User[]>>(`${this.url}/similar/${name}`);
+  }
+
+  changePassword(body: AdminChangeUserPassword, id: number): Observable<Response<User>> {
+    return this.http.post<Response<User>>(`${this.url}/${id}/password`, body);
+  }
+
+  revokeTokens(id: number): Observable<Response<any>> {
+    return this.http.delete<Response<any>>(`${this.url}/${id}/tokens`);
   }
 }

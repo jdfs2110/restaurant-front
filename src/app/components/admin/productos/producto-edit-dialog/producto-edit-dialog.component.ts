@@ -119,7 +119,7 @@ export class ProductoEditDialogComponent implements OnInit {
   getIdCategoriaErrors() {
     const idCategoria = this.productoForm.controls.id_categoria;
 
-    if (idCategoria.hasError('required')) return this.validationService.requiredMessage();
+    if (idCategoria.hasError('required')) return 'Debes seleccionar una categoría';
 
     return '';
   }
@@ -173,8 +173,13 @@ export class ProductoEditDialogComponent implements OnInit {
     this.productoService.update(this.formdata, this.product.id).subscribe({
       next: (response: Response<Producto>) => {
         const { data, message } = response;
+        console.log(data);
+
         this.onUpdate.emit(data);
         this.toaster.smallToast('success', message);
+        this.isLoading = false;
+        this.isVisible = false;
+        this.submitted = false;
       },
       error: (error: any) => {
         console.log(error);

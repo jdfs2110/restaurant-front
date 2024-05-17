@@ -89,7 +89,7 @@ export class CreateProductComponent {
   getIdCategoriaErrors() {
     const idCategoria = this.productoForm.controls.id_categoria;
 
-    return idCategoria.hasError('required') ? this.validationService.requiredMessage() : '';
+    return idCategoria.hasError('required') ? 'Debes seleccionar una categoría' : '';
   }
 
   getCantidadErrors() {
@@ -153,9 +153,10 @@ export class CreateProductComponent {
       },
       error: (error: any) => {
         if (error.error.error) {
-          this.toaster.detailedToast('error', 'Error al crear la categoría', error.error.error);
+          this.isLoading = false;
+          this.toaster.detailedToast('error', 'Error al crear el producto', error.error.error);
         } else {
-          this.toaster.smallToast('error', 'Error al crear la categoría')
+          this.toaster.smallToast('error', 'Error al crear el producto')
         }
       }
     })

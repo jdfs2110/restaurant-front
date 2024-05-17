@@ -1,1 +1,50 @@
-<p>admin-facturas works!</p>
+<main class="md:w-10 md:mx-auto md:mb-2">
+  <div class="card">
+    <p-toolbar styleClass="mt-2 sticky top-0 z-1">
+      <div class="p-toolbar-group-start">
+        <strong>Facturas</strong>
+      </div>
+      <div class="p-toolbar-group-end flex gap-2">
+        <!-- <p-button icon="pi pi-plus" [rounded]="true" />no le veo el sentido -->
+        <p-button [icon]="getIconClass()" [rounded]="true" (onClick)="refreshTable()" />
+      </div>
+    </p-toolbar>
+
+    <p-table styleClass="p-datatable-gridlines" [value]="facturas" [lazy]="true" (onLazyLoad)="loadFacturas($event)"
+      [paginator]="true" [rows]="paginationLimit" [loading]="loading" [totalRecords]="totalFacturas"
+      responsiveLayout="stack" [tableStyle]="{'min-width': '375px'}" dataKey="id" [(first)]="first">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th>ID</th>
+          <th>Fecha</th>
+          <th>ID Pedido</th>
+          <th>Acciones</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-factura>
+        <tr>
+          <td>{{ factura.id }}</td>
+          <td>{{ factura.fecha }}</td>
+          <td>{{ factura.id_pedido }}</td>
+          <td class="px-0 md:px-3">
+            <div class="flex gap-2 justify-content-start align-items-center">
+
+              <!-- <app-categoria-edit-dialog [category]="category"
+                (onUpdate)="updateCategory($event)"></app-categoria-edit-dialog> no le veo mucho sentido-->
+
+              <p-button label="Eliminar" severity="danger" styleClass="hidden md:inline md:ml-2"
+                (onClick)="showDialog($event, factura)" />
+
+              <p-button [rounded]="true" icon="pi pi-trash" severity="danger" styleClass="md:hidden"
+                (onClick)="showDialog($event, factura)" />
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+
+    </p-table>
+  </div>
+  <p-confirmDialog />
+</main>

@@ -122,6 +122,7 @@ export class CreateCategoryComponent {
         this.isVisible = false;
       },
       error: (error: any) => {
+        this.isLoading = false;
         if (error.error.error) {
           this.toaster.detailedToast('error', 'Error al crear la categoría', error.error.error);
         } else {

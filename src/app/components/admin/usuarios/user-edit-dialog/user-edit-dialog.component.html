@@ -7,7 +7,11 @@
       Información de {{ user.name }}
     </span>
   </ng-template>
+  @if (user.id === userId) {
+  <span class="p-text-secondary block mb-4">Este es tu perfil</span>
+  } @else {
   <span class="p-text-secondary block mb-4">Actualizar información del usuario</span>
+  }
   <form [formGroup]="userForm" (submit)="onSubmit($event)">
 
     <div class="field">
@@ -31,26 +35,6 @@
       }
     </div>
 
-    <div formGroupName="passwords" class="flex gap-4 flex-column lg:flex-row">
-      <div class="field" class="lg:flex-1">
-        <label for="password">Contraseña</label>
-        <input name="password" id="password" pInputText formControlName="password" type="password"
-          placeholder="&bull;&bull;&bull;&bull;&bull;&bull;" class="lg:w-full">
-        @if (submitted && passwordGroup.controls['password'].invalid) {
-        <error-p class="pb-1">{{getPasswordErrors()}}</error-p>
-        }
-      </div>
-
-      <div class="field" class="lg:flex-1">
-        <label for="password">Repetir contraseña</label>
-        <input formControlName="password_confirmation" type="text" name="password_confirmation"
-          id="password_confirmation" pInputText type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;"
-          class="lg:w-full">
-        @if (submitted && passwordGroup.controls['password_confirmation'].invalid) {
-        <error-p class=" pb-1">{{getPasswordConfirmationErrors()}}</error-p>
-        }
-      </div>
-    </div>
 
     <div class="field mt-3">
       <label for="estado">Estado</label>
@@ -70,6 +54,11 @@
       }
     </div>
 
+    @if (user.id === userId) {
+    <p-button type="submit" label="Editar perfil" styleClass="w-full" [loading]="isLoading" iconPos="right" />
+
+    } @else {
     <p-button type="submit" label="Editar usuario" styleClass="w-full" [loading]="isLoading" iconPos="right" />
+    }
   </form>
 </p-dialog>

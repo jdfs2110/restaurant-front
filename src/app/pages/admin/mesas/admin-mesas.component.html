@@ -1,1 +1,48 @@
-<p>admin-mesas works!</p>
+<main class="md:w-7 md:mx-auto md:mb-2">
+  <div class="card">
+    <p-toolbar styleClass="mt-2">
+      <div class="p-toolbar-group-start">
+        <strong>Mesas</strong>
+      </div>
+      <div class="p-toolbar-group-end">
+        <app-create-mesa (newMesa)="pushMesa($event)"></app-create-mesa>
+      </div>
+    </p-toolbar>
+    <p-table [value]="mesas" styleClass="p-datatable-gridlines" [breakpoint]="'600px'" responsiveLayout="stack"
+      [tableStyle]="{'min-width': '375px'}" scrollHeight="flex" [paginator]="true" [rows]="5"
+      [rowsPerPageOptions]="[5, 10, 15]">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th>ID</th>
+          <th>Capacidad máxima</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-mesa>
+        <tr>
+          <td>{{ mesa.id }}</td>
+          <td>{{ mesa.capacidad_maxima }} {{ mesa.capacidad_maxima === 1 ? 'persona' : 'personas' }}</td>
+          <td>{{ mesa.estado }}</td>
+          <td>
+            <div class="flex gap-2 justify-content-start">
+
+              <app-mesa-edit-dialog [mesa]="mesa" (onUpdate)="updateMesa($event)"></app-mesa-edit-dialog>
+
+              <p-button label="Eliminar" severity="danger" styleClass="hidden md:inline md:ml-2"
+                (onClick)="showDialog($event, mesa)" />
+
+              <p-button [rounded]="true" icon="pi pi-trash" severity="danger" styleClass="md:hidden"
+                (onClick)="showDialog($event, mesa)" />
+
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+
+    </p-table>
+  </div>
+  <p-confirmDialog />
+</main>

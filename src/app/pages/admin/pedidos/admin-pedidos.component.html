@@ -1,1 +1,58 @@
-<p>admin-pedidos works!</p>
+<main class="md:w-10 md:mx-auto md:mb-2">
+  <div class="card">
+    <p-toolbar styleClass="mt-2 sticky top-0 z-1">
+      <div class="p-toolbar-group-start">
+        <strong>Pedidos</strong>
+      </div>
+      <div class="p-toolbar-group-end flex gap-2">
+        <!-- <p-button icon="pi pi-plus" [rounded]="true" />no le veo el sentido -->
+        <p-button [icon]="getIconClass()" [rounded]="true" (onClick)="refreshTable()" />
+      </div>
+    </p-toolbar>
+
+    <p-table styleClass="p-datatable-gridlines" [value]="pedidos" [lazy]="true" (onLazyLoad)="loadPedidos($event)"
+      [paginator]="true" [rows]="paginationLimit" [loading]="loading" [totalRecords]="totalPedidos"
+      responsiveLayout="stack" breakpoint="500px" dataKey="id" [(first)]="first">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th>ID</th>
+          <th>Fecha</th>
+          <th>Precio</th>
+          <th>Estado</th>
+          <th>Cantidad de comensales</th>
+          <th>Mesa</th>
+          <th>ID Mesero</th>
+          <th>Acciones</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-pedido>
+        <tr>
+          <td>{{ pedido.id }}</td>
+          <td>{{ pedido.fecha }}</td>
+          <td>{{ pedido.precio }}€</td>
+          <td>{{ pedido.estado }}</td>
+          <td>{{ pedido.numero_comensales }} {{ pedido.numero_comensales === 1 ? 'persona' : 'personas' }}</td>
+          <td class="hidden sm:table-cell">{{ pedido.id_mesa }}</td>
+          <td class="sm:hidden">mesa {{ pedido.id_mesa }}</td>
+          <td class="hidden sm:table-cell">{{ pedido.id_usuario }}</td>
+          <td class="sm:hidden">mesero {{ pedido.id_usuario }}</td>
+          <td class="px-0 md:px-3">
+            <div class="flex gap-2 justify-content-start align-items-center">
+
+              <p-button label="Eliminar" severity="danger" styleClass="hidden md:inline md:ml-2"
+                (onClick)="showDialog($event, pedido)" />
+
+              <p-button [rounded]="true" icon="pi pi-trash" severity="danger" styleClass="md:hidden"
+                (onClick)="showDialog($event, pedido)" />
+
+              <app-lineas-by-pedido [pedido]="pedido"></app-lineas-by-pedido>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <p-confirmDialog />
+</main>

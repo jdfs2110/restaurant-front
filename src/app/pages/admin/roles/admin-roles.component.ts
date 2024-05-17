@@ -2,7 +2,6 @@ import { RolService } from '@/app/services/rol.service';
 import { Response } from '@/app/types/Response';
 import { Rol } from '@/app/types/Rol';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -20,7 +19,6 @@ import { CreateRolComponent } from "../../../components/admin/roles/create-rol/c
   imports: [
     TableModule,
     ButtonModule,
-    RouterLink,
     ConfirmDialogModule,
     ToolbarModule,
     RolEditDialogComponent,
@@ -64,25 +62,12 @@ export class AdminRolesComponent implements OnInit {
       next: (response: Response<any>) => {
         const { message } = response;
         this.toaster.smallToast('success', message);
-        this.findAndDelete(rol.id);
       },
       error: (error: any) => {
         this.roles.splice(pos, 0, rol);
         this.toaster.detailedToast('error', 'Error al eliminar el rol', error.error.error)
       }
     })
-  }
-
-  findAndDelete(id: number) {
-    this.roles.find((rol: Rol, index: number) => {
-      if (rol.id === id) {
-        this.roles.splice(index, 1);
-
-        return true;
-      }
-
-      return false;
-    });
   }
 
   updateRol(rol: Rol) {
