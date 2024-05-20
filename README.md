@@ -2,6 +2,7 @@
 
 ## TODO
 
+- [ ] CHECK STOCK DELETE LINEA NOT WORKING
 - [ ] todo 😭
 - [ ] CHECK MESAS TODO
 - [x] File uploading (foto categoría, producto)
