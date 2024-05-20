@@ -107,17 +107,23 @@
     }
     <div>
       @for (linea of lineas; track linea.id; let last = $last; let first = $first) {
-      <p-panel [toggleable]="false" [collapsed]="false"
+      <p-panel [toggleable]="true" [collapsed]="true" toggler="header"
         [styleClass]="first ? 'border-top-1 border-bottom-none' : last ? 'border-bottom-1 border-top-none' : 'border-top-none border-bottom-none'">
+
+        <div class="flex justify-content-end align-items-center gap-2">
+          <app-edit-linea [linea]="linea" (onUpdate)="updateLinea($event)" [currentStock]="productoActual.cantidad"
+            (onNewStock)="updateProducto($event)"></app-edit-linea>
+          <p-button [rounded]="true" icon="pi pi-trash" severity="danger" (onClick)="showDeletion($event, linea)" />
+        </div>
 
         <ng-template pTemplate="header">
           <div class="flex justify-content-between w-full align-items-center">
-            <div class="flex align-items-center gap-2 w-10">
+            <div class="flex align-items-center gap-2 w-9">
               <p-avatar [image]="linea.producto_foto" shape="circle" size="large"
                 (onImageError)="setPlaceholder($event)" />
               <span class="font-medium">{{ linea.cantidad }}x {{ linea.producto }}</span>
             </div>
-            <span class="font-semibold w-2 pl-2">{{ linea.precio * linea.cantidad }}€</span>
+            <span class="font-semibold w-2 pl-2 mr-3">{{ (linea.precio * linea.cantidad).toFixed(2) }}€</span>
           </div>
         </ng-template>
 
@@ -136,7 +142,13 @@
   <p-dialog [(visible)]="newLineaFormVisible" [maximizable]="true" [draggable]="false"
     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [header]="'Nueva línea'" (onHide)="showPreviousDialog()">
 
+
     <form [formGroup]="newLineaForm" (submit)="onCreate()">
+
+      <div class="field">
+        <label for="producto">Producto</label>
+        <input type="text" pInputText class="w-full" disabled [value]="productoActual.nombre">
+      </div>
 
       <div class="field">
         <label for="cantidad">Cantidad</label>
@@ -151,5 +163,5 @@
     </form>
 
   </p-dialog>
-
+  <p-confirmDialog />
 </div>

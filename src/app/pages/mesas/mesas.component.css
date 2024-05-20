@@ -21,9 +21,9 @@ main {
   }
 }
 
-p-panel ::ng-deep .p-panel-content {
+/* p-panel ::ng-deep .p-panel-content {
   display: none !important;
-}
+} */
 
 p-panel ::ng-deep .p-panel {
   border-radius: 0px;

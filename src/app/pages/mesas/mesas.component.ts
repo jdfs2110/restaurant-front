@@ -25,6 +25,9 @@ import { Producto } from '@/app/types/Producto';
 import { TabViewModule } from 'primeng/tabview';
 import { ProductoService } from '@/app/services/producto.service';
 import { RippleModule } from 'primeng/ripple';
+import { EditLineaComponent } from "./edit-linea.component";
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 @Component({
   selector: 'app-mesas',
   standalone: true,
@@ -43,7 +46,9 @@ import { RippleModule } from 'primeng/ripple';
     PanelModule,
     AvatarModule,
     TabViewModule,
-    RippleModule
+    RippleModule,
+    EditLineaComponent,
+    ConfirmDialogModule
   ]
 })
 export class MesasComponent implements OnInit {
@@ -94,7 +99,8 @@ export class MesasComponent implements OnInit {
     private toaster: ToastService,
     private pusher: PusherService,
     private productoService: ProductoService,
-    private validationService: ValidationMessagesService
+    private validationService: ValidationMessagesService,
+    private confirmer: ConfirmationService
   ) { }
 
   ngOnInit(): void {
@@ -282,6 +288,7 @@ export class MesasComponent implements OnInit {
         console.log(response);
         this.loading = false;
         this.submitted = false;
+        this.productoActual.cantidad -= formValue.cantidad ?? 0;
         this.toaster.smallToast('success', 'Producto añadido correctamente.')
 
       },
@@ -290,6 +297,48 @@ export class MesasComponent implements OnInit {
         this.loading = false;
         this.submitted = false;
         this.toaster.smallToast('error', 'Error al añadir el producto');
+      }
+    })
+  }
+
+  updateLinea(linea: Linea) {
+    this.lineas = this.lineas.map((l: Linea) => {
+      if (l.id === linea.id) {
+        return linea;
+      }
+
+      return l;
+    })
+  }
+
+  updateProducto(stock: number) {
+    this.productoActual.cantidad = stock;
+  }
+
+  showDeletion(event: Event, linea: Linea) {
+    this.confirmer.confirm({
+      target: event.target as EventTarget,
+      message: `¿Está seguro que desea eliminar la línea?`,
+      header: 'Eliminar línea',
+      icon: 'pi pi-exclamation-triangle',
+      rejectButtonStyleClass: 'p-button-text',
+      accept: () => { this.deleteLinea(linea) }
+    })
+  }
+
+  deleteLinea(linea: Linea) {
+    const pos = this.lineas.indexOf(linea);
+    this.lineas = this.lineas.filter((l: Linea) => { return l.id !== linea.id });
+    this.lineaService.delete(linea.id).subscribe({
+      next: (response: Response<Linea>) => {
+        const { message } = response;
+        console.log(message);
+
+        this.toaster.smallToast('success', message);
+      },
+      error: (error: any) => {
+        this.lineas.splice(pos, 0, linea);
+        this.toaster.smallToast('error', 'Error al eliminar la línea');
       }
     })
 
