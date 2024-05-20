@@ -3,7 +3,7 @@
     class="bg-white flex flex-column shadow-1 px-6 py-6 md:p-8">
     <div class="field">
       <label for="email">Correo electrónico</label>
-      <input type="text" name="email" id="email" pInputText formControlName="email" (click)="mark()">
+      <input type="text" name="email" id="email" pInputText formControlName="email" (click)="mark()" class="w-full">
       @if (submitted && loginForm.controls.email.invalid) {
       <error-p class="pb-1">{{getEmailErrors()}}</error-p>
       }
@@ -11,8 +11,8 @@
 
     <div class="field">
       <label for="password">Contraseña</label>
-      <input type="text" name="password" id="password" pInputText formControlName="password" type="password"
-        (click)="mark()">
+      <p-password type="text" name="password" id="password" formControlName="password" type="password" (click)="mark()"
+        styleClass="w-full" [feedback]="false" [toggleMask]="true" />
       @if (submitted && loginForm.controls.password.invalid) {
       <error-p class="pb-1">{{getPasswordErrors()}}</error-p>
       }

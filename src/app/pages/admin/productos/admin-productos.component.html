@@ -33,7 +33,7 @@
           <td>{{ product.nombre }}</td>
           <td>
             <p-image [src]="product.foto" [alt]="product.nombre" width="150" height="100" [preview]="true"
-              [style]="{'object-fit': 'cover'}"></p-image>
+              [style]="{'object-fit': 'cover'}" (onImageError)="setPlaceholder($event)"></p-image>
           </td>
           <td>{{ product.precio }}€</td>
           <td>{{ product.cantidad }}</td>

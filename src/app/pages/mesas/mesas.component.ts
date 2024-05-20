@@ -5,7 +5,6 @@ import { MesaService } from '@/app/services/mesa.service';
 import { Response } from '@/app/types/Response';
 import { PedidoService } from '@/app/services/pedido.service';
 import { LineaService } from '@/app/services/linea.service';
-import { TabViewChangeEvent, TabViewModule } from 'primeng/tabview';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -17,6 +16,15 @@ import { ErrorPComponent } from "../../components/error-p/error-p.component";
 import { Pedido } from '@/app/types/Pedido';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { Linea } from '@/app/types/Linea';
+import { ToastService } from '@/app/lib/toast.service';
+import { CreatePedidoComponent } from "./create-pedido.component";
+import { PusherService } from '@/app/services/pusher.service';
+import { PanelModule } from 'primeng/panel';
+import { AvatarModule } from 'primeng/avatar';
+import { Producto } from '@/app/types/Producto';
+import { TabViewModule } from 'primeng/tabview';
+import { ProductoService } from '@/app/services/producto.service';
+import { RippleModule } from 'primeng/ripple';
 @Component({
   selector: 'app-mesas',
   standalone: true,
@@ -24,39 +32,58 @@ import { Linea } from '@/app/types/Linea';
   styleUrl: './mesas.component.css',
   imports: [
     HeaderComponent,
-    TabViewModule,
     CardModule,
     ReactiveFormsModule,
     ButtonModule,
     DialogModule,
     InputTextModule,
     ErrorPComponent,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    CreatePedidoComponent,
+    PanelModule,
+    AvatarModule,
+    TabViewModule,
+    RippleModule
   ]
 })
 export class MesasComponent implements OnInit {
   protected mesas: Mesa[] = [];
-  protected mesaActual: Mesa = {} as Mesa;
-  protected pedidoActual: Pedido = {} as Pedido;
-  protected lineas: Linea[] = [];
-  protected newPedidoVisible: boolean = false;
-  protected viewPedidoVisible: boolean = false;
+  protected newLineaVisible: boolean = false;
   protected submitted: boolean = false;
   protected loading: boolean = false;
-  protected newPedidoForm = new FormGroup({
-    numero_comensales: new FormControl(null, [
-      Validators.required
-    ]),
-    id_mesa: new FormControl(),
-    id_usuario: new FormControl()
+
+  protected pedidoActual: Pedido = {} as Pedido;
+  protected mesaSelected: Mesa = {} as Mesa;
+  protected productoActual: Producto = {} as Producto;
+  protected selectedTipo: 'barra' | 'cocina';
+  protected lineas: Linea[] = [];
+
+  protected productos: Producto[] = [];
+  protected productosCocina: Producto[] = [];
+  protected productosCocinaFiltered: Producto[] = []
+  protected productosBarraFiltered: Producto[] = []
+  protected productosBarra: Producto[] = [];
+
+
+  protected lineasVisible: boolean = false;
+  protected newLineaFormVisible: boolean = false;
+
+  protected newLineaForm = new FormGroup({
+    cantidad: new FormControl(null, [Validators.required])
   })
+
+  getCantidadErrors() {
+    const cantidad = this.newLineaForm.controls.cantidad;
+
+    return cantidad.hasError('required') ? this.validationService.requiredMessage() : '';
+  }
 
   get userId(): number {
     return this.userSignal.user().id;
   }
 
   formatMaxCapacity(capacity: number): string {
-    return capacity === 1 ? `${capacity} persona` : `${capacity} personas`
+    return capacity === 1 ? `${capacity} persona` : `${capacity} personas`;
   }
 
   constructor(
@@ -64,19 +91,13 @@ export class MesasComponent implements OnInit {
     private pedidoService: PedidoService,
     private lineaService: LineaService,
     private userSignal: UserSignalService,
-    private validator: ValidationMessagesService
+    private toaster: ToastService,
+    private pusher: PusherService,
+    private productoService: ProductoService,
+    private validationService: ValidationMessagesService
   ) { }
 
   ngOnInit(): void {
-    this.mesaService.findById(1).subscribe({
-      next: (response: Response<Mesa>) => {
-        const { data } = response;
-        this.mesaActual = data;
-      },
-      error: (error: any) => {
-        console.log('error', error);
-      }
-    })
     this.mesaService.findAll().subscribe({
       next: (response: Response<Mesa[]>) => {
         const { data } = response;
@@ -86,106 +107,83 @@ export class MesasComponent implements OnInit {
         console.log(error);
       }
     })
-  }
 
-  newPedido(id: number): void {
-    this.newPedidoForm.setValue({
-      numero_comensales: null,
-      id_mesa: id,
-      id_usuario: this.userId
-    })
-    this.newPedidoVisible = true;
-  }
-
-  getNumeroComensalesError() {
-    if (this.newPedidoForm.controls.numero_comensales.hasError('required')) return this.validator.requiredMessage();
-    return '';
-  }
-
-  onSubmit(): void {
-    this.loading = true;
-    this.submitted = true;
-
-    if (this.newPedidoForm.invalid) {
-      this.loading = false;
-      return;
-    }
-
-    const pedido: Pedido = {
-      id: 0,
-      estado: 0,
-      estado_numero: 0,
-      fecha: new Date(),
-      precio: 0,
-      numero_comensales: this.newPedidoForm.value.numero_comensales ?? 0,
-      id_mesa: this.newPedidoForm.value.id_mesa,
-      id_usuario: this.newPedidoForm.value.id_usuario
-    }
-
-    console.log(pedido);
-
-    this.pedidoService.create(pedido).subscribe({
-      next: (response: Response<Pedido>) => {
-        console.log(response);
-        this.mesaActual.estado = "ocupada"
-        this.mesaActual.estado_numero = 1
-        this.loading = false;
-        this.submitted = false;
-        this.newPedidoVisible = false;
-      },
-      error: (error: any) => {
-        this.loading = false;
-        this.submitted = false;
-        console.log('error', error)
-      }
-    })
-  }
-
-  findMesa(event: TabViewChangeEvent) {
-    const index = event.index + 1;
-
-    this.mesaService.findById(index).subscribe({
-      next: (response: Response<Mesa>) => {
+    this.productoService.all().subscribe({
+      next: (response: Response<Producto[]>) => {
         const { data } = response;
-        this.mesaActual = data;
+        this.productos = data;
+        this.productosCocina = data.filter(producto => producto.id_categoria !== 1);
+        this.productosCocinaFiltered = this.productosCocina;
+        this.productosBarra = data.filter(producto => producto.id_categoria === 1);
+        this.productosBarraFiltered = this.productosBarra;
+      },
+    })
+
+    const channel = this.pusher.listenTo('mesas');
+    channel.bind('mesa-edited', (event: Response<Mesa>) => {
+      const { data } = event;
+      console.log(event)
+      this.mesas = this.mesas.map((mesa: Mesa) => {
+        if (mesa.id === data.id) {
+          return data;
+        }
+
+        return mesa;
+      })
+    })
+  }
+
+  ocuparMesa(mesa: Mesa) {
+    const pos = this.mesas.indexOf(mesa);
+    this.mesas[pos].estado_numero = 1;
+    this.mesas[pos].estado = 'ocupada';
+  }
+
+  servirPedido(mesa: Mesa) {
+    this.mesaService.findLastPedido(mesa.id).subscribe({
+      next: (response: Response<Pedido>) => {
+        const { data } = response;
+        this.markAsServido(data.id, mesa)
       },
       error: (error: any) => {
         console.log(error);
+        this.toaster.smallToast('error', 'Error al servir el pedido');
       }
     })
   }
 
-  servirPedido(idMesa: number) {
-    this.loading = true;
-    this.mesaService.findLastPedido(idMesa).subscribe({
-      next: (response: Response<Pedido>) => {
-        const { data } = response;
-        this.markAsServido(data.id)
-      },
-      error: (error: any) => {
-        console.log(error);
-      }
-    })
-  }
-
-  markAsServido(id: number) {
-    this.pedidoService.servirPedido(id).subscribe({
+  markAsServido(idPedido: number, mesa: Mesa) {
+    const pos = this.mesas.indexOf(mesa);
+    this.mesas[pos].estado_numero = 0;
+    this.mesas[pos].estado = 'libre';
+    this.pedidoService.servirPedido(idPedido).subscribe({
       next: (response: Response<any>) => {
-        this.loading = false;
         console.log(response.message)
-        this.mesaActual.estado_numero = 0
-        this.mesaActual.estado = 'libre';
       },
       error: (error: any) => {
-        this.loading = false;
         console.log('error', error);
+        this.toaster.smallToast('error', 'Error al servir el pedido');
+        this.mesas[pos].estado_numero = mesa.estado_numero;
+        this.mesas[pos].estado = mesa.estado;
       }
     })
   }
 
-  verPedido(idMesa: number) {
-    this.viewPedidoVisible = true;
-    this.mesaService.findLastPedido(idMesa).subscribe({
+  nuevaLinea(mesa: Mesa) {
+    this.newLineaVisible = true;
+    this.mesaSelected = mesa;
+    this.mesaService.findLastPedido(mesa.id).subscribe({
+      next: (response: Response<Pedido>) => {
+        const { data } = response;
+        this.pedidoActual = data;
+      }
+    })
+  }
+
+  verLineas(mesa: Mesa) {
+    this.mesaSelected = mesa;
+    this.lineasVisible = true;
+    this.mesaService.findLastPedido(mesa.id).subscribe({
       next: (response: Response<Pedido>) => {
         const { data } = response;
         this.pedidoActual = data;
@@ -197,10 +195,105 @@ export class MesasComponent implements OnInit {
   findLineasByPedido(idPedido: number) {
     this.pedidoService.getLineas(idPedido).subscribe({
       next: (response: Response<Linea[]>) => {
+        if (response === null) return;
         const { data } = response
         this.lineas = data;
       }
     })
   }
+
+  refreshMesa() {
+    this.mesaSelected = {} as Mesa;
+    // this.pedidoActual = {} as Pedido;
+  }
+
+  setPlaceholder(event: any) {
+    event.target.src = '/assets/images/placeholder.jpg';
+  }
+
+  filterProduct(event: any, tipo: 'barra' | 'cocina') {
+    const query = event.target.value;
+
+    if (tipo === 'cocina') {
+      if (query === '') this.productosCocinaFiltered = this.productosCocina
+      else
+        this.productosCocinaFiltered = this.productosCocina.filter(producto => this.removeAccent(producto.nombre).includes(this.removeAccent(query)))
+    } else {
+      if (query === '') this.productosBarraFiltered = this.productosBarra
+      else
+        this.productosBarraFiltered = this.productosBarra.filter(producto => this.removeAccent(producto.nombre).includes(this.removeAccent(query)))
+    }
+  }
+
+  removeAccent(str: string) {
+    return str
+      .toLowerCase()
+      .replace('á', 'a')
+      .replace('é', 'e')
+      .replace('í', 'i')
+      .replace('ó', 'o')
+      .replace('ú', 'u');
+  }
+
+  newLinea(producto: Producto, tipo: 'barra' | 'cocina') {
+    this.productoActual = producto;
+    this.selectedTipo = tipo;
+    this.newLineaVisible = false;
+    this.newLineaFormVisible = true;
+  }
+
+  showPreviousDialog() {
+    this.newLineaVisible = true;
+    this.productoActual = {} as Producto;
+  }
+
+  onCreate() {
+    this.submitted = true;
+    this.loading = true;
+    const formValue = this.newLineaForm.value;
+
+    if (this.newLineaForm.invalid) {
+      this.loading = false;
+      return;
+    }
+
+    console.log(formValue);
+    console.log('selected tipo', this.selectedTipo);
+    console.log('producto', this.productoActual);
+    console.log('pedido', this.pedidoActual)
+
+
+
+    const newLinea: Linea = {
+      id: 0,
+      precio: this.productoActual.precio,
+      id_producto: this.productoActual.id,
+      cantidad: formValue.cantidad ?? 0,
+      producto: '',
+      producto_foto: '',
+      id_pedido: this.pedidoActual.id,
+      tipo: this.selectedTipo,
+      estado: '',
+      estado_numero: 0
+    }
+
+    this.lineaService.create(newLinea).subscribe({
+      next: (response: Response<Linea>) => {
+        console.log(response);
+        this.loading = false;
+        this.submitted = false;
+        this.toaster.smallToast('success', 'Producto añadido correctamente.')
+
+      },
+      error: (error: any) => {
+        console.log(error);
+        this.loading = false;
+        this.submitted = false;
+        this.toaster.smallToast('error', 'Error al añadir el producto');
+      }
+    })
+
+  }
+
 }
 

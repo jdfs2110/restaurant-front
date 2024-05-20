@@ -9,6 +9,10 @@ main {
   height: calc(100dvh - 70px);
 }
 
+p-password ::ng-deep .p-password {
+  width: 100%;
+}
+
 /* @media (min-width: 1120px) {
   form {
     padding-inline: 12rem !important;

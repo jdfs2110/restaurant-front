@@ -1,2 +1,13 @@
-<app-header></app-header>
-<p>No deberías de estar aquí...</p>
+@switch (idRol) {
+@case (1) {
+<app-mesas></app-mesas>
+}
+@case (4) {
+<app-admin-dashboard></app-admin-dashboard>
+}
+@case (2) {
+<app-lineas [channel]="'lineas-cocina'"></app-lineas>
+} @case (5) {
+<app-lineas [channel]="'lineas-barra'"></app-lineas>
+}
+}

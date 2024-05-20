@@ -29,7 +29,8 @@
           <td>{{ category.id }}</td>
           <td>{{ category.nombre }}</td>
           <td>
-            <p-image [src]="category.foto" [alt]="category.nombre" width="150" height="100" [preview]="true"></p-image>
+            <p-image [src]="category.foto" [alt]="category.nombre" width="150" height="100" [preview]="true"
+              (onImageError)="setPlaceholder($event)"></p-image>
           </td>
           <td class="px-0 md:px-3">
             <div class="flex gap-2 justify-content-start align-items-center">

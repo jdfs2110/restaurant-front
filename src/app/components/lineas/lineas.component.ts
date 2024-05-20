@@ -39,14 +39,24 @@ export class LineasComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.channel === 'lineas-cocina') {
-      this.lineaService.getLineasOfCocina().subscribe((response: Response<Linea[]>) => {
-        const { data } = response;
-        this.lineas = data;
-      })
+      this.lineaService.getLineasOfCocina().subscribe({
+        next: (response: Response<Linea[]>) => {
+          if (response === null) return;
+
+          const { data } = response;
+          this.lineas = data;
+        },
+        error: (error: any) => { console.log(error) }
+      });
     } else if (this.channel === 'lineas-barra') {
-      this.lineaService.getLineasOfBarra().subscribe((response: Response<Linea[]>) => {
-        const { data } = response;
-        this.lineas = data;
+      this.lineaService.getLineasOfBarra().subscribe({
+        next: (response: Response<Linea[]>) => {
+          if (response === null) return;
+
+          const { data } = response;
+          this.lineas = data;
+        },
+        error: (error: any) => { console.log(error) }
       })
     }
 

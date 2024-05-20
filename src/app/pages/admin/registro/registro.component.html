@@ -3,7 +3,7 @@
     (submit)="onSubmit()">
     <div class="field">
       <label for="name">Nombre</label>
-      <input type="text" name="name" id="name" pInputText formControlName="name" placeholder="Juan" class="lg:w-full">
+      <input type="text" name="name" id="name" pInputText formControlName="name" class="w-full">
       @if (submitted && registerForm.controls['name'].invalid) {
       <error-p class="pb-1">{{getNameErrors()}}</error-p>
       }
@@ -11,8 +11,7 @@
 
     <div class="field">
       <label for="email">Email</label>
-      <input type="text" name="email" id="email" pInputText formControlName="email" placeholder="mail@ejemplo.com"
-        class="lg:w-full">
+      <input type="text" name="email" id="email" pInputText formControlName="email" class="w-full">
       @if (submitted && registerForm.controls['email'].invalid) {
       <error-p class="pb-1">{{getEmailErrors()}}</error-p>
       }
@@ -22,7 +21,7 @@
       <div class="field" class="lg:flex-1">
         <label for="password">Contraseña</label>
         <input type="text" name="password" id="password" pInputText formControlName="password" type="password"
-          placeholder="&bull;&bull;&bull;&bull;&bull;&bull;" class="lg:w-full">
+          class="w-full">
         @if (submitted && passwordGroup.controls['password'].invalid) {
         <error-p class="pb-1">{{getPasswordErrors()}}</error-p>
         }
@@ -31,8 +30,7 @@
       <div class="field" class="lg:flex-1">
         <label for="password">Repetir contraseña</label>
         <input type="text" name="password_confirmation" id="password_confirmation" pInputText
-          formControlName="password_confirmation" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;"
-          class="lg:w-full">
+          formControlName="password_confirmation" type="password" class="w-full">
         @if (submitted && passwordGroup.controls['password_confirmation'].invalid) {
         <error-p class=" pb-1">{{getPasswordConfirmationErrors()}}</error-p>
         }

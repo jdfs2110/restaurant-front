@@ -7,7 +7,7 @@
     <ng-template pTemplate="header">
       <div class="flex align-items-center gap-2">
         <p-avatar [image]="linea.producto_foto" shape="circle" size="large" />
-        <span class="font-medium">{{linea.cantidad}} {{linea.producto}}</span>
+        <span class="font-medium">{{linea.cantidad}}x {{linea.producto}}</span>
       </div>
     </ng-template>
 
@@ -55,5 +55,9 @@
       </div>
     </ng-template>
   </p-dataView>
+
+  @if (lineas.length === 0) {
+  <p class="text-center font-semibold text-2xl">Actualmente no hay líneas</p>
+  }
 
 </main>

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from "@/app/components/header/header.component";
 import { Router } from '@angular/router';
 import { UserSignalService } from '@/app/services/user.signal.service';
+import { MesasComponent } from "../mesas/mesas.component";
+import { AdminDashboardComponent } from "../admin/dashboard/admin-dashboard.component";
+import { LineasComponent } from "../../components/lineas/lineas.component";
 
 @Component({
   selector: 'app-home',
@@ -9,7 +12,10 @@ import { UserSignalService } from '@/app/services/user.signal.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   imports: [
-    HeaderComponent
+    HeaderComponent,
+    MesasComponent,
+    AdminDashboardComponent,
+    LineasComponent
   ]
 })
 export class HomeComponent implements OnInit {
@@ -23,12 +29,12 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.idRol === 1) {
-      this.router.navigate(['/mesas']);
-    }
-    if (this.idRol === 4) {
-      this.router.navigate(['/admin']);
-    }
+    // if (this.idRol === 1) {
+    //   this.router.navigate(['/mesas']);
+    // }
+    // if (this.idRol === 4) {
+    //   this.router.navigate(['/admin']);
+    // }
     // else if (this.idRol === 2) {
     //   this.router.navigate(['/lineas/cocina'])
     // } else if (this.idRol === 5) {

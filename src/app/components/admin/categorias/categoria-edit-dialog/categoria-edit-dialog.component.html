@@ -16,7 +16,7 @@
       <input type="file" hidden id="fotoInput" (change)="onSelectFile($event)" accept="image/*">
       <div class="hovereable relative max-w-min cursor-pointer border-circle mx-auto">
         <p-image onclick="fotoInput.click()" [src]="this.currentImage" [alt]="category.nombre" height="130" width="150"
-          [imageStyle]="{'object-fit': 'cover'}" imageClass="border-round">
+          [imageStyle]="{'object-fit': 'cover'}" imageClass="border-round" (onImageError)="setPlaceholder($event)">
         </p-image>
       </div>
     </div>

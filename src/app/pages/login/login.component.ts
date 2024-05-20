@@ -10,6 +10,7 @@ import { ValidationMessagesService } from '@/app/services/validation-messages.se
 import { UserSignalService } from '@/app/services/user.signal.service';
 import { ErrorPComponent } from "@/app/components/error-p/error-p.component";
 import { ToastService } from '@/app/lib/toast.service';
+import { PasswordModule } from 'primeng/password';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -19,7 +20,8 @@ import { ToastService } from '@/app/lib/toast.service';
     InputTextModule,
     ReactiveFormsModule,
     ButtonModule,
-    ErrorPComponent
+    ErrorPComponent,
+    PasswordModule
   ]
 })
 export class LoginComponent implements OnInit {

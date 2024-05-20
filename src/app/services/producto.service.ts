@@ -22,6 +22,10 @@ export class ProductoService {
     return this.http.get<Response<number>>(`${this.url}/pages`);
   }
 
+  all(): Observable<Response<Producto[]>> {
+    return this.http.get<Response<Producto[]>>(`${this.url}/all`);
+  }
+
   findById(id: number): Observable<Response<Producto>> {
     return this.http.get<Response<Producto>>(`${this.url}/${id}`);
   }

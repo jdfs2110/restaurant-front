@@ -154,4 +154,8 @@ export class AdminCategoriasComponent implements OnInit {
       return c;
     })
   }
+
+  setPlaceholder(event: any) {
+    event.target.src = '/assets/images/placeholder.jpg';
+  }
 }

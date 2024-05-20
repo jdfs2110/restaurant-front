@@ -127,4 +127,8 @@ export class CategoriaEditDialogComponent implements OnInit {
     this.inputImage = event.target.files[0];
     this.currentImage = URL.createObjectURL(event.target.files[0]);
   }
+
+  setPlaceholder(event: any) {
+    event.target.src = '/assets/images/placeholder.jpg';
+  }
 }

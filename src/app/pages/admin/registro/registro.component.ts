@@ -17,7 +17,6 @@ import { ButtonModule } from 'primeng/button'
 import { RolService } from '@/app/services/rol.service';
 import { DropdownModule } from 'primeng/dropdown'
 import { ErrorPComponent } from '@/app/components/error-p/error-p.component';
-import { AdminService } from '../admin.service';
 import { RepeatPasswordValidator } from '@/app/lib/RepeatPasswordValidator';
 import { ToastService } from '@/app/lib/toast.service';
 import { HeaderComponent } from "../../../components/header/header.component";

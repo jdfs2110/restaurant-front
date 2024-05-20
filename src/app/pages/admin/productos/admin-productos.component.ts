@@ -168,6 +168,10 @@ export class AdminProductosComponent implements OnInit {
     })
   }
 
+  setPlaceholder(event: any) {
+    event.target.src = '/assets/images/placeholder.jpg';
+  }
+
   refreshTable() {
     this.buttonLoading = true;
     this.first = 0;
