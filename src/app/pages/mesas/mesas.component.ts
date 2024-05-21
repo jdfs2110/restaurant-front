@@ -249,8 +249,10 @@ export class MesasComponent implements OnInit {
   }
 
   showPreviousDialog() {
+    this.newLineaForm.reset();
     this.newLineaVisible = true;
-    this.productoActual = {} as Producto;
+    this.newLineaFormVisible = false;
+    // this.productoActual = {} as Producto;
   }
 
   onCreate() {
@@ -290,6 +292,7 @@ export class MesasComponent implements OnInit {
         this.submitted = false;
         this.productoActual.cantidad -= formValue.cantidad ?? 0;
         this.toaster.smallToast('success', 'Producto añadido correctamente.')
+        this.showPreviousDialog();
 
       },
       error: (error: any) => {
@@ -311,8 +314,18 @@ export class MesasComponent implements OnInit {
     })
   }
 
-  updateProducto(stock: number) {
-    this.productoActual.cantidad = stock;
+  updateProducto(producto: Producto) {
+    const breakException = {}
+    try {
+      this.productos.forEach((p: Producto) => {
+        if (p.id === producto.id) {
+          p.cantidad = producto.cantidad;
+          throw breakException;
+        }
+      });
+    } catch (e) {
+      // console.log(e);
+    }
   }
 
   showDeletion(event: Event, linea: Linea) {
@@ -333,7 +346,17 @@ export class MesasComponent implements OnInit {
       next: (response: Response<Linea>) => {
         const { message } = response;
         console.log(message);
-
+        const breakException = {}
+        try {
+          this.productos.forEach((producto: Producto) => {
+            if (producto.id === linea.id_producto) {
+              producto.cantidad += linea.cantidad;
+              throw breakException;
+            }
+          })
+        } catch (e) {
+          // console.log('linea eliminada, stock actualizado');
+        }
         this.toaster.smallToast('success', message);
       },
       error: (error: any) => {

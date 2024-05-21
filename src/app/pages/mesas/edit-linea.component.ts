@@ -11,6 +11,8 @@ import { ConfirmationService } from "primeng/api";
 import { ToastService } from "@/app/lib/toast.service";
 import { Response } from "@/app/types/Response";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { ProductoService } from "@/app/services/producto.service";
+import { Producto } from "@/app/types/Producto";
 
 @Component({
   selector: 'app-edit-linea',
@@ -32,10 +34,11 @@ import { ConfirmDialogModule } from "primeng/confirmdialog";
 })
 export class EditLineaComponent implements OnInit {
   @Input({ required: true }) linea: Linea;
-  @Input({ required: true }) currentStock: number;
+  // @Input({ required: true }) currentStock: number;
   @Output() onUpdate = new EventEmitter<Linea>;
-  @Output() onNewStock = new EventEmitter<number>;
+  @Output() updatedProduct = new EventEmitter<Producto>;
   protected newStock: number;
+  protected producto: Producto;
   protected isVisible: boolean = false;
   protected isLoading: boolean = false;
   protected submitted: boolean = false;
@@ -48,7 +51,8 @@ export class EditLineaComponent implements OnInit {
     private lineaService: LineaService,
     private validationService: ValidationMessagesService,
     private confirmer: ConfirmationService,
-    private toaster: ToastService
+    private toaster: ToastService,
+    private productoService: ProductoService
   ) { }
 
   getCantidadErrors() {
@@ -61,6 +65,17 @@ export class EditLineaComponent implements OnInit {
     this.lineaForm.setValue({
       cantidad: this.linea.cantidad
     })
+    this.productoService.findById(this.linea.id_producto).subscribe({
+      next: (response: Response<Producto>) => {
+        const { data } = response;
+        this.producto = data;
+      },
+      error: (error: any) => { console.log(error) }
+    })
+  }
+
+  refresh() {
+    this.ngOnInit();
   }
 
   showDialog() {
@@ -108,20 +123,28 @@ export class EditLineaComponent implements OnInit {
         this.toaster.smallToast('success', message);
         this.onUpdate.emit(data);
 
+        this.isLoading = false
+
         if (this.lineaForm.value.cantidad! < this.linea.cantidad) {
-          this.newStock = this.currentStock + (this.linea.cantidad - this.lineaForm.value.cantidad!)
-          this.onNewStock.emit(this.newStock);
+          console.log('estoy quitando cantidad');
+          this.newStock = this.producto.cantidad + (this.linea.cantidad - this.lineaForm.value.cantidad!)
+          this.producto.cantidad = this.newStock
+          this.updatedProduct.emit(this.producto);
 
         } else if (this.lineaForm.value.cantidad! > this.linea.cantidad) {
-          this.newStock = this.currentStock - (this.lineaForm.value.cantidad! - this.linea.cantidad);
-          this.onNewStock.emit(this.newStock);
+          console.log('estoy metiendo cantidad');
+          this.newStock = this.producto.cantidad - (this.lineaForm.value.cantidad! - this.linea.cantidad);
+          this.producto.cantidad = this.newStock
+          this.updatedProduct.emit(this.producto);
         } else {
-          this.onNewStock.emit(this.currentStock);
+          console.log('no estoy cambiando nada')
+          this.updatedProduct.emit(this.producto);
         }
       },
       error: (error: any) => {
         console.log(error);
         this.toaster.smallToast('error', 'Error al actualizar la línea.');
+        this.isLoading = false;
       }
     })
 

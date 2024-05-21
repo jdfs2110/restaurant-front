@@ -111,9 +111,10 @@
         [styleClass]="first ? 'border-top-1 border-bottom-none' : last ? 'border-bottom-1 border-top-none' : 'border-top-none border-bottom-none'">
 
         <div class="flex justify-content-end align-items-center gap-2">
-          <app-edit-linea [linea]="linea" (onUpdate)="updateLinea($event)" [currentStock]="productoActual.cantidad"
-            (onNewStock)="updateProducto($event)"></app-edit-linea>
-          <p-button [rounded]="true" icon="pi pi-trash" severity="danger" (onClick)="showDeletion($event, linea)" />
+          <app-edit-linea [linea]="linea" (onUpdate)="updateLinea($event)"
+            (updatedProduct)="updateProducto($event)"></app-edit-linea>
+          <p-button [rounded]="true" icon="pi pi-trash" severity="danger" (onClick)="showDeletion($event, linea)"
+            [disabled]="linea.estado_numero === 1" />
         </div>
 
         <ng-template pTemplate="header">
