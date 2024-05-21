@@ -11,6 +11,7 @@ import { ButtonModule } from "primeng/button";
 import { DialogModule } from "primeng/dialog";
 import { ImageModule } from "primeng/image";
 import { InputTextModule } from "primeng/inputtext";
+import env from '@/app/env.json';
 @Component({
   selector: 'app-categoria-edit-dialog',
   standalone: true,
@@ -129,6 +130,6 @@ export class CategoriaEditDialogComponent implements OnInit {
   }
 
   setPlaceholder(event: any) {
-    event.target.src = '/assets/images/placeholder.jpg';
+    event.target.src = env.PLACEHOLDER_PHOTO;
   }
 }

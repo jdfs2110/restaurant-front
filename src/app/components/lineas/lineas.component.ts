@@ -12,6 +12,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
 import { CommonModule } from '@angular/common';
+import env from '@/app/env.json';
 @Component({
   selector: 'app-lineas',
   standalone: true,
@@ -110,6 +111,6 @@ export class LineasComponent implements OnInit {
   }
 
   setPlaceholder(event: any) {
-    event.target.src = '/assets/images/placeholder.jpg';
+    event.target.src = env.PLACEHOLDER_PHOTO;
   }
 }

@@ -13,6 +13,7 @@ import { CategoriaEditDialogComponent } from "../../../components/admin/categori
 import { ImageModule } from 'primeng/image';
 import { CreateCategoryComponent } from "../../../components/admin/categorias/create-category/create-category.component";
 import { ProductsByCategoryComponent } from "../../../components/admin/categorias/products-by-category/products-by-category.component";
+import env from '@/app/env.json';
 @Component({
   selector: 'app-admin-categorias',
   standalone: true,
@@ -156,6 +157,6 @@ export class AdminCategoriasComponent implements OnInit {
   }
 
   setPlaceholder(event: any) {
-    event.target.src = '/assets/images/placeholder.jpg';
+    event.target.src = env.PLACEHOLDER_PHOTO;
   }
 }

@@ -14,7 +14,7 @@ import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { ImageModule } from 'primeng/image';
 import { InputTextModule } from 'primeng/inputtext';
-
+import env from '@/app/env.json';
 @Component({
   selector: 'app-producto-edit-dialog',
   standalone: true,
@@ -199,7 +199,7 @@ export class ProductoEditDialogComponent implements OnInit {
   }
 
   setPlaceholder(event: any) {
-    event.target.src = '/assets/images/placeholder.jpg';
+    event.target.src = env.PLACEHOLDER_PHOTO;
   }
 }
 

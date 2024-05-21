@@ -29,6 +29,7 @@ import { EditLineaComponent } from "./edit-linea.component";
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { AudioService } from '@/app/lib/audio.service';
+import env from '@/app/env.json'
 @Component({
   selector: 'app-mesas',
   standalone: true,
@@ -235,7 +236,7 @@ export class MesasComponent implements OnInit {
   }
 
   setPlaceholder(event: any) {
-    event.target.src = '/assets/images/placeholder.jpg';
+    event.target.src = env.PLACEHOLDER_PHOTO;
   }
 
   filterProduct(event: any, tipo: 'barra' | 'cocina') {

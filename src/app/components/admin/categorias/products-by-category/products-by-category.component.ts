@@ -3,7 +3,7 @@ import { CategoriaService } from '@/app/services/categoria.service';
 import { Categoria } from '@/app/types/Categoria';
 import { Producto } from '@/app/types/Producto';
 import { Response } from '@/app/types/Response';
-import { Stock } from '@/app/types/Stock';
+import env from '@/app/env.json';
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
@@ -57,6 +57,6 @@ export class ProductsByCategoryComponent implements OnInit {
   }
 
   setPlaceholder(event: any) {
-    event.target.src = '/assets/images/placeholder.jpg';
+    event.target.src = env.PLACEHOLDER_PHOTO;
   }
 }

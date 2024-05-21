@@ -76,6 +76,7 @@ export class PerfilComponent implements OnInit {
       name: this.user.name,
       email: this.user.email
     })
+    this.passwordGroup.reset();
     this.passwordGroup.validator = RepeatPasswordValidator.repeatPassword();
     console.log(this.user);
   }

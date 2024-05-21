@@ -5,6 +5,7 @@ import { ProductoService } from '@/app/services/producto.service';
 import { Response } from '@/app/types/Response';
 import { AccordionModule } from 'primeng/accordion';
 import { AvatarModule } from 'primeng/avatar';
+import env from '@/app/env.json';
 @Component({
   selector: 'app-productos',
   standalone: true,
@@ -34,6 +35,6 @@ export class ProductosComponent implements OnInit {
   }
 
   setPlaceholder(event: any) {
-    event.target.src = '/assets/images/placeholder.jpg';
+    event.target.src = env.PLACEHOLDER_PHOTO;
   }
 }

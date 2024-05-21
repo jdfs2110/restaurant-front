@@ -14,7 +14,7 @@ import { ProductoEditDialogComponent } from "../../../components/admin/productos
 import { Categoria } from '@/app/types/Categoria';
 import { CategoriaService } from '@/app/services/categoria.service';
 import { CreateProductComponent } from "../../../components/admin/productos/create-product/create-product.component";
-
+import env from '@/app/env.json';
 @Component({
   selector: 'app-admin-productos',
   standalone: true,
@@ -169,7 +169,7 @@ export class AdminProductosComponent implements OnInit {
   }
 
   setPlaceholder(event: any) {
-    event.target.src = '/assets/images/placeholder.jpg';
+    event.target.src = env.PLACEHOLDER_PHOTO;
   }
 
   refreshTable() {
