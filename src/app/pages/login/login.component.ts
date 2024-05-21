@@ -92,6 +92,7 @@ export class LoginComponent implements OnInit {
           console.log(error);
           this.toaster.smallToast('error', 'Error en el login');
           this.setLoginError('Correo o contraseña incorrectos.');
+          this.submitted = false;
           this.loginError = true;
         }
       });

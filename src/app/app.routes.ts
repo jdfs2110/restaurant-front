@@ -74,11 +74,6 @@ export const routes: Routes = [
         component: AdminRolesComponent,
         title: 'Roles - RRHH'
       },
-      {
-        path: 'registro',
-        component: RegistroComponent,
-        title: 'Registrar un usuario - RRHH'
-      }
     ]
   },
   {

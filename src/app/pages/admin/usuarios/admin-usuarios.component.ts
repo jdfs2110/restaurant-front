@@ -195,8 +195,6 @@ export class AdminUsuariosComponent implements OnInit {
   register() {
     if (this.rolId === 4) {
       this.router.navigate(['/admin/registro'])
-    } else {
-      this.router.navigate(['/rrhh/registro']);
     }
   }
 

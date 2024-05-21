@@ -5,7 +5,7 @@
         <strong>Usuarios</strong>
       </div>
       <div class="p-toolbar-group-end flex gap-2">
-        <p-button icon="pi pi-plus" [rounded]="true" (onClick)="register()" />
+        <p-button icon="pi pi-plus" [rounded]="true" (onClick)="register()" [disabled]="rolId !== 4" />
         <p-button [icon]="getIconClass()" [rounded]="true" (onClick)="refreshTable()"></p-button>
         <p-autoComplete field="name" (completeMethod)="filterUser($event)" [suggestions]="filteredUsers"
           (onSelect)="onSelect($event)" placeholder="Buscar usuario" [showClear]="true"></p-autoComplete>
