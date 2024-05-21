@@ -1,6 +1,5 @@
 import { AuthService } from '@/app/services/auth.service';
 import { UserSignalService } from '@/app/services/user.signal.service';
-import { User } from '@/app/types/User';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -93,12 +92,12 @@ export class HeaderComponent implements OnInit {
         items: [
           {
             label: 'Mesas',
-            icon: 'pi pi-question', // no se que ponerle
+            icon: 'pi pi-objects-column',
             routerLink: '/admin/mesas'
           },
           {
             label: 'Pedidos',
-            icon: 'pi pi-question', // no se que ponerle
+            icon: 'pi pi-shopping-cart', // no se que ponerle
             routerLink: '/admin/pedidos'
           },
           {
@@ -114,9 +113,40 @@ export class HeaderComponent implements OnInit {
           }
         ]
       },
+      {
+        label: 'Perfil',
+        icon: 'pi pi-user-edit',
+        routerLink: '/perfil'
+      },
+      {
+        label: 'Ventanas',
+        icon: 'pi pi-sitemap',
+        items: [
+          {
+            label: 'Mesas',
+            icon: 'pi pi-objects-column',
+            routerLink: '/mesas'
+          },
+          {
+            label: 'Líneas de barra',
+            icon: 'pi pi-list',
+            routerLink: '/lineas/barra'
+          },
+          {
+            label: 'Líneas de cocina',
+            icon: 'pi pi-list',
+            routerLink: '/lineas/cocina'
+          },
+          {
+            label: 'Productos',
+            icon: 'pi pi-shopping-bag',
+            routerLink: '/productos'
+          }
+        ]
+      }
     ];
 
-    this.rrhhMenuItems = [ // Que carguen el mismo componente y que se compruebe si es rrhh o admin
+    this.rrhhMenuItems = [
       {
         label: 'Empleados',
         icon: 'pi pi-user',
@@ -133,18 +163,23 @@ export class HeaderComponent implements OnInit {
           }
         ]
       },
+      {
+        label: 'Perfil',
+        icon: 'pi pi-user-edit',
+        routerLink: '/perfil'
+      }
     ];
 
     this.meseroMenuItems = [
       {
         label: 'Mesas',
-        icon: 'pi pi-question', // no se que ponerle
+        icon: 'pi pi-objects-column',
         routerLink: '/mesas'
       },
       {
-        label: 'Productos',
-        icon: 'pi pi-shopping-bag',
-        routerLink: '/productos'
+        label: 'Perfil',
+        icon: 'pi pi-user-edit',
+        routerLink: '/perfil'
       }
     ]
 
@@ -158,6 +193,11 @@ export class HeaderComponent implements OnInit {
         label: 'Productos',
         icon: 'pi pi-shopping-bag',
         routerLink: '/productos'
+      },
+      {
+        label: 'Perfil',
+        icon: 'pi pi-user-edit',
+        routerLink: '/perfil'
       }
     ];
   }

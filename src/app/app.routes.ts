@@ -14,6 +14,9 @@ import { AdminProductosComponent } from './pages/admin/productos/admin-productos
 import { AdminMesasComponent } from './pages/admin/mesas/admin-mesas.component';
 import { AdminPedidosComponent } from './pages/admin/pedidos/admin-pedidos.component';
 import { AdminFacturasComponent } from './pages/admin/facturas/admin-facturas.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
+import { RrhhDashboardComponent } from './pages/rrhh/dashboard/rrhh-dashboard.component';
+import { ProductosComponent } from './pages/productos/productos.component';
 
 export const routes: Routes = [
   {
@@ -45,6 +48,38 @@ export const routes: Routes = [
     path: 'mesas',
     component: MesasComponent,
     title: 'Mesas - Restaurant'
+  },
+  {
+    path: 'productos',
+    component: ProductosComponent,
+    title: 'Productos - Restaurant'
+  },
+  {
+    path: 'perfil',
+    component: PerfilComponent,
+    title: 'Perfil - Restaurant'
+  },
+  {
+    path: 'rrhh',
+    component: RrhhDashboardComponent,
+    title: 'RRHH - Restaurant',
+    children: [
+      {
+        path: 'usuarios',
+        component: AdminUsuariosComponent,
+        title: 'Usuarios - RRHH'
+      },
+      {
+        path: 'roles',
+        component: AdminRolesComponent,
+        title: 'Roles - RRHH'
+      },
+      {
+        path: 'registro',
+        component: RegistroComponent,
+        title: 'Registrar un usuario - RRHH'
+      }
+    ]
   },
   {
     path: 'admin',

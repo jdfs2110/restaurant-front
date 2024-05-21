@@ -10,3 +10,9 @@ export type Linea = {
   estado: string | number;
   estado_numero: number;
 }
+
+export type LineaCompleted = {
+  id: number;
+  message: string;
+  ocurredOn: Date
+}

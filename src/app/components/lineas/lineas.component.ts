@@ -108,4 +108,8 @@ export class LineasComponent implements OnInit {
       }
     })
   }
+
+  setPlaceholder(event: any) {
+    event.target.src = '/assets/images/placeholder.jpg';
+  }
 }

@@ -5,6 +5,7 @@ import { UserSignalService } from '@/app/services/user.signal.service';
 import { MesasComponent } from "../mesas/mesas.component";
 import { AdminDashboardComponent } from "../admin/dashboard/admin-dashboard.component";
 import { LineasComponent } from "../../components/lineas/lineas.component";
+import { RrhhDashboardComponent } from "../rrhh/dashboard/rrhh-dashboard.component";
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ import { LineasComponent } from "../../components/lineas/lineas.component";
     HeaderComponent,
     MesasComponent,
     AdminDashboardComponent,
-    LineasComponent
+    LineasComponent,
+    RrhhDashboardComponent
   ]
 })
 export class HomeComponent implements OnInit {

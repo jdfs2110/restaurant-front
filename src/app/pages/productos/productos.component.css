@@ -1,0 +1,8 @@
+p-accordion ::ng-deep .p-accordion-content {
+  padding-bottom: 10px;
+
+}
+
+div>p {
+  margin-block: 8px;
+}

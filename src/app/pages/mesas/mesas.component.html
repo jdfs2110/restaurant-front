@@ -28,10 +28,10 @@
         @if (mesa.estado_numero === 1) {
         <div class="flex flex-row gap-2 w-full">
           <div class="flex-1">
-            <p-button styleClass="w-full" label="Servir" (onClick)="servirPedido(mesa)" />
+            <p-button styleClass="w-full" label="Servir" (onClick)="showServirDialog($event, mesa)" />
           </div>
           <div class="flex-1">
-            <p-button styleClass="w-full" label="Añadir producto" (onClick)="nuevaLinea(mesa)" /> <!--TODO-->
+            <p-button styleClass="w-full" label="Añadir producto" (onClick)="nuevaLinea(mesa)" />
           </div>
         </div>
         } @else {
@@ -108,8 +108,7 @@
     <div>
       @for (linea of lineas; track linea.id; let last = $last; let first = $first) {
       <p-panel [toggleable]="true" [collapsed]="true" toggler="header"
-        [styleClass]="first ? 'border-top-1 border-bottom-none' : last ? 'border-bottom-1 border-top-none' : 'border-top-none border-bottom-none'">
-
+        [styleClass]="first && last ? 'border-top-1 border-bottom-1' : first ? 'border-top-1 border-bottom-none' : last ? 'border-bottom-1 border-top-none' : 'border-top-none border-bottom-none'">
         <div class="flex justify-content-end align-items-center gap-2">
           <app-edit-linea [linea]="linea" (onUpdate)="updateLinea($event)"
             (updatedProduct)="updateProducto($event)"></app-edit-linea>
@@ -124,7 +123,7 @@
                 (onImageError)="setPlaceholder($event)" />
               <span class="font-medium">{{ linea.cantidad }}x {{ linea.producto }}</span>
             </div>
-            <span class="font-semibold w-2 pl-2 mr-3">{{ (linea.precio * linea.cantidad).toFixed(2) }}€</span>
+            <span class="font-semibold w-2 pl-2 mr-4">{{ (linea.precio * linea.cantidad).toFixed(2) }}€</span>
           </div>
         </ng-template>
 

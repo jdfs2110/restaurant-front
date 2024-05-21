@@ -40,18 +40,18 @@
               <app-admin-user-edit [user]="user" [roles]="roles" (onUpdate)="updateUser($event)"></app-admin-user-edit>
 
               <p-button label="Eliminar" severity="danger" styleClass="hidden md:inline ml-2"
-                (onClick)="showDialog($event, user)" />
+                (onClick)="showDialog($event, user)" [disabled]="rolId !== 4 && user.id_rol === 4" />
 
               <p-button [rounded]="true" icon="pi pi-trash" severity="danger" styleClass="md:hidden"
-                (onClick)="showDialog($event, user)" />
+                (onClick)="showDialog($event, user)" [disabled]="rolId !== 4 && user.id_rol === 4" />
 
               <app-user-edit-password [user]="user"></app-user-edit-password>
 
               <p-button label="Cerrar sesiones" severity="warning" styleClass="hidden md:inline ml-2"
-                (onClick)="promptTokenRemoval($event, user)" />
+                (onClick)="promptTokenRemoval($event, user)" [disabled]="rolId !== 4 && user.id_rol === 4" />
 
               <p-button [rounded]="true" icon="pi pi-minus-circle" severity="warning" styleClass="md:hidden"
-                (onClick)="promptTokenRemoval($event, user)" />
+                (onClick)="promptTokenRemoval($event, user)" [disabled]="rolId !== 4 && user.id_rol === 4" />
             </div>
           </td>
         </tr>

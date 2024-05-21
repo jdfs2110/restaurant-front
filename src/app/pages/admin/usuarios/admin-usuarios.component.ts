@@ -56,6 +56,10 @@ export class AdminUsuariosComponent implements OnInit {
     return this.userSignal.user().id;
   }
 
+  get rolId(): number {
+    return this.userSignal.user().id_rol;
+  }
+
 
   ngOnInit(): void {
     this.loading = true;
@@ -189,7 +193,11 @@ export class AdminUsuariosComponent implements OnInit {
 
   private router: Router = inject(Router);
   register() {
-    this.router.navigate(['/admin/registro'])
+    if (this.rolId === 4) {
+      this.router.navigate(['/admin/registro'])
+    } else {
+      this.router.navigate(['/rrhh/registro']);
+    }
   }
 
   promptTokenRemoval(event: Event, user: User) {

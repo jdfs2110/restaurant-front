@@ -23,4 +23,13 @@ export class ToastService {
       detail: detail
     });
   }
+
+  longerDetailedToast(severity: string, message: string, detail: string) {
+    this.messageService.add({
+      severity: severity,
+      summary: message,
+      detail: detail,
+      life: 10000
+    })
+  }
 } 

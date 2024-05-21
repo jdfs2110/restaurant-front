@@ -15,7 +15,7 @@ import { ValidationMessagesService } from '@/app/services/validation-messages.se
 import { ErrorPComponent } from "../../components/error-p/error-p.component";
 import { Pedido } from '@/app/types/Pedido';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { Linea } from '@/app/types/Linea';
+import { Linea, LineaCompleted } from '@/app/types/Linea';
 import { ToastService } from '@/app/lib/toast.service';
 import { CreatePedidoComponent } from "./create-pedido.component";
 import { PusherService } from '@/app/services/pusher.service';
@@ -28,6 +28,7 @@ import { RippleModule } from 'primeng/ripple';
 import { EditLineaComponent } from "./edit-linea.component";
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { AudioService } from '@/app/lib/audio.service';
 @Component({
   selector: 'app-mesas',
   standalone: true,
@@ -100,7 +101,8 @@ export class MesasComponent implements OnInit {
     private pusher: PusherService,
     private productoService: ProductoService,
     private validationService: ValidationMessagesService,
-    private confirmer: ConfirmationService
+    private confirmer: ConfirmationService,
+    private audioService: AudioService
   ) { }
 
   ngOnInit(): void {
@@ -117,7 +119,7 @@ export class MesasComponent implements OnInit {
     this.productoService.all().subscribe({
       next: (response: Response<Producto[]>) => {
         const { data } = response;
-        this.productos = data;
+        this.productos = data.filter((producto: Producto) => { return producto.cantidad > 0 && producto.activo });
         this.productosCocina = data.filter(producto => producto.id_categoria !== 1);
         this.productosCocinaFiltered = this.productosCocina;
         this.productosBarra = data.filter(producto => producto.id_categoria === 1);
@@ -137,12 +139,31 @@ export class MesasComponent implements OnInit {
         return mesa;
       })
     })
+
+    const notifications = this.pusher.listenTo('lineas-notifications');
+    notifications.bind('linea-completed', (notification: LineaCompleted) => {
+      const { id, message, ocurredOn } = notification;
+      console.log(notification);
+      this.audioService.notification();
+      this.toaster.longerDetailedToast('info', 'Línea a recoger', message);
+    })
   }
 
   ocuparMesa(mesa: Mesa) {
     const pos = this.mesas.indexOf(mesa);
     this.mesas[pos].estado_numero = 1;
     this.mesas[pos].estado = 'ocupada';
+  }
+
+  showServirDialog(event: Event, mesa: Mesa) {
+    this.confirmer.confirm({
+      target: event.target as EventTarget,
+      message: `¿Está seguro que desea servir el pedido?`,
+      header: 'Servir pedido',
+      icon: 'pi pi-exclamation-triangle',
+      rejectButtonStyleClass: 'p-button-text',
+      accept: () => { this.servirPedido(mesa) }
+    })
   }
 
   servirPedido(mesa: Mesa) {

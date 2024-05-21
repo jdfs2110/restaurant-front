@@ -8,7 +8,7 @@ export type User = {
   rol: string;
 }
 
-export type AdminChangeUserPassword = {
+export type ChangeUserPassword = {
   password: string;
   password_confirmation: string;
 }

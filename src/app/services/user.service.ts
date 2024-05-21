@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import env from "@/app/env.json";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { AdminChangeUserPassword, User } from "@/app/types/User";
+import { ChangeUserPassword, User } from "@/app/types/User";
 import { RegisterForm } from "@/app/types/RegisterForm";
 import { Pedido } from "@/app/types/Pedido";
 import { Response } from "@/app/types/Response";
@@ -48,7 +48,7 @@ export class UserService {
     return this.http.get<Response<User[]>>(`${this.url}/similar/${name}`);
   }
 
-  changePassword(body: AdminChangeUserPassword, id: number): Observable<Response<User>> {
+  changePassword(body: ChangeUserPassword, id: number): Observable<Response<User>> {
     return this.http.post<Response<User>>(`${this.url}/${id}/password`, body);
   }
 

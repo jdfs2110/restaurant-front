@@ -56,6 +56,10 @@ export class AdminUserEditDialogComponent implements OnInit {
     return this.userSignal.user().id
   }
 
+  get rolId(): number {
+    return this.userSignal.user().id_rol;
+  }
+
   constructor(
     private userSignal: UserSignalService,
     private userService: UserService,

@@ -2,7 +2,7 @@ import { RepeatPasswordValidator } from '@/app/lib/RepeatPasswordValidator';
 import { ToastService } from '@/app/lib/toast.service';
 import { UserService } from '@/app/services/user.service';
 import { ValidationMessagesService } from '@/app/services/validation-messages.service';
-import { AdminChangeUserPassword, User } from '@/app/types/User';
+import { ChangeUserPassword, User } from '@/app/types/User';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
@@ -11,6 +11,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ErrorPComponent } from "../../../error-p/error-p.component";
 import { InputTextModule } from 'primeng/inputtext';
 import { Response } from '@/app/types/Response';
+import { UserSignalService } from '@/app/services/user.signal.service';
 
 @Component({
   selector: 'app-user-edit-password',
@@ -39,10 +40,15 @@ export class UserEditPasswordComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private userSignal: UserSignalService,
     private validationService: ValidationMessagesService,
     private toaster: ToastService,
     private confirmer: ConfirmationService
   ) { }
+
+  get rolId(): number {
+    return this.userSignal.user().id_rol;
+  }
 
   ngOnInit(): void {
     this.passwordGroup = new FormGroup({
@@ -104,7 +110,7 @@ export class UserEditPasswordComponent implements OnInit {
       return;
     }
 
-    const password: AdminChangeUserPassword = {
+    const password: ChangeUserPassword = {
       password: formValue['password'] ?? '',
       password_confirmation: formValue['password_confirmation'] ?? ''
     }
