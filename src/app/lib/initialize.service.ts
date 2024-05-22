@@ -18,7 +18,6 @@ export class InitializeService {
 
   public start(redirectTo: string): void {
     if (this.cookieService.get('token') === '') {
-      console.log('no hay token, regirigiendo al login');
       this.router.navigate(['login']);
     } else {
       this.authService.setToken(this.cookieService.get('token'));
@@ -27,9 +26,7 @@ export class InitializeService {
         next: (response: LoggedUserResponse) => {
           const { data } = response;
           this.userSignal.updateUser(data);
-          console.log(data);
 
-          console.log('token encontrado! navegando a', redirectTo);
           if (redirectTo !== '') this.router.navigate([redirectTo]);
         },
 

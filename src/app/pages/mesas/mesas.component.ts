@@ -113,7 +113,7 @@ export class MesasComponent implements OnInit, OnDestroy {
     private validationService: ValidationMessagesService,
     private confirmer: ConfirmationService,
     private audioService: AudioService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.mesaService.findAll().subscribe({
@@ -166,11 +166,11 @@ export class MesasComponent implements OnInit, OnDestroy {
         this.productos = data.filter((producto: Producto) => {
           return producto.cantidad > 0 && producto.activo;
         });
-        this.productosCocina = data.filter(
+        this.productosCocina = this.productos.filter(
           (producto) => producto.id_categoria !== 1,
         );
         this.productosCocinaFiltered = this.productosCocina;
-        this.productosBarra = data.filter(
+        this.productosBarra = this.productos.filter(
           (producto) => producto.id_categoria === 1,
         );
         this.productosBarraFiltered = this.productosBarra;
@@ -352,9 +352,14 @@ export class MesasComponent implements OnInit, OnDestroy {
       },
       error: (error: any) => {
         console.log(error);
+        if (error.error.error) {
+          console.log(error.error.error);
+          this.toaster.detailedToast('error', 'Error al añadir el producto', error.error.error)
+        } else {
+          this.toaster.smallToast('error', 'Error al añadir el producto');
+        }
         this.loading = false;
         this.submitted = false;
-        this.toaster.smallToast('error', 'Error al añadir el producto');
       },
     });
   }

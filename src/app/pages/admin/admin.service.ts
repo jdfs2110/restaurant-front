@@ -9,14 +9,11 @@ export class AdminService {
   constructor(
     private userSignal: UserSignalService,
     private router: Router,
-  ) {}
+  ) { }
 
   checkIfAdmin(): void {
     if (this.userSignal.user().id_rol !== 4) {
       this.router.navigateByUrl('/');
-      // setTimeout(() => {
-      //   window.location.reload();
-      // }, 100);
     }
   }
 }

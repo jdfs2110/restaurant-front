@@ -1,4 +1,4 @@
-<main class="lg:w-8 md:w-10 md:mx-auto lg:mb-2">
+<main class="lg:w-11 md:w-10 md:mx-auto lg:mb-2">
   <div class="card">
     <p-toolbar styleClass="mt-2 sticky top-0 z-1">
       <div class="p-toolbar-group-start">
@@ -6,36 +6,14 @@
       </div>
       <div class="p-toolbar-group-end flex gap-2 flex-wrap">
         <app-create-category (onCreate)="refreshTable()"></app-create-category>
-        <p-button
-          title="Refrescar tabla"
-          [icon]="getIconClass()"
-          [rounded]="true"
-          (onClick)="refreshTable()"
-        />
-        <p-autoComplete
-          field="nombre"
-          (completeMethod)="filterCategory($event)"
-          [suggestions]="filteredCategories"
-          (onSelect)="onSelect($event)"
-          placeholder="Buscar categoría"
-          [showClear]="true"
-        ></p-autoComplete>
+        <p-button title="Refrescar tabla" [icon]="getIconClass()" [rounded]="true" (onClick)="refreshTable()" />
+        <p-autoComplete field="nombre" (completeMethod)="filterCategory($event)" [suggestions]="filteredCategories"
+          (onSelect)="onSelect($event)" placeholder="Buscar categoría" [showClear]="true"></p-autoComplete>
       </div>
     </p-toolbar>
-    <p-table
-      styleClass="p-datatable-gridlines"
-      [value]="categories"
-      [lazy]="true"
-      (onLazyLoad)="loadCategories($event)"
-      [paginator]="true"
-      [rows]="paginationLimit"
-      [loading]="loading"
-      [totalRecords]="totalCategories"
-      responsiveLayout="stack"
-      [tableStyle]="{ 'min-width': '300px' }"
-      dataKey="id"
-      [(first)]="first"
-    >
+    <p-table styleClass="p-datatable-gridlines" [value]="categories" [lazy]="true" (onLazyLoad)="loadCategories($event)"
+      [paginator]="true" [rows]="paginationLimit" [loading]="loading" [totalRecords]="totalCategories"
+      responsiveLayout="stack" [tableStyle]="{ 'min-width': '300px' }" dataKey="id" [(first)]="first">
       <ng-template pTemplate="header">
         <tr>
           <th>ID</th>
@@ -50,41 +28,21 @@
           <td>{{ category.id }}</td>
           <td>{{ category.nombre }}</td>
           <td>
-            <p-image
-              [src]="category.foto"
-              [alt]="category.nombre"
-              width="150"
-              height="100"
-              [preview]="true"
-              (onImageError)="setPlaceholder($event)"
-            ></p-image>
+            <p-image [src]="category.foto" [alt]="category.nombre" width="150" height="100" [preview]="true"
+              (onImageError)="setPlaceholder($event)"></p-image>
           </td>
           <td class="px-0 md:px-3">
             <div class="flex gap-2 justify-content-start align-items-center">
-              <app-categoria-edit-dialog
-                [category]="category"
-                (onUpdate)="updateCategory($event)"
-              ></app-categoria-edit-dialog>
+              <app-categoria-edit-dialog [category]="category"
+                (onUpdate)="updateCategory($event)"></app-categoria-edit-dialog>
 
-              <p-button
-                label="Eliminar"
-                severity="danger"
-                styleClass="hidden md:inline md:ml-2"
-                (onClick)="showDialog($event, category)"
-              />
+              <p-button label="Eliminar" severity="danger" styleClass="hidden md:inline md:ml-2"
+                (onClick)="showDialog($event, category)" />
 
-              <p-button
-                title="Eliminar"
-                [rounded]="true"
-                icon="pi pi-trash"
-                severity="danger"
-                styleClass="md:hidden"
-                (onClick)="showDialog($event, category)"
-              />
+              <p-button title="Eliminar" [rounded]="true" icon="pi pi-trash" severity="danger" styleClass="md:hidden"
+                (onClick)="showDialog($event, category)" />
 
-              <app-products-by-category
-                [category]="category"
-              ></app-products-by-category>
+              <app-products-by-category [category]="category"></app-products-by-category>
             </div>
           </td>
         </tr>

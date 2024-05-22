@@ -21,3 +21,11 @@ body {
 body {
   min-width: 250px;
 }
+
+p-image ::ng-deep img {
+  object-fit: cover;
+}
+
+img {
+  object-fit: cover;
+}

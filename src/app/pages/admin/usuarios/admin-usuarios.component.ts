@@ -54,7 +54,7 @@ export class AdminUsuariosComponent implements OnInit {
     private confirmer: ConfirmationService,
     private toaster: ToastService,
     private rolService: RolService,
-  ) {}
+  ) { }
 
   get userId(): number {
     return this.userSignal.user().id;

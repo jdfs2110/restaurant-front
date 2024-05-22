@@ -1,4 +1,4 @@
-<main class="md:w-7 md:mx-auto md:mb-2">
+<main class="md:w-7 lg:w-10 md:mx-auto md:mb-2">
   <div class="card">
     <p-toolbar styleClass="mt-2">
       <div class="p-toolbar-group-start">
@@ -8,17 +8,9 @@
         <app-create-mesa (newMesa)="pushMesa($event)"></app-create-mesa>
       </div>
     </p-toolbar>
-    <p-table
-      [value]="mesas"
-      styleClass="p-datatable-gridlines"
-      [breakpoint]="'600px'"
-      responsiveLayout="stack"
-      [tableStyle]="{ 'min-width': '375px' }"
-      scrollHeight="flex"
-      [paginator]="true"
-      [rows]="5"
-      [rowsPerPageOptions]="[5, 10, 15]"
-    >
+    <p-table [value]="mesas" styleClass="p-datatable-gridlines" [breakpoint]="'600px'" responsiveLayout="stack"
+      [tableStyle]="{ 'min-width': '375px' }" scrollHeight="flex" [paginator]="true" [rows]="5"
+      [rowsPerPageOptions]="[5, 10, 15]">
       <ng-template pTemplate="header">
         <tr>
           <th>ID</th>
@@ -38,26 +30,13 @@
           <td>{{ mesa.estado }}</td>
           <td>
             <div class="flex gap-2 justify-content-start">
-              <app-mesa-edit-dialog
-                [mesa]="mesa"
-                (onUpdate)="updateMesa($event)"
-              ></app-mesa-edit-dialog>
+              <app-mesa-edit-dialog [mesa]="mesa" (onUpdate)="updateMesa($event)"></app-mesa-edit-dialog>
 
-              <p-button
-                label="Eliminar"
-                severity="danger"
-                styleClass="hidden md:inline md:ml-2"
-                (onClick)="showDialog($event, mesa)"
-              />
+              <p-button label="Eliminar" severity="danger" styleClass="hidden md:inline md:ml-2"
+                (onClick)="showDialog($event, mesa)" />
 
-              <p-button
-                title="Eliminar"
-                [rounded]="true"
-                icon="pi pi-trash"
-                severity="danger"
-                styleClass="md:hidden"
-                (onClick)="showDialog($event, mesa)"
-              />
+              <p-button title="Eliminar" [rounded]="true" icon="pi pi-trash" severity="danger" styleClass="md:hidden"
+                (onClick)="showDialog($event, mesa)" />
             </div>
           </td>
         </tr>

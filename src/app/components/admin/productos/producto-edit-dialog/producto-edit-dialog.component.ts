@@ -49,11 +49,11 @@ export class ProductoEditDialogComponent implements OnInit {
 
   protected estados: Estado[] = [
     {
-      nombre: 'Disponible',
+      nombre: 'Activo',
       valor: '1',
     },
     {
-      nombre: 'No disponible',
+      nombre: 'Inactivo',
       valor: '0',
     },
   ];
@@ -64,7 +64,7 @@ export class ProductoEditDialogComponent implements OnInit {
       Validators.maxLength(40),
     ]),
     precio: new FormControl(0, [Validators.required]),
-    activo: new FormControl(1, [Validators.required]),
+    activo: new FormControl('', [Validators.required]),
     foto: new FormControl(null),
     cantidad: new FormControl(0),
     id_categoria: new FormControl(0, [Validators.required]),
@@ -76,7 +76,7 @@ export class ProductoEditDialogComponent implements OnInit {
     private validationService: ValidationMessagesService,
     private toaster: ToastService,
     private confirmer: ConfirmationService,
-  ) {}
+  ) { }
 
   showEditDialog() {
     this.isVisible = true;
@@ -86,7 +86,7 @@ export class ProductoEditDialogComponent implements OnInit {
     this.currentImage = this.product.foto;
     this.productoForm.controls.nombre.setValue(this.product.nombre);
     this.productoForm.controls.precio.setValue(this.product.precio);
-    this.productoForm.controls.activo.setValue(this.product.activo ? 1 : 0);
+    this.productoForm.controls.activo.setValue(this.product.activo ? '1' : '0');
     this.productoForm.controls.cantidad.setValue(this.product.cantidad);
     this.productoForm.controls.id_categoria.setValue(this.product.id_categoria);
   }
@@ -170,7 +170,7 @@ export class ProductoEditDialogComponent implements OnInit {
       this.productoForm.controls.nombre.value ?? this.product.nombre;
     const precio =
       this.productoForm.controls.precio.value ?? this.product.precio;
-    const activo = this.product.activo ? 1 : 0;
+    const activo = this.productoForm.controls.activo.value ? 1 : 0; // aaaaa
     console.log(activo);
 
     const cantidad =
