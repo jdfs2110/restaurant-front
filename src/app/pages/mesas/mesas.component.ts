@@ -123,22 +123,11 @@ export class MesasComponent implements OnInit {
       },
     });
 
-    this.productoService.all().subscribe({
-      next: (response: Response<Producto[]>) => {
-        const { data } = response;
-        this.productos = data.filter((producto: Producto) => {
-          return producto.cantidad > 0 && producto.activo;
-        });
-        this.productosCocina = data.filter(
-          (producto) => producto.id_categoria !== 1,
-        );
-        this.productosCocinaFiltered = this.productosCocina;
-        this.productosBarra = data.filter(
-          (producto) => producto.id_categoria === 1,
-        );
-        this.productosBarraFiltered = this.productosBarra;
-      },
-    });
+    this.fetchProducts();
+
+    setInterval(() => {
+      this.fetchProducts();
+    }, 120000);
 
     const channel = this.pusher.listenTo('mesas');
     channel.bind('mesa-edited', (event: Response<Mesa>) => {
@@ -159,6 +148,25 @@ export class MesasComponent implements OnInit {
       console.log(notification);
       this.audioService.notification();
       this.toaster.longerDetailedToast('info', 'Línea a recoger', message);
+    });
+  }
+
+  fetchProducts() {
+    this.productoService.all().subscribe({
+      next: (response: Response<Producto[]>) => {
+        const { data } = response;
+        this.productos = data.filter((producto: Producto) => {
+          return producto.cantidad > 0 && producto.activo;
+        });
+        this.productosCocina = data.filter(
+          (producto) => producto.id_categoria !== 1,
+        );
+        this.productosCocinaFiltered = this.productosCocina;
+        this.productosBarra = data.filter(
+          (producto) => producto.id_categoria === 1,
+        );
+        this.productosBarraFiltered = this.productosBarra;
+      },
     });
   }
 

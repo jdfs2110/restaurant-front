@@ -1,12 +1,13 @@
-<main class="md:w-5 md:mx-auto md:mb-2">
+<main class="lg:w-8 md:w-10 md:mx-auto lg:mb-2">
   <div class="card">
     <p-toolbar styleClass="mt-2 sticky top-0 z-1">
       <div class="p-toolbar-group-start">
         <strong>Categorias</strong>
       </div>
-      <div class="p-toolbar-group-end flex gap-2">
+      <div class="p-toolbar-group-end flex gap-2 flex-wrap">
         <app-create-category (onCreate)="refreshTable()"></app-create-category>
         <p-button
+          title="Refrescar tabla"
           [icon]="getIconClass()"
           [rounded]="true"
           (onClick)="refreshTable()"
@@ -31,7 +32,7 @@
       [loading]="loading"
       [totalRecords]="totalCategories"
       responsiveLayout="stack"
-      [tableStyle]="{ 'min-width': '375px' }"
+      [tableStyle]="{ 'min-width': '300px' }"
       dataKey="id"
       [(first)]="first"
     >
@@ -73,6 +74,7 @@
               />
 
               <p-button
+                title="Eliminar"
                 [rounded]="true"
                 icon="pi pi-trash"
                 severity="danger"

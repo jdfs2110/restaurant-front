@@ -12,7 +12,7 @@ import { Response } from '@/app/types/Response';
 export class CategoriaService {
   private url = `${env.API_URL}/categorias`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   findAll(page: number = 1): Observable<Response<Categoria[]>> {
     return this.http.get<Response<Categoria[]>>(`${this.url}?page=${page}`);

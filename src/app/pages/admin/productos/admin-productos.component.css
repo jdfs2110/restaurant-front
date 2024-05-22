@@ -1,3 +1,17 @@
 p-table ::ng-deep .p-datatable-loading-overlay {
   opacity: 0.4;
 }
+
+p-autoComplete ::ng-deep .p-autocomplete-input {
+  width: 250px;
+}
+
+p-toolbar ::ng-deep .p-toolbar {
+  min-width: 280px;
+}
+
+@media screen and (min-width: 1024px) {
+  p-autoComplete ::ng-deep .p-autocomplete-input {
+    width: 308px;
+  }
+}

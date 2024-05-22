@@ -4,9 +4,10 @@
       <div class="p-toolbar-group-start">
         <strong>Productos</strong>
       </div>
-      <div class="toolbar-group-end flex gap-2">
+      <div class="toolbar-group-end flex gap-2 flex-wrap">
         <app-create-product [categories]="categories"></app-create-product>
         <p-button
+          title="Refrescar tabla"
           [icon]="getIconClass()"
           [rounded]="true"
           (onClick)="refreshTable()"
@@ -31,7 +32,7 @@
       [loading]="loading"
       [totalRecords]="totalProducts"
       responsiveLayout="stack"
-      [tableStyle]="{ 'min-width': '375px' }"
+      [tableStyle]="{ 'min-width': '300px' }"
       dataKey="id"
       [(first)]="first"
     >
@@ -81,6 +82,7 @@
               />
 
               <p-button
+                title="Eliminar"
                 [rounded]="true"
                 icon="pi pi-trash"
                 severity="danger"

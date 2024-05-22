@@ -1,3 +1,7 @@
 main {
   height: calc(100dvh - 70px - 1rem);
 }
+
+p-toolbar ::ng-deep .p-toolbar {
+  min-width: 280px;
+}

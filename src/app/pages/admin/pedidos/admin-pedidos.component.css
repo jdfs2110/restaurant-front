@@ -17,3 +17,7 @@ main {
     display: table-cell !important;
   }
 }
+
+p-toolbar ::ng-deep .p-toolbar {
+  min-width: 280px;
+}

@@ -111,11 +111,6 @@ export class HeaderComponent implements OnInit {
         ],
       },
       {
-        label: 'Perfil',
-        icon: 'pi pi-user-edit',
-        routerLink: '/perfil',
-      },
-      {
         label: 'Ventanas',
         icon: 'pi pi-sitemap',
         items: [
@@ -140,6 +135,11 @@ export class HeaderComponent implements OnInit {
             routerLink: '/productos',
           },
         ],
+      },
+      {
+        label: 'Perfil',
+        icon: 'pi pi-user-edit',
+        routerLink: '/perfil',
       },
     ];
 

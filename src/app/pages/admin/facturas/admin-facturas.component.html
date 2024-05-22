@@ -5,8 +5,8 @@
         <strong>Facturas</strong>
       </div>
       <div class="p-toolbar-group-end flex gap-2">
-        <!-- <p-button icon="pi pi-plus" [rounded]="true" />no le veo el sentido -->
         <p-button
+          title="Refrescar tabla"
           [icon]="getIconClass()"
           [rounded]="true"
           (onClick)="refreshTable()"
@@ -44,9 +44,6 @@
           <td>{{ factura.id_pedido }}</td>
           <td class="px-0 md:px-3">
             <div class="flex gap-2 justify-content-start align-items-center">
-              <!-- <app-categoria-edit-dialog [category]="category"
-                (onUpdate)="updateCategory($event)"></app-categoria-edit-dialog> no le veo mucho sentido-->
-
               <p-button
                 label="Eliminar"
                 severity="danger"
@@ -55,6 +52,7 @@
               />
 
               <p-button
+                title="Eliminar"
                 [rounded]="true"
                 icon="pi pi-trash"
                 severity="danger"
