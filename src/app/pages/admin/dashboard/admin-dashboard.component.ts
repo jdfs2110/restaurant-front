@@ -6,15 +6,15 @@ import { Location } from '@angular/common';
 import { DockModule } from 'primeng/dock';
 import { MenuItem } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
-import { AdminUsuariosComponent } from "../usuarios/admin-usuarios.component";
-import { RegistroComponent } from "../registro/registro.component";
-import { AdminRolesComponent } from "../roles/admin-roles.component";
-import { AdminProductosComponent } from "../productos/admin-productos.component";
+import { AdminUsuariosComponent } from '../usuarios/admin-usuarios.component';
+import { RegistroComponent } from '../registro/registro.component';
+import { AdminRolesComponent } from '../roles/admin-roles.component';
+import { AdminProductosComponent } from '../productos/admin-productos.component';
 import { MenubarModule } from 'primeng/menubar';
-import { AdminCategoriasComponent } from "../categorias/admin-categorias.component";
-import { AdminMesasComponent } from "../mesas/admin-mesas.component";
-import { AdminPedidosComponent } from "../pedidos/admin-pedidos.component";
-import { AdminFacturasComponent } from "../facturas/admin-facturas.component";
+import { AdminCategoriasComponent } from '../categorias/admin-categorias.component';
+import { AdminMesasComponent } from '../mesas/admin-mesas.component';
+import { AdminPedidosComponent } from '../pedidos/admin-pedidos.component';
+import { AdminFacturasComponent } from '../facturas/admin-facturas.component';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -34,8 +34,8 @@ import { AdminFacturasComponent } from "../facturas/admin-facturas.component";
     AdminCategoriasComponent,
     AdminMesasComponent,
     AdminPedidosComponent,
-    AdminFacturasComponent
-  ]
+    AdminFacturasComponent,
+  ],
 })
 export class AdminDashboardComponent implements OnInit {
   protected items: MenuItem[];
@@ -67,8 +67,8 @@ export class AdminDashboardComponent implements OnInit {
 
   constructor(
     private adminService: AdminService,
-    protected location: Location
-  ) { }
+    protected location: Location,
+  ) {}
 
   protected closeAll() {
     this.usersVisible = false;
@@ -102,9 +102,11 @@ export class AdminDashboardComponent implements OnInit {
       {
         label: 'Cerrar pestaña',
         icon: 'pi pi-times',
-        command: () => { window.close() }
-      }
-    ]
+        command: () => {
+          window.close();
+        },
+      },
+    ];
     this.items = [
       {
         label: 'Todos los usuarios',
@@ -113,7 +115,7 @@ export class AdminDashboardComponent implements OnInit {
           this.closeAll();
           this.usersVisible = true;
           this.usersFetched = true;
-        }
+        },
       },
       {
         label: 'Nuevo usuario',
@@ -122,7 +124,7 @@ export class AdminDashboardComponent implements OnInit {
           this.closeAll();
           this.registroVisible = true;
           this.registroFetched = true;
-        }
+        },
       },
       {
         label: 'Roles',
@@ -131,7 +133,7 @@ export class AdminDashboardComponent implements OnInit {
           this.closeAll();
           this.rolesVisible = true;
           this.rolesFetched = true;
-        }
+        },
       },
       {
         label: 'Productos',
@@ -140,7 +142,7 @@ export class AdminDashboardComponent implements OnInit {
           this.closeAll();
           this.productosVisible = true;
           this.productosFetched = true;
-        }
+        },
       },
       {
         label: 'Categorías',
@@ -149,7 +151,7 @@ export class AdminDashboardComponent implements OnInit {
           this.closeAll();
           this.categoriasVisible = true;
           this.categoriasFetched = true;
-        }
+        },
       },
       {
         label: 'Mesas',
@@ -167,7 +169,7 @@ export class AdminDashboardComponent implements OnInit {
           this.closeAll();
           this.pedidosVisible = true;
           this.pedidosFetched = true;
-        }
+        },
       },
       {
         label: 'Facturas',
@@ -176,7 +178,7 @@ export class AdminDashboardComponent implements OnInit {
           this.closeAll();
           this.facturasVisible = true;
           this.facturasFetched = true;
-        }
+        },
       },
     ];
   }

@@ -9,7 +9,7 @@ export class AdminService {
   constructor(
     private userSignal: UserSignalService,
     private router: Router,
-  ) { }
+  ) {}
 
   checkIfAdmin(): void {
     if (this.userSignal.user().id_rol !== 4) {

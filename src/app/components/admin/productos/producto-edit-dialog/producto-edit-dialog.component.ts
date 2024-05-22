@@ -76,7 +76,7 @@ export class ProductoEditDialogComponent implements OnInit {
     private validationService: ValidationMessagesService,
     private toaster: ToastService,
     private confirmer: ConfirmationService,
-  ) { }
+  ) {}
 
   showEditDialog() {
     this.isVisible = true;

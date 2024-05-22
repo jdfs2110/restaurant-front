@@ -51,7 +51,7 @@ export class AdminProductosComponent implements OnInit {
     private confirmer: ConfirmationService,
     private toaster: ToastService,
     private categoriaService: CategoriaService,
-  ) { }
+  ) {}
 
   fetchPages() {
     this.productoService.getPages().subscribe({
@@ -92,8 +92,7 @@ export class AdminProductosComponent implements OnInit {
         this.products = data;
         this.loading = false;
         this.buttonLoading = false;
-        globalThis.window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-
+        globalThis.window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       },
       error: (error: any) => {
         console.log(error);

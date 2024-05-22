@@ -113,7 +113,7 @@ export class MesasComponent implements OnInit, OnDestroy {
     private validationService: ValidationMessagesService,
     private confirmer: ConfirmationService,
     private audioService: AudioService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.mesaService.findAll().subscribe({
@@ -354,7 +354,11 @@ export class MesasComponent implements OnInit, OnDestroy {
         console.log(error);
         if (error.error.error) {
           console.log(error.error.error);
-          this.toaster.detailedToast('error', 'Error al añadir el producto', error.error.error)
+          this.toaster.detailedToast(
+            'error',
+            'Error al añadir el producto',
+            error.error.error,
+          );
         } else {
           this.toaster.smallToast('error', 'Error al añadir el producto');
         }

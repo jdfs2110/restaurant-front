@@ -8,8 +8,16 @@
         <app-create-rol (newRol)="pushRol($event)"></app-create-rol>
       </div>
     </p-toolbar>
-    <p-table [value]="roles" styleClass="p-datatable-gridlines" [breakpoint]="'600px'" responsiveLayout="stack"
-      [tableStyle]="{ 'min-width': '375px' }" scrollHeight="flex" [paginator]="true" [rows]="5">
+    <p-table
+      [value]="roles"
+      styleClass="p-datatable-gridlines"
+      [breakpoint]="'600px'"
+      responsiveLayout="stack"
+      [tableStyle]="{ 'min-width': '375px' }"
+      scrollHeight="flex"
+      [paginator]="true"
+      [rows]="5"
+    >
       <ng-template pTemplate="header">
         <tr>
           <th pSortableColumn="id" class="md:w-3">
@@ -29,13 +37,28 @@
 
           <td>
             <div class="flex gap-2 justify-content-start">
-              <app-rol-edit-dialog [rol]="rol" (onUpdate)="updateRol($event)"></app-rol-edit-dialog>
+              <app-rol-edit-dialog
+                [rol]="rol"
+                (onUpdate)="updateRol($event)"
+              ></app-rol-edit-dialog>
 
-              <p-button label="Eliminar" severity="danger" styleClass="hidden md:inline md:ml-2"
-                (onClick)="showDialog($event, rol)" [disabled]="rol.id === 4 || rol.id === 6" />
+              <p-button
+                label="Eliminar"
+                severity="danger"
+                styleClass="hidden md:inline md:ml-2"
+                (onClick)="showDialog($event, rol)"
+                [disabled]="rol.id === 4 || rol.id === 6"
+              />
 
-              <p-button title="Eliminar" [rounded]="true" icon="pi pi-trash" severity="danger" styleClass="md:hidden"
-                (onClick)="showDialog($event, rol)" [disabled]="rol.id === 4 || rol.id === 6" />
+              <p-button
+                title="Eliminar"
+                [rounded]="true"
+                icon="pi pi-trash"
+                severity="danger"
+                styleClass="md:hidden"
+                (onClick)="showDialog($event, rol)"
+                [disabled]="rol.id === 4 || rol.id === 6"
+              />
 
               <app-users-by-rol [rol]="rol"></app-users-by-rol>
             </div>

@@ -6,14 +6,36 @@
       </div>
       <div class="toolbar-group-end flex gap-2 flex-wrap">
         <app-create-product [categories]="categories"></app-create-product>
-        <p-button title="Refrescar tabla" [icon]="getIconClass()" [rounded]="true" (onClick)="refreshTable()" />
-        <p-autoComplete field="nombre" (completeMethod)="filterProduct($event)" [suggestions]="filteredProducts"
-          (onSelect)="onSelect($event)" placeholder="Buscar producto" [showClear]="true"></p-autoComplete>
+        <p-button
+          title="Refrescar tabla"
+          [icon]="getIconClass()"
+          [rounded]="true"
+          (onClick)="refreshTable()"
+        />
+        <p-autoComplete
+          field="nombre"
+          (completeMethod)="filterProduct($event)"
+          [suggestions]="filteredProducts"
+          (onSelect)="onSelect($event)"
+          placeholder="Buscar producto"
+          [showClear]="true"
+        ></p-autoComplete>
       </div>
     </p-toolbar>
-    <p-table styleClass="p-datatable-gridlines" [value]="products" [lazy]="true" (onLazyLoad)="loadProducts($event)"
-      [paginator]="true" [rows]="paginationLimit" [loading]="loading" [totalRecords]="totalProducts"
-      responsiveLayout="stack" [tableStyle]="{ 'min-width': '300px' }" dataKey="id" [(first)]="first">
+    <p-table
+      styleClass="p-datatable-gridlines"
+      [value]="products"
+      [lazy]="true"
+      (onLazyLoad)="loadProducts($event)"
+      [paginator]="true"
+      [rows]="paginationLimit"
+      [loading]="loading"
+      [totalRecords]="totalProducts"
+      responsiveLayout="stack"
+      [tableStyle]="{ 'min-width': '300px' }"
+      dataKey="id"
+      [(first)]="first"
+    >
       <ng-template pTemplate="header">
         <tr>
           <th>ID</th>
@@ -32,23 +54,42 @@
           <td>{{ product.id }}</td>
           <td>{{ product.nombre }}</td>
           <td>
-            <p-image [src]="product.foto" [alt]="product.nombre" width="150" height="100" [preview]="true"
-              (onImageError)="setPlaceholder($event)"></p-image>
+            <p-image
+              [src]="product.foto"
+              [alt]="product.nombre"
+              width="150"
+              height="100"
+              [preview]="true"
+              (onImageError)="setPlaceholder($event)"
+            ></p-image>
           </td>
           <td>{{ product.precio }}€</td>
           <td>{{ product.cantidad }}</td>
           <td>{{ product.id_categoria }} ({{ product.categoria }})</td>
-          <td>{{ product.activo ? 'Activo' : 'Inactivo' }}</td>
+          <td>{{ product.activo ? "Activo" : "Inactivo" }}</td>
           <td class="px-0 md:px-3">
             <div class="flex gap-2 justify-content-start align-items-center">
-              <app-producto-edit-dialog [product]="product" [categories]="categories"
-                (onUpdate)="updateProduct($event)"></app-producto-edit-dialog>
+              <app-producto-edit-dialog
+                [product]="product"
+                [categories]="categories"
+                (onUpdate)="updateProduct($event)"
+              ></app-producto-edit-dialog>
 
-              <p-button label="Eliminar" severity="danger" styleClass="hidden md:inline md:ml-2"
-                (onClick)="showDialog($event, product)" />
+              <p-button
+                label="Eliminar"
+                severity="danger"
+                styleClass="hidden md:inline md:ml-2"
+                (onClick)="showDialog($event, product)"
+              />
 
-              <p-button title="Eliminar" [rounded]="true" icon="pi pi-trash" severity="danger" styleClass="md:hidden"
-                (onClick)="showDialog($event, product)" />
+              <p-button
+                title="Eliminar"
+                [rounded]="true"
+                icon="pi pi-trash"
+                severity="danger"
+                styleClass="md:hidden"
+                (onClick)="showDialog($event, product)"
+              />
             </div>
           </td>
         </tr>
