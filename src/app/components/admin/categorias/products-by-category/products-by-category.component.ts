@@ -13,14 +13,9 @@ import { DialogModule } from 'primeng/dialog';
 @Component({
   selector: 'app-products-by-category',
   standalone: true,
-  imports: [
-    ButtonModule,
-    DialogModule,
-    DataViewModule,
-    CommonModule
-  ],
+  imports: [ButtonModule, DialogModule, DataViewModule, CommonModule],
   templateUrl: './products-by-category.component.html',
-  styleUrl: './products-by-category.component.css'
+  styleUrl: './products-by-category.component.css',
 })
 export class ProductsByCategoryComponent implements OnInit {
   @Input({ required: true }) category: Categoria;
@@ -32,28 +27,33 @@ export class ProductsByCategoryComponent implements OnInit {
 
   constructor(
     private categoriaService: CategoriaService,
-    private toaster: ToastService
-  ) { }
+    private toaster: ToastService,
+  ) {}
 
   showDialog() {
     this.isVisible = true;
   }
 
   ngOnInit(): void {
-    this.categoriaService.findAllProductsByCategoryId(this.category.id).subscribe({
-      next: (response: Response<Producto[]>) => {
-        if (response === null) return;
+    this.categoriaService
+      .findAllProductsByCategoryId(this.category.id)
+      .subscribe({
+        next: (response: Response<Producto[]>) => {
+          if (response === null) return;
 
-        const { data } = response;
+          const { data } = response;
 
-        this.products = data;
-      },
-      error: (error: any) => {
-        console.log(error);
-        this.toaster.detailedToast('error', 'Ha ocurrido un error', `Ha ocurrido un error intentando obtener los productos de la categoría ${this.category.nombre}`)
-
-      }
-    })
+          this.products = data;
+        },
+        error: (error: any) => {
+          console.log(error);
+          this.toaster.detailedToast(
+            'error',
+            'Ha ocurrido un error',
+            `Ha ocurrido un error intentando obtener los productos de la categoría ${this.category.nombre}`,
+          );
+        },
+      });
   }
 
   setPlaceholder(event: any) {

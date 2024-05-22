@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderComponent } from "../../components/header/header.component";
+import { HeaderComponent } from '../../components/header/header.component';
 import { Producto } from '@/app/types/Producto';
 import { ProductoService } from '@/app/services/producto.service';
 import { Response } from '@/app/types/Response';
@@ -11,18 +11,12 @@ import env from '@/app/env.json';
   standalone: true,
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css',
-  imports: [
-    HeaderComponent,
-    AccordionModule,
-    AvatarModule
-  ]
+  imports: [HeaderComponent, AccordionModule, AvatarModule],
 })
 export class ProductosComponent implements OnInit {
   protected productos: Producto[] = [];
 
-  constructor(
-    private productoService: ProductoService
-  ) { }
+  constructor(private productoService: ProductoService) {}
 
   ngOnInit(): void {
     this.productoService.all().subscribe({
@@ -30,8 +24,10 @@ export class ProductosComponent implements OnInit {
         const { data } = response;
         this.productos = data;
       },
-      error: (error: any) => { console.log(error) }
-    })
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
   }
 
   setPlaceholder(event: any) {

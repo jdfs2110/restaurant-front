@@ -1,17 +1,17 @@
-import { Injectable, inject } from "@angular/core";
-import env from "@/app/env.json";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Injectable, inject } from '@angular/core';
+import env from '@/app/env.json';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Linea } from '@/app/types/Linea';
-import { Response } from "@/app/types/Response";
+import { Response } from '@/app/types/Response';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LineaService {
-  private url: string = `${env.API_URL}/lineas`
+  private url: string = `${env.API_URL}/lineas`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   findAll(page: number = 1): Observable<Response<Linea[]>> {
     return this.http.get<Response<Linea[]>>(`${this.url}?page=${page}`);

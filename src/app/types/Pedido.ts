@@ -7,4 +7,4 @@ export type Pedido = {
   numero_comensales: number;
   id_mesa: number;
   id_usuario: number;
-}
+};

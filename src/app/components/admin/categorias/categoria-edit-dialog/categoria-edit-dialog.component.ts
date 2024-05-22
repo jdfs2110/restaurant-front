@@ -1,16 +1,28 @@
-import { ErrorPComponent } from "@/app/components/error-p/error-p.component";
-import { ToastService } from "@/app/lib/toast.service";
-import { CategoriaService } from "@/app/services/categoria.service";
-import { ValidationMessagesService } from "@/app/services/validation-messages.service";
-import { Categoria } from "@/app/types/Categoria";
-import { Response } from "@/app/types/Response";
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { ConfirmationService } from "primeng/api";
-import { ButtonModule } from "primeng/button";
-import { DialogModule } from "primeng/dialog";
-import { ImageModule } from "primeng/image";
-import { InputTextModule } from "primeng/inputtext";
+import { ErrorPComponent } from '@/app/components/error-p/error-p.component';
+import { ToastService } from '@/app/lib/toast.service';
+import { CategoriaService } from '@/app/services/categoria.service';
+import { ValidationMessagesService } from '@/app/services/validation-messages.service';
+import { Categoria } from '@/app/types/Categoria';
+import { Response } from '@/app/types/Response';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { ConfirmationService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { ImageModule } from 'primeng/image';
+import { InputTextModule } from 'primeng/inputtext';
 import env from '@/app/env.json';
 @Component({
   selector: 'app-categoria-edit-dialog',
@@ -23,12 +35,12 @@ import env from '@/app/env.json';
     DialogModule,
     InputTextModule,
     ErrorPComponent,
-    ImageModule
-  ]
+    ImageModule,
+  ],
 })
 export class CategoriaEditDialogComponent implements OnInit {
   @Input({ required: true }) category: Categoria;
-  @Output() onUpdate = new EventEmitter<Categoria>;
+  @Output() onUpdate = new EventEmitter<Categoria>();
   protected inputImage: Blob;
   protected currentImage: string = '';
 
@@ -39,38 +51,40 @@ export class CategoriaEditDialogComponent implements OnInit {
   protected categoriaForm = new FormGroup({
     nombre: new FormControl('', [
       Validators.required,
-      Validators.maxLength(40)
+      Validators.maxLength(40),
     ]),
-    foto: new FormControl(null)
-  })
+    foto: new FormControl(null),
+  });
   protected formdata = new FormData();
 
   constructor(
     private categoriaService: CategoriaService,
     private validationService: ValidationMessagesService,
     private toaster: ToastService,
-    private confirmer: ConfirmationService
-  ) { }
+    private confirmer: ConfirmationService,
+  ) {}
 
   showEditDialog() {
     this.isVisible = true;
   }
 
   ngOnInit(): void {
-    this.currentImage = this.category.foto
+    this.currentImage = this.category.foto;
     this.categoriaForm.controls.nombre.setValue(this.category.nombre);
   }
 
   refresh(event: any) {
-    this.currentImage = this.category.foto
+    this.currentImage = this.category.foto;
   }
 
   getNombreErrors() {
     const nombre = this.categoriaForm.controls.nombre;
 
-    if (nombre.hasError('required')) return this.validationService.requiredMessage();
+    if (nombre.hasError('required'))
+      return this.validationService.requiredMessage();
 
-    if (nombre.hasError('maxlength')) return this.validationService.maxLength(40);
+    if (nombre.hasError('maxlength'))
+      return this.validationService.maxLength(40);
 
     return '';
   }
@@ -82,8 +96,10 @@ export class CategoriaEditDialogComponent implements OnInit {
       header: 'Editar categoría',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
-      accept: () => { this.onEdit() }
-    })
+      accept: () => {
+        this.onEdit();
+      },
+    });
   }
 
   onEdit() {
@@ -95,7 +111,8 @@ export class CategoriaEditDialogComponent implements OnInit {
       return;
     }
 
-    const nombre = this.categoriaForm.controls.nombre.value ?? this.category.nombre
+    const nombre =
+      this.categoriaForm.controls.nombre.value ?? this.category.nombre;
     this.formdata.set('nombre', nombre);
 
     this.formdata.set('foto', '');
@@ -116,12 +133,16 @@ export class CategoriaEditDialogComponent implements OnInit {
       error: (error: any) => {
         this.isLoading = false;
         if (error.error.error) {
-          this.toaster.detailedToast('error', 'Error al actualizar la categoría', error.error.error);
+          this.toaster.detailedToast(
+            'error',
+            'Error al actualizar la categoría',
+            error.error.error,
+          );
         } else {
           this.toaster.smallToast('error', 'Error al actualizar la categoría');
         }
-      }
-    })
+      },
+    });
   }
 
   onSelectFile(event: any) {

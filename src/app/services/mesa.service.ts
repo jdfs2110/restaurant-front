@@ -1,18 +1,18 @@
-import { Injectable } from "@angular/core";
-import env from "@/app/env.json";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { Mesa } from "@/app/types/Mesa";
-import { Pedido } from "@/app/types/Pedido";
+import { Injectable } from '@angular/core';
+import env from '@/app/env.json';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Mesa } from '@/app/types/Mesa';
+import { Pedido } from '@/app/types/Pedido';
 import { Response } from '@/app/types/Response';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MesaService {
   private url: string = `${env.API_URL}/mesas`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   findAll(): Observable<Response<Mesa[]>> {
     return this.http.get<Response<Mesa[]>>(`${this.url}`);
@@ -34,7 +34,8 @@ export class MesaService {
     return this.http.delete<Response<Mesa>>(`${this.url}/${id}`);
   }
 
-  findPedidosByIdMesa(id: number): Observable<Response<Pedido[]>> { // Dios mio el naming :help:
+  findPedidosByIdMesa(id: number): Observable<Response<Pedido[]>> {
+    // Dios mio el naming :help:
     return this.http.get<Response<Pedido[]>>(`${this.url}/${id}/pedidos`);
   }
 

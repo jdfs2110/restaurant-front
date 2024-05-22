@@ -6,14 +6,28 @@
       </div>
       <div class="p-toolbar-group-end flex gap-2">
         <!-- <p-button icon="pi pi-plus" [rounded]="true" />no le veo el sentido -->
-        <p-button [icon]="getIconClass()" [rounded]="true" (onClick)="refreshTable()" />
+        <p-button
+          [icon]="getIconClass()"
+          [rounded]="true"
+          (onClick)="refreshTable()"
+        />
       </div>
     </p-toolbar>
 
-    <p-table styleClass="p-datatable-gridlines" [value]="facturas" [lazy]="true" (onLazyLoad)="loadFacturas($event)"
-      [paginator]="true" [rows]="paginationLimit" [loading]="loading" [totalRecords]="totalFacturas"
-      responsiveLayout="stack" [tableStyle]="{'min-width': '375px'}" dataKey="id" [(first)]="first">
-
+    <p-table
+      styleClass="p-datatable-gridlines"
+      [value]="facturas"
+      [lazy]="true"
+      (onLazyLoad)="loadFacturas($event)"
+      [paginator]="true"
+      [rows]="paginationLimit"
+      [loading]="loading"
+      [totalRecords]="totalFacturas"
+      responsiveLayout="stack"
+      [tableStyle]="{ 'min-width': '375px' }"
+      dataKey="id"
+      [(first)]="first"
+    >
       <ng-template pTemplate="header">
         <tr>
           <th>ID</th>
@@ -30,20 +44,27 @@
           <td>{{ factura.id_pedido }}</td>
           <td class="px-0 md:px-3">
             <div class="flex gap-2 justify-content-start align-items-center">
-
               <!-- <app-categoria-edit-dialog [category]="category"
                 (onUpdate)="updateCategory($event)"></app-categoria-edit-dialog> no le veo mucho sentido-->
 
-              <p-button label="Eliminar" severity="danger" styleClass="hidden md:inline md:ml-2"
-                (onClick)="showDialog($event, factura)" />
+              <p-button
+                label="Eliminar"
+                severity="danger"
+                styleClass="hidden md:inline md:ml-2"
+                (onClick)="showDialog($event, factura)"
+              />
 
-              <p-button [rounded]="true" icon="pi pi-trash" severity="danger" styleClass="md:hidden"
-                (onClick)="showDialog($event, factura)" />
+              <p-button
+                [rounded]="true"
+                icon="pi pi-trash"
+                severity="danger"
+                styleClass="md:hidden"
+                (onClick)="showDialog($event, factura)"
+              />
             </div>
           </td>
         </tr>
       </ng-template>
-
     </p-table>
   </div>
   <p-confirmDialog />

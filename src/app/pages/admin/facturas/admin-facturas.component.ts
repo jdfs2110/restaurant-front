@@ -12,14 +12,9 @@ import { ToolbarModule } from 'primeng/toolbar';
 @Component({
   selector: 'app-admin-facturas',
   standalone: true,
-  imports: [
-    TableModule,
-    ButtonModule,
-    ConfirmDialogModule,
-    ToolbarModule
-  ],
+  imports: [TableModule, ButtonModule, ConfirmDialogModule, ToolbarModule],
   templateUrl: './admin-facturas.component.html',
-  styleUrl: './admin-facturas.component.css'
+  styleUrl: './admin-facturas.component.css',
 })
 export class AdminFacturasComponent implements OnInit {
   protected totalFacturas: number;
@@ -32,8 +27,8 @@ export class AdminFacturasComponent implements OnInit {
   constructor(
     private facturaService: FacturaService,
     private confirmer: ConfirmationService,
-    private toaster: ToastService
-  ) { }
+    private toaster: ToastService,
+  ) {}
 
   fetchPages() {
     this.facturaService.getPages().subscribe({
@@ -44,8 +39,8 @@ export class AdminFacturasComponent implements OnInit {
       },
       error: (error: any) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
 
   ngOnInit() {
@@ -64,13 +59,13 @@ export class AdminFacturasComponent implements OnInit {
       },
       error: (error: any) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
 
   loadFacturas(event: TableLazyLoadEvent) {
     this.loading = true;
-    const page = (event.first! / event.rows!) + 1;
+    const page = event.first! / event.rows! + 1;
     this.fetchFacturas(page);
   }
 
@@ -81,13 +76,17 @@ export class AdminFacturasComponent implements OnInit {
       header: 'Eliminación de factura',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
-      accept: () => { this.deleteFactura(factura) }
+      accept: () => {
+        this.deleteFactura(factura);
+      },
     });
   }
 
   deleteFactura(factura: Factura) {
     const pos = this.facturas.indexOf(factura);
-    this.facturas = this.facturas.filter((f: Factura) => { return f.id !== factura.id });
+    this.facturas = this.facturas.filter((f: Factura) => {
+      return f.id !== factura.id;
+    });
     this.facturaService.delete(factura.id).subscribe({
       next: (response: Response<Factura>) => {
         const { message } = response;
@@ -95,9 +94,9 @@ export class AdminFacturasComponent implements OnInit {
       },
       error: (error: any) => {
         this.facturas.splice(pos, 0, factura);
-        this.toaster.smallToast('error', 'Error al eliminar la factura')
-      }
-    })
+        this.toaster.smallToast('error', 'Error al eliminar la factura');
+      },
+    });
   }
 
   refreshTable() {
@@ -108,7 +107,7 @@ export class AdminFacturasComponent implements OnInit {
   }
 
   getIconClass() {
-    return this.buttonLoading ? 'pi pi-spin pi-sync' : 'pi pi-sync'
+    return this.buttonLoading ? 'pi pi-spin pi-sync' : 'pi pi-sync';
   }
 
   // updateFactura(factura: Factura) {

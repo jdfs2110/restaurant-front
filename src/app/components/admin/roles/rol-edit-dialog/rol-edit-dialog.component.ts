@@ -4,12 +4,17 @@ import { ValidationMessagesService } from '@/app/services/validation-messages.se
 import { Response } from '@/app/types/Response';
 import { Rol } from '@/app/types/Rol';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
-import { ErrorPComponent } from "../../../error-p/error-p.component";
+import { ErrorPComponent } from '../../../error-p/error-p.component';
 
 @Component({
   selector: 'app-rol-edit-dialog',
@@ -21,12 +26,12 @@ import { ErrorPComponent } from "../../../error-p/error-p.component";
     ReactiveFormsModule,
     DialogModule,
     InputTextModule,
-    ErrorPComponent
-  ]
+    ErrorPComponent,
+  ],
 })
 export class RolEditDialogComponent implements OnInit {
   @Input({ required: true }) rol: Rol;
-  @Output() onUpdate = new EventEmitter<Rol>
+  @Output() onUpdate = new EventEmitter<Rol>();
 
   protected isVisible: boolean = false;
   protected isLoading: boolean = false;
@@ -36,16 +41,16 @@ export class RolEditDialogComponent implements OnInit {
     nombre: new FormControl('', [
       Validators.required,
       Validators.minLength(2),
-      Validators.maxLength(30)
-    ])
-  })
+      Validators.maxLength(30),
+    ]),
+  });
 
   constructor(
     private rolService: RolService,
     private validationService: ValidationMessagesService,
     private toaster: ToastService,
-    private confirmer: ConfirmationService
-  ) { }
+    private confirmer: ConfirmationService,
+  ) {}
 
   showEditDialog(): void {
     this.isVisible = true;
@@ -53,18 +58,21 @@ export class RolEditDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.rolForm.setValue({
-      nombre: this.rol.nombre
-    })
+      nombre: this.rol.nombre,
+    });
   }
 
   getNombreErrors() {
     const nombre = this.rolForm.controls.nombre;
 
-    if (nombre.hasError('required')) return this.validationService.requiredMessage();
+    if (nombre.hasError('required'))
+      return this.validationService.requiredMessage();
 
-    if (nombre.hasError('minlength')) return this.validationService.minLength(2);
+    if (nombre.hasError('minlength'))
+      return this.validationService.minLength(2);
 
-    if (nombre.hasError('maxlength')) return this.validationService.maxLength(30);
+    if (nombre.hasError('maxlength'))
+      return this.validationService.maxLength(30);
 
     return '';
   }
@@ -76,8 +84,10 @@ export class RolEditDialogComponent implements OnInit {
       header: 'Editar rol',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
-      accept: () => { this.onEdit() }
-    })
+      accept: () => {
+        this.onEdit();
+      },
+    });
   }
 
   onEdit() {
@@ -92,8 +102,8 @@ export class RolEditDialogComponent implements OnInit {
 
     const edited: Rol = {
       id: this.rol.id,
-      nombre: formValue.nombre ?? this.rol.nombre
-    }
+      nombre: formValue.nombre ?? this.rol.nombre,
+    };
 
     this.rolService.update(edited, this.rol.id).subscribe({
       next: (response: Response<Rol>) => {
@@ -108,11 +118,11 @@ export class RolEditDialogComponent implements OnInit {
         console.log(error);
 
         if (error.error.error) {
-          this.toaster.smallToast('error', error.error.error)
+          this.toaster.smallToast('error', error.error.error);
         } else {
-          this.toaster.smallToast('error', 'Error al actualizar el rol.')
+          this.toaster.smallToast('error', 'Error al actualizar el rol.');
         }
-      }
-    })
+      },
+    });
   }
 }

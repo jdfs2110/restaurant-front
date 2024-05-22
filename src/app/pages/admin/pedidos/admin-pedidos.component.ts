@@ -8,7 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
-import { LineasByPedidoComponent } from "../../../components/admin/pedidos/lineas-by-pedido/lineas-by-pedido.component";
+import { LineasByPedidoComponent } from '../../../components/admin/pedidos/lineas-by-pedido/lineas-by-pedido.component';
 
 @Component({
   selector: 'app-admin-pedidos',
@@ -20,8 +20,8 @@ import { LineasByPedidoComponent } from "../../../components/admin/pedidos/linea
     ButtonModule,
     ConfirmDialogModule,
     ToolbarModule,
-    LineasByPedidoComponent
-  ]
+    LineasByPedidoComponent,
+  ],
 })
 export class AdminPedidosComponent implements OnInit {
   protected totalPedidos: number;
@@ -34,8 +34,8 @@ export class AdminPedidosComponent implements OnInit {
   constructor(
     private pedidoService: PedidoService,
     private confirmer: ConfirmationService,
-    private toaster: ToastService
-  ) { }
+    private toaster: ToastService,
+  ) {}
 
   fetchPages() {
     this.pedidoService.getPages().subscribe({
@@ -46,8 +46,8 @@ export class AdminPedidosComponent implements OnInit {
       },
       error: (error: any) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
 
   ngOnInit() {
@@ -66,13 +66,13 @@ export class AdminPedidosComponent implements OnInit {
       },
       error: (error: any) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
 
   loadPedidos(event: TableLazyLoadEvent) {
     this.loading = true;
-    const page = (event.first! / event.rows!) + 1;
+    const page = event.first! / event.rows! + 1;
     this.fetchPedidos(page);
   }
 
@@ -83,13 +83,17 @@ export class AdminPedidosComponent implements OnInit {
       header: 'Eliminación de pedido',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
-      accept: () => { this.deletePedido(pedido) }
+      accept: () => {
+        this.deletePedido(pedido);
+      },
     });
   }
 
   deletePedido(pedido: Pedido) {
     const pos = this.pedidos.indexOf(pedido);
-    this.pedidos = this.pedidos.filter((p: Pedido) => { return p.id !== pedido.id });
+    this.pedidos = this.pedidos.filter((p: Pedido) => {
+      return p.id !== pedido.id;
+    });
     this.pedidoService.delete(pedido.id).subscribe({
       next: (response: Response<Pedido>) => {
         const { message } = response;
@@ -97,9 +101,9 @@ export class AdminPedidosComponent implements OnInit {
       },
       error: (error: any) => {
         this.pedidos.splice(pos, 0, pedido);
-        this.toaster.smallToast('error', 'Error al eliminar el pedido')
-      }
-    })
+        this.toaster.smallToast('error', 'Error al eliminar el pedido');
+      },
+    });
   }
 
   refreshTable() {
@@ -110,7 +114,7 @@ export class AdminPedidosComponent implements OnInit {
   }
 
   getIconClass() {
-    return this.buttonLoading ? 'pi pi-spin pi-sync' : 'pi pi-sync'
+    return this.buttonLoading ? 'pi pi-spin pi-sync' : 'pi pi-sync';
   }
 
   // updatePedido(pedido: Pedido) {
@@ -122,5 +126,4 @@ export class AdminPedidosComponent implements OnInit {
   //     return p;
   //   })
   // }
-
 }

@@ -7,7 +7,12 @@ import { Producto } from '@/app/types/Producto';
 import { Response } from '@/app/types/Response';
 import { Stock } from '@/app/types/Stock';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -25,15 +30,15 @@ import env from '@/app/env.json';
     InputTextModule,
     ErrorPComponent,
     ImageModule,
-    DropdownModule
+    DropdownModule,
   ],
   templateUrl: './producto-edit-dialog.component.html',
-  styleUrl: './producto-edit-dialog.component.css'
+  styleUrl: './producto-edit-dialog.component.css',
 })
 export class ProductoEditDialogComponent implements OnInit {
   @Input({ required: true }) product: Producto;
-  @Input({ required: true }) categories: Categoria[]
-  @Output() onUpdate = new EventEmitter<Producto>;
+  @Input({ required: true }) categories: Categoria[];
+  @Output() onUpdate = new EventEmitter<Producto>();
   protected stock: Stock;
   protected inputImage: Blob;
   protected currentImage: string = '';
@@ -45,33 +50,33 @@ export class ProductoEditDialogComponent implements OnInit {
   protected estados: Estado[] = [
     {
       nombre: 'Disponible',
-      valor: "1"
+      valor: '1',
     },
     {
       nombre: 'No disponible',
-      valor: "0"
-    }
-  ]
+      valor: '0',
+    },
+  ];
 
   protected productoForm = new FormGroup({
     nombre: new FormControl('', [
       Validators.required,
-      Validators.maxLength(40)
+      Validators.maxLength(40),
     ]),
     precio: new FormControl(0, [Validators.required]),
     activo: new FormControl(1, [Validators.required]),
     foto: new FormControl(null),
     cantidad: new FormControl(0),
-    id_categoria: new FormControl(0, [Validators.required])
-  })
+    id_categoria: new FormControl(0, [Validators.required]),
+  });
   protected formdata = new FormData();
 
   constructor(
     private productoService: ProductoService,
     private validationService: ValidationMessagesService,
     private toaster: ToastService,
-    private confirmer: ConfirmationService
-  ) { }
+    private confirmer: ConfirmationService,
+  ) {}
 
   showEditDialog() {
     this.isVisible = true;
@@ -93,9 +98,11 @@ export class ProductoEditDialogComponent implements OnInit {
   getNombreErrors() {
     const nombre = this.productoForm.controls.nombre;
 
-    if (nombre.hasError('required')) return this.validationService.requiredMessage();
+    if (nombre.hasError('required'))
+      return this.validationService.requiredMessage();
 
-    if (nombre.hasError('maxlength')) return this.validationService.maxLength(40);
+    if (nombre.hasError('maxlength'))
+      return this.validationService.maxLength(40);
 
     return '';
   }
@@ -103,15 +110,17 @@ export class ProductoEditDialogComponent implements OnInit {
   getPrecioErrors() {
     const precio = this.productoForm.controls.precio;
 
-    if (precio.hasError('required')) return this.validationService.requiredMessage();
+    if (precio.hasError('required'))
+      return this.validationService.requiredMessage();
 
-    return ''
+    return '';
   }
 
   getActivoErrors() {
     const activo = this.productoForm.controls.activo;
 
-    if (activo.hasError('required')) return this.validationService.requiredMessage();
+    if (activo.hasError('required'))
+      return this.validationService.requiredMessage();
 
     return '';
   }
@@ -119,7 +128,8 @@ export class ProductoEditDialogComponent implements OnInit {
   getIdCategoriaErrors() {
     const idCategoria = this.productoForm.controls.id_categoria;
 
-    if (idCategoria.hasError('required')) return 'Debes seleccionar una categoría';
+    if (idCategoria.hasError('required'))
+      return 'Debes seleccionar una categoría';
 
     return '';
   }
@@ -127,7 +137,9 @@ export class ProductoEditDialogComponent implements OnInit {
   getCantidadErrors() {
     const cantidad = this.productoForm.controls.cantidad;
 
-    return cantidad.hasError('required') ? this.validationService.requiredMessage() : '';
+    return cantidad.hasError('required')
+      ? this.validationService.requiredMessage()
+      : '';
   }
 
   onSubmit(event: Event) {
@@ -137,8 +149,10 @@ export class ProductoEditDialogComponent implements OnInit {
       header: 'Editar producto',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
-      accept: () => { this.onEdit() }
-    })
+      accept: () => {
+        this.onEdit();
+      },
+    });
   }
 
   onEdit() {
@@ -150,13 +164,18 @@ export class ProductoEditDialogComponent implements OnInit {
       return;
     }
 
-    const nombre = this.productoForm.controls.nombre.value ?? this.product.nombre;
-    const precio = this.productoForm.controls.precio.value ?? this.product.precio;
+    const nombre =
+      this.productoForm.controls.nombre.value ?? this.product.nombre;
+    const precio =
+      this.productoForm.controls.precio.value ?? this.product.precio;
     const activo = this.product.activo ? 1 : 0;
     console.log(activo);
 
-    const cantidad = this.productoForm.controls.cantidad.value ?? this.stock.cantidad;
-    const idCategoria = this.productoForm.controls.id_categoria.value ?? this.product.id_categoria;
+    const cantidad =
+      this.productoForm.controls.cantidad.value ?? this.stock.cantidad;
+    const idCategoria =
+      this.productoForm.controls.id_categoria.value ??
+      this.product.id_categoria;
 
     this.formdata.set('nombre', nombre);
     this.formdata.set('precio', precio.toString());
@@ -185,12 +204,16 @@ export class ProductoEditDialogComponent implements OnInit {
         console.log(error);
         this.isLoading = false;
         if (error.error.error) {
-          this.toaster.detailedToast('error', 'Error al actualizar el producto', error.error.error);
+          this.toaster.detailedToast(
+            'error',
+            'Error al actualizar el producto',
+            error.error.error,
+          );
         } else {
           this.toaster.smallToast('error', 'Error al actualizar el producto');
         }
-      }
-    })
+      },
+    });
   }
 
   onSelectFile(event: any) {
@@ -206,4 +229,4 @@ export class ProductoEditDialogComponent implements OnInit {
 type Estado = {
   nombre: string;
   valor: string;
-}
+};

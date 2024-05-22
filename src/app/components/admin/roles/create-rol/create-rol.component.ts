@@ -4,9 +4,14 @@ import { ValidationMessagesService } from '@/app/services/validation-messages.se
 import { Response } from '@/app/types/Response';
 import { Rol } from '@/app/types/Rol';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { ErrorPComponent } from "../../../error-p/error-p.component";
+import { ErrorPComponent } from '../../../error-p/error-p.component';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 
@@ -20,11 +25,11 @@ import { InputTextModule } from 'primeng/inputtext';
     ReactiveFormsModule,
     ErrorPComponent,
     DialogModule,
-    InputTextModule
-  ]
+    InputTextModule,
+  ],
 })
 export class CreateRolComponent {
-  @Output() newRol = new EventEmitter<Rol>
+  @Output() newRol = new EventEmitter<Rol>();
   protected isVisible: boolean = false;
   protected isLoading: boolean = false;
   protected submitted: boolean = false;
@@ -33,10 +38,9 @@ export class CreateRolComponent {
     nombre: new FormControl('', [
       Validators.required,
       Validators.minLength(2),
-      Validators.maxLength(30)
-    ])
-  })
-
+      Validators.maxLength(30),
+    ]),
+  });
 
   showDialog() {
     this.isVisible = true;
@@ -52,16 +56,19 @@ export class CreateRolComponent {
     private validationService: ValidationMessagesService,
     private rolService: RolService,
     private toaster: ToastService,
-  ) { }
+  ) {}
 
   getNombreErrors() {
     const nombre = this.rolForm.controls.nombre;
 
-    if (nombre.hasError('required')) return this.validationService.requiredMessage();
+    if (nombre.hasError('required'))
+      return this.validationService.requiredMessage();
 
-    if (nombre.hasError('minlength')) return this.validationService.minLength(2);
+    if (nombre.hasError('minlength'))
+      return this.validationService.minLength(2);
 
-    if (nombre.hasError('maxlength')) return this.validationService.maxLength(30);
+    if (nombre.hasError('maxlength'))
+      return this.validationService.maxLength(30);
 
     return '';
   }
@@ -78,8 +85,8 @@ export class CreateRolComponent {
 
     const newRol: Rol = {
       id: 0,
-      nombre: formValue.nombre ?? ''
-    }
+      nombre: formValue.nombre ?? '',
+    };
 
     this.rolService.create(newRol).subscribe({
       next: (response: Response<Rol>) => {
@@ -94,11 +101,11 @@ export class CreateRolComponent {
         console.log(error);
 
         if (error.error.error) {
-          this.toaster.smallToast('error', error.error.error)
+          this.toaster.smallToast('error', error.error.error);
         } else {
-          this.toaster.smallToast('error', 'Error al crear el rol.')
+          this.toaster.smallToast('error', 'Error al crear el rol.');
         }
-      }
-    })
+      },
+    });
   }
 }

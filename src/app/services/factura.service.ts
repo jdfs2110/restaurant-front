@@ -1,17 +1,17 @@
-import { Injectable } from "@angular/core";
-import env from "@/app/env.json";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { Factura } from "@/app/types/Factura";
-import { Response } from "@/app/types/Response";
+import { Injectable } from '@angular/core';
+import env from '@/app/env.json';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Factura } from '@/app/types/Factura';
+import { Response } from '@/app/types/Response';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FacturaService {
   private url: string = `${env.API_URL}/facturas`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   findAll(page: number = 1): Observable<Response<Factura[]>> {
     return this.http.get<Response<Factura[]>>(`${this.url}?page=${page}`);

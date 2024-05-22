@@ -3,13 +3,18 @@ import { ToastService } from '@/app/lib/toast.service';
 import { ProductoService } from '@/app/services/producto.service';
 import { ValidationMessagesService } from '@/app/services/validation-messages.service';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { ImageModule } from 'primeng/image';
 import { InputTextModule } from 'primeng/inputtext';
-import env from '@/app/env.json'
+import env from '@/app/env.json';
 import { Response } from '@/app/types/Response';
 import { Producto } from '@/app/types/Producto';
 import { Categoria } from '@/app/types/Categoria';
@@ -25,39 +30,39 @@ import { DropdownModule } from 'primeng/dropdown';
     ImageModule,
     ErrorPComponent,
     InputTextModule,
-    DropdownModule
+    DropdownModule,
   ],
   templateUrl: './create-product.component.html',
-  styleUrl: './create-product.component.css'
+  styleUrl: './create-product.component.css',
 })
 export class CreateProductComponent {
   @Input({ required: true }) categories: Categoria[];
-  @Output() onCreate = new EventEmitter;
+  @Output() onCreate = new EventEmitter();
   protected isVisible: boolean = false;
   protected isLoading: boolean = false;
   protected submitted: boolean = false;
   protected fotoError: boolean = false;
 
   protected inputImage: Blob;
-  protected currentImage: string = env.PLACEHOLDER_PHOTO
+  protected currentImage: string = env.PLACEHOLDER_PHOTO;
 
   protected productoForm = new FormGroup({
     nombre: new FormControl('', [
       Validators.required,
-      Validators.maxLength(40)
+      Validators.maxLength(40),
     ]),
     precio: new FormControl(null, [Validators.required]),
     id_categoria: new FormControl(null, [Validators.required]),
     cantidad: new FormControl(null, [Validators.required]),
-    foto: new FormControl(null, [Validators.required])
+    foto: new FormControl(null, [Validators.required]),
   });
 
   constructor(
     private productoService: ProductoService,
     private validationService: ValidationMessagesService,
     private confirmer: ConfirmationService,
-    private toaster: ToastService
-  ) { }
+    private toaster: ToastService,
+  ) {}
 
   showDialog() {
     this.isVisible = true;
@@ -67,15 +72,17 @@ export class CreateProductComponent {
     this.productoForm.reset();
     this.isLoading = false;
     this.submitted = false;
-    this.currentImage = env.PLACEHOLDER_PHOTO
+    this.currentImage = env.PLACEHOLDER_PHOTO;
   }
 
   getNombreErrors() {
     const nombre = this.productoForm.controls.nombre;
 
-    if (nombre.hasError('required')) return this.validationService.requiredMessage();
+    if (nombre.hasError('required'))
+      return this.validationService.requiredMessage();
 
-    if (nombre.hasError('maxlength')) return this.validationService.maxLength(40);
+    if (nombre.hasError('maxlength'))
+      return this.validationService.maxLength(40);
 
     return '';
   }
@@ -83,19 +90,25 @@ export class CreateProductComponent {
   getPrecioErrors() {
     const precio = this.productoForm.controls.precio;
 
-    return precio.hasError('required') ? this.validationService.requiredMessage() : '';
+    return precio.hasError('required')
+      ? this.validationService.requiredMessage()
+      : '';
   }
 
   getIdCategoriaErrors() {
     const idCategoria = this.productoForm.controls.id_categoria;
 
-    return idCategoria.hasError('required') ? 'Debes seleccionar una categoría' : '';
+    return idCategoria.hasError('required')
+      ? 'Debes seleccionar una categoría'
+      : '';
   }
 
   getCantidadErrors() {
     const cantidad = this.productoForm.controls.cantidad;
 
-    return cantidad.hasError('required') ? this.validationService.requiredMessage() : '';
+    return cantidad.hasError('required')
+      ? this.validationService.requiredMessage()
+      : '';
   }
 
   getFotoErrors() {
@@ -118,8 +131,10 @@ export class CreateProductComponent {
       header: 'Crear producto',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
-      accept: () => { this.create() }
-    })
+      accept: () => {
+        this.create();
+      },
+    });
   }
 
   create() {
@@ -154,12 +169,15 @@ export class CreateProductComponent {
       error: (error: any) => {
         if (error.error.error) {
           this.isLoading = false;
-          this.toaster.detailedToast('error', 'Error al crear el producto', error.error.error);
+          this.toaster.detailedToast(
+            'error',
+            'Error al crear el producto',
+            error.error.error,
+          );
         } else {
-          this.toaster.smallToast('error', 'Error al crear el producto')
+          this.toaster.smallToast('error', 'Error al crear el producto');
         }
-      }
-    })
+      },
+    });
   }
-
 }

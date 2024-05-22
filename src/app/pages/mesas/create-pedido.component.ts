@@ -1,15 +1,20 @@
-import { ToastService } from "@/app/lib/toast.service";
-import { PedidoService } from "@/app/services/pedido.service";
-import { ValidationMessagesService } from "@/app/services/validation-messages.service";
-import { Mesa } from "@/app/types/Mesa";
-import { Pedido } from "@/app/types/Pedido";
-import { Response } from "@/app/types/Response";
-import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { ButtonModule } from "primeng/button";
-import { DialogModule } from "primeng/dialog";
-import { ErrorPComponent } from "../../components/error-p/error-p.component";
-import { InputTextModule } from "primeng/inputtext";
+import { ToastService } from '@/app/lib/toast.service';
+import { PedidoService } from '@/app/services/pedido.service';
+import { ValidationMessagesService } from '@/app/services/validation-messages.service';
+import { Mesa } from '@/app/types/Mesa';
+import { Pedido } from '@/app/types/Pedido';
+import { Response } from '@/app/types/Response';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { ErrorPComponent } from '../../components/error-p/error-p.component';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-create-pedido',
@@ -20,43 +25,42 @@ import { InputTextModule } from "primeng/inputtext";
     DialogModule,
     ReactiveFormsModule,
     ErrorPComponent,
-    InputTextModule
-  ]
+    InputTextModule,
+  ],
 })
 export class CreatePedidoComponent {
   @Input({ required: true }) mesa: Mesa;
   @Input({ required: true }) userId: number;
-  @Output() onNewPedido = new EventEmitter<Mesa>;
+  @Output() onNewPedido = new EventEmitter<Mesa>();
 
   protected isVisible: boolean = false;
   protected isLoading: boolean = false;
   protected submitted: boolean = false;
 
   protected newPedidoForm = new FormGroup({
-    numero_comensales: new FormControl(null, [
-      Validators.required
-    ]),
+    numero_comensales: new FormControl(null, [Validators.required]),
     id_mesa: new FormControl(),
-    id_usuario: new FormControl()
-  })
+    id_usuario: new FormControl(),
+  });
 
   constructor(
     private pedidoService: PedidoService,
     private validator: ValidationMessagesService,
-    private toaster: ToastService
-  ) { }
+    private toaster: ToastService,
+  ) {}
 
   newPedido(id: number): void {
     this.newPedidoForm.setValue({
       numero_comensales: null,
       id_mesa: id,
-      id_usuario: this.userId
-    })
+      id_usuario: this.userId,
+    });
     this.isVisible = true;
   }
 
   getNumeroComensalesError() {
-    if (this.newPedidoForm.controls.numero_comensales.hasError('required')) return this.validator.requiredMessage();
+    if (this.newPedidoForm.controls.numero_comensales.hasError('required'))
+      return this.validator.requiredMessage();
     return '';
   }
 
@@ -77,8 +81,8 @@ export class CreatePedidoComponent {
       precio: 0,
       numero_comensales: this.newPedidoForm.value.numero_comensales ?? 0,
       id_mesa: this.newPedidoForm.value.id_mesa,
-      id_usuario: this.newPedidoForm.value.id_usuario
-    }
+      id_usuario: this.newPedidoForm.value.id_usuario,
+    };
 
     console.log(pedido);
 
@@ -96,8 +100,7 @@ export class CreatePedidoComponent {
         this.submitted = false;
         console.log('error', error);
         this.toaster.smallToast('error', 'Error al crear el pedido');
-      }
-    })
+      },
+    });
   }
-
 }

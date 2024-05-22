@@ -8,9 +8,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { ToastService } from '@/app/lib/toast.service';
 import { ToolbarModule } from 'primeng/toolbar';
-import { RolEditDialogComponent } from "../../../components/admin/roles/rol-edit-dialog/rol-edit-dialog.component";
-import { UsersByRolComponent } from "../../../components/admin/roles/users-by-rol/users-by-rol.component";
-import { CreateRolComponent } from "../../../components/admin/roles/create-rol/create-rol.component";
+import { RolEditDialogComponent } from '../../../components/admin/roles/rol-edit-dialog/rol-edit-dialog.component';
+import { UsersByRolComponent } from '../../../components/admin/roles/users-by-rol/users-by-rol.component';
+import { CreateRolComponent } from '../../../components/admin/roles/create-rol/create-rol.component';
 @Component({
   selector: 'app-admin-roles',
   standalone: true,
@@ -23,8 +23,8 @@ import { CreateRolComponent } from "../../../components/admin/roles/create-rol/c
     ToolbarModule,
     RolEditDialogComponent,
     UsersByRolComponent,
-    CreateRolComponent
-  ]
+    CreateRolComponent,
+  ],
 })
 export class AdminRolesComponent implements OnInit {
   protected roles: Rol[] = [];
@@ -32,16 +32,16 @@ export class AdminRolesComponent implements OnInit {
   constructor(
     private rolService: RolService,
     private dialogService: ConfirmationService,
-    private toaster: ToastService
-  ) { }
+    private toaster: ToastService,
+  ) {}
 
   ngOnInit(): void {
     this.rolService.findAll().subscribe({
       next: (response: Response<Rol[]>) => {
         const { data } = response;
         this.roles = data;
-      }
-    })
+      },
+    });
   }
 
   showDialog(event: Event, rol: Rol): void {
@@ -51,13 +51,17 @@ export class AdminRolesComponent implements OnInit {
       header: 'Eliminación de rol',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
-      accept: () => { this.eliminarRol(rol) }
-    })
+      accept: () => {
+        this.eliminarRol(rol);
+      },
+    });
   }
 
   eliminarRol(rol: Rol) {
     const pos = this.roles.indexOf(rol);
-    this.roles = this.roles.filter((r: Rol) => { return r.id !== rol.id })
+    this.roles = this.roles.filter((r: Rol) => {
+      return r.id !== rol.id;
+    });
     this.rolService.delete(rol.id).subscribe({
       next: (response: Response<any>) => {
         const { message } = response;
@@ -65,9 +69,13 @@ export class AdminRolesComponent implements OnInit {
       },
       error: (error: any) => {
         this.roles.splice(pos, 0, rol);
-        this.toaster.detailedToast('error', 'Error al eliminar el rol', error.error.error)
-      }
-    })
+        this.toaster.detailedToast(
+          'error',
+          'Error al eliminar el rol',
+          error.error.error,
+        );
+      },
+    });
   }
 
   updateRol(rol: Rol) {
@@ -77,7 +85,7 @@ export class AdminRolesComponent implements OnInit {
       }
 
       return r;
-    })
+    });
   }
 
   pushRol(rol: Rol) {

@@ -1,22 +1,36 @@
-<p-button [rounded]="true" icon="pi pi-pencil" severity="secondary" (onClick)="showDialog()"
-  [disabled]="linea.estado_numero === 1" />
-<p-dialog [(visible)]="isVisible" [draggable]="false" [modal]="true" [maximizable]="true" (onHide)="refresh()">
+<p-button
+  [rounded]="true"
+  icon="pi pi-pencil"
+  severity="secondary"
+  (onClick)="showDialog()"
+  [disabled]="linea.estado_numero === 1"
+/>
+<p-dialog
+  [(visible)]="isVisible"
+  [draggable]="false"
+  [modal]="true"
+  [maximizable]="true"
+  (onHide)="refresh()"
+>
   <span class="font-bold white-space-nowrap">
     Información de la línea {{ linea.cantidad }}x {{ linea.producto }}
   </span>
 
   <form [formGroup]="lineaForm" (submit)="onSubmit($event)">
-
     <div class="field">
       <label for="cantidad">Cantidad</label>
-      <input type="text" pInputText formControlName="cantidad" class="w-full">
+      <input type="text" pInputText formControlName="cantidad" class="w-full" />
       @if (submitted && lineaForm.controls.cantidad.invalid) {
-      <error-p class="pb-1">{{ getCantidadErrors() }}</error-p>
+        <error-p class="pb-1">{{ getCantidadErrors() }}</error-p>
       }
     </div>
 
-    <p-button type="submit" label="Actualizar línea" styleClass="w-full" [loading]="isLoading" iconPos="right" />
-
+    <p-button
+      type="submit"
+      label="Actualizar línea"
+      styleClass="w-full"
+      [loading]="isLoading"
+      iconPos="right"
+    />
   </form>
-
 </p-dialog>

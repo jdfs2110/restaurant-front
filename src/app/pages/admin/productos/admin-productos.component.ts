@@ -4,16 +4,20 @@ import { Producto } from '@/app/types/Producto';
 import { Response } from '@/app/types/Response';
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
-import { AutoCompleteCompleteEvent, AutoCompleteModule, AutoCompleteSelectEvent } from 'primeng/autocomplete';
+import {
+  AutoCompleteCompleteEvent,
+  AutoCompleteModule,
+  AutoCompleteSelectEvent,
+} from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ImageModule } from 'primeng/image';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
-import { ProductoEditDialogComponent } from "../../../components/admin/productos/producto-edit-dialog/producto-edit-dialog.component";
+import { ProductoEditDialogComponent } from '../../../components/admin/productos/producto-edit-dialog/producto-edit-dialog.component';
 import { Categoria } from '@/app/types/Categoria';
 import { CategoriaService } from '@/app/services/categoria.service';
-import { CreateProductComponent } from "../../../components/admin/productos/create-product/create-product.component";
+import { CreateProductComponent } from '../../../components/admin/productos/create-product/create-product.component';
 import env from '@/app/env.json';
 @Component({
   selector: 'app-admin-productos',
@@ -28,8 +32,8 @@ import env from '@/app/env.json';
     ConfirmDialogModule,
     ImageModule,
     ProductoEditDialogComponent,
-    CreateProductComponent
-  ]
+    CreateProductComponent,
+  ],
 })
 export class AdminProductosComponent implements OnInit {
   protected totalProducts: number;
@@ -46,8 +50,8 @@ export class AdminProductosComponent implements OnInit {
     private productoService: ProductoService,
     private confirmer: ConfirmationService,
     private toaster: ToastService,
-    private categoriaService: CategoriaService
-  ) { }
+    private categoriaService: CategoriaService,
+  ) {}
 
   fetchPages() {
     this.productoService.getPages().subscribe({
@@ -58,8 +62,8 @@ export class AdminProductosComponent implements OnInit {
       },
       error: (error: any) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
   ngOnInit(): void {
     this.loading = true;
@@ -75,8 +79,8 @@ export class AdminProductosComponent implements OnInit {
       },
       error: (error: any) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
 
   fetchProducts(page: number) {
@@ -91,15 +95,15 @@ export class AdminProductosComponent implements OnInit {
       },
       error: (error: any) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
 
   loadProducts(event: TableLazyLoadEvent) {
     console.log('lazy');
 
     this.loading = true;
-    const page = (event.first! / event.rows!) + 1;
+    const page = event.first! / event.rows! + 1;
     this.fetchProducts(page);
   }
 
@@ -110,13 +114,17 @@ export class AdminProductosComponent implements OnInit {
       header: 'Eliminación de producto',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
-      accept: () => { console.log('accepted') }
+      accept: () => {
+        console.log('accepted');
+      },
     });
   }
 
   deleteProduct(product: Producto) {
     const pos = this.products.indexOf(product);
-    this.products = this.products.filter((p: Producto) => { return p.id !== product.id });
+    this.products = this.products.filter((p: Producto) => {
+      return p.id !== product.id;
+    });
     this.productoService.delete(product.id).subscribe({
       next: (response: Response<Producto>) => {
         const { message } = response;
@@ -125,12 +133,16 @@ export class AdminProductosComponent implements OnInit {
       error: (error: any) => {
         this.products.splice(pos, 0, product);
         if (error.error.error) {
-          this.toaster.detailedToast('error', 'Error al eliminar el producto', error.error.error)
+          this.toaster.detailedToast(
+            'error',
+            'Error al eliminar el producto',
+            error.error.error,
+          );
         } else {
           this.toaster.smallToast('error', 'Error al eliminar el producto');
         }
-      }
-    })
+      },
+    });
   }
 
   filterProduct(event: AutoCompleteCompleteEvent) {
@@ -147,12 +159,12 @@ export class AdminProductosComponent implements OnInit {
       },
       error: (error: any) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
 
   onSelect(event: AutoCompleteSelectEvent) {
-    this.findById(event.value.id)
+    this.findById(event.value.id);
     this.totalProducts = 1;
   }
 
@@ -163,9 +175,8 @@ export class AdminProductosComponent implements OnInit {
       },
       error: (error: any) => {
         console.log(error);
-
-      }
-    })
+      },
+    });
   }
 
   setPlaceholder(event: any) {
@@ -180,7 +191,7 @@ export class AdminProductosComponent implements OnInit {
   }
 
   getIconClass() {
-    return this.buttonLoading ? 'pi pi-spin pi-sync' : 'pi pi-sync'
+    return this.buttonLoading ? 'pi pi-spin pi-sync' : 'pi pi-sync';
   }
 
   updateProduct(product: Producto) {
@@ -190,6 +201,6 @@ export class AdminProductosComponent implements OnInit {
       }
 
       return p;
-    })
+    });
   }
 }

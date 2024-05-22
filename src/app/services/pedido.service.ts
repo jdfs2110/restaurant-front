@@ -1,19 +1,19 @@
-import { Injectable } from "@angular/core";
-import env from "@/app/env.json";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { Pedido } from "@/app/types/Pedido";
-import { Linea } from "@/app/types/Linea";
-import { Factura } from "@/app/types/Factura";
+import { Injectable } from '@angular/core';
+import env from '@/app/env.json';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Pedido } from '@/app/types/Pedido';
+import { Linea } from '@/app/types/Linea';
+import { Factura } from '@/app/types/Factura';
 import { Response } from '@/app/types/Response';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PedidoService {
   private url: string = `${env.API_URL}/pedidos`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   findAll(page: number = 1): Observable<Response<Pedido[]>> {
     return this.http.get<Response<Pedido[]>>(`${this.url}?page=${page}`);

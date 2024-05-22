@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
@@ -21,14 +26,14 @@ import { DropdownModule } from 'primeng/dropdown';
     DialogModule,
     InputTextModule,
     ErrorPComponent,
-    DropdownModule
+    DropdownModule,
   ],
   templateUrl: './mesa-edit-dialog.component.html',
-  styleUrl: './mesa-edit-dialog.component.css'
+  styleUrl: './mesa-edit-dialog.component.css',
 })
 export class MesaEditDialogComponent implements OnInit {
   @Input({ required: true }) mesa: Mesa;
-  @Output() onUpdate = new EventEmitter<Mesa>
+  @Output() onUpdate = new EventEmitter<Mesa>();
 
   protected isVisible: boolean = false;
   protected isLoading: boolean = false;
@@ -37,33 +42,33 @@ export class MesaEditDialogComponent implements OnInit {
   protected ESTADOS: Estado[] = [
     {
       nombre: 'Libre',
-      valor: 0
+      valor: 0,
     },
     {
       nombre: 'Ocupada',
-      valor: 1
+      valor: 1,
     },
     {
       nombre: 'Reservada',
-      valor: 2
-    }
+      valor: 2,
+    },
   ];
 
   protected mesaForm = new FormGroup({
     capacidad_maxima: new FormControl(0, [
       Validators.required,
       Validators.min(1),
-      Validators.max(20)
+      Validators.max(20),
     ]),
-    estado: new FormControl(0, [Validators.required])
-  })
+    estado: new FormControl(0, [Validators.required]),
+  });
 
   constructor(
     private mesaService: MesaService,
     private validationService: ValidationMessagesService,
     private toaster: ToastService,
-    private confirmer: ConfirmationService
-  ) { }
+    private confirmer: ConfirmationService,
+  ) {}
 
   showEditDialog(): void {
     this.isVisible = true;
@@ -72,18 +77,19 @@ export class MesaEditDialogComponent implements OnInit {
   ngOnInit(): void {
     this.mesaForm.setValue({
       capacidad_maxima: this.mesa.capacidad_maxima,
-      estado: this.mesa.estado_numero
-    })
+      estado: this.mesa.estado_numero,
+    });
   }
 
   getCapacidadMaximaErrors() {
     const capacidad_maxima = this.mesaForm.controls.capacidad_maxima;
 
-    if (capacidad_maxima.hasError('required')) return this.validationService.requiredMessage()
+    if (capacidad_maxima.hasError('required'))
+      return this.validationService.requiredMessage();
 
-    if (capacidad_maxima.hasError('min')) return 'El mínimo de personas es 1.'
+    if (capacidad_maxima.hasError('min')) return 'El mínimo de personas es 1.';
 
-    if (capacidad_maxima.hasError('max')) return 'El máximo de personas es 20.'
+    if (capacidad_maxima.hasError('max')) return 'El máximo de personas es 20.';
 
     return '';
   }
@@ -101,8 +107,10 @@ export class MesaEditDialogComponent implements OnInit {
       header: 'Editar mesa',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
-      accept: () => { this.onEdit() }
-    })
+      accept: () => {
+        this.onEdit();
+      },
+    });
   }
 
   onEdit() {
@@ -121,8 +129,8 @@ export class MesaEditDialogComponent implements OnInit {
       id: 0,
       capacidad_maxima: formValue.capacidad_maxima ?? 1,
       estado: formValue.estado ?? 0,
-      estado_numero: 0
-    }
+      estado_numero: 0,
+    };
 
     this.mesaService.update(form, this.mesa.id).subscribe({
       next: (response: Response<Mesa>) => {
@@ -139,17 +147,16 @@ export class MesaEditDialogComponent implements OnInit {
         console.log(error);
 
         if (error.error.error) {
-          this.toaster.smallToast('error', error.error.error)
+          this.toaster.smallToast('error', error.error.error);
         } else {
-          this.toaster.smallToast('error', 'Error al editar la mesa.')
+          this.toaster.smallToast('error', 'Error al editar la mesa.');
         }
-      }
-    })
+      },
+    });
   }
 }
 
 type Estado = {
   nombre: string;
   valor: number;
-}
-
+};

@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import Pusher from "pusher-js";
-import env from "@/app/env.json";
+import { Injectable } from '@angular/core';
+import Pusher from 'pusher-js';
+import env from '@/app/env.json';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PusherService {
   private readonly key: string = env.PUSHER_KEY;
@@ -12,8 +12,8 @@ export class PusherService {
 
   constructor() {
     this.pusher = new Pusher(this.key, {
-      cluster: 'eu'
-    })
+      cluster: 'eu',
+    });
   }
 
   public listenTo(channel: string) {

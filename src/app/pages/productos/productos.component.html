@@ -2,22 +2,27 @@
 <main>
   <p-accordion>
     @for (producto of productos; track $index) {
-    <p-accordionTab [disabled]="!producto.activo">
-      <ng-template pTemplate="header">
-        <div class="flex align-items-center gap-2 w-full">
-          <p-avatar [image]="producto.foto" size="large" shape="circle"
-            (onImageError)="setPlaceholder($event)"></p-avatar>
-          <span class=" font-semibold text-base w-10">{{ producto.nombre }}</span>
+      <p-accordionTab [disabled]="!producto.activo">
+        <ng-template pTemplate="header">
+          <div class="flex align-items-center gap-2 w-full">
+            <p-avatar
+              [image]="producto.foto"
+              size="large"
+              shape="circle"
+              (onImageError)="setPlaceholder($event)"
+            ></p-avatar>
+            <span class="font-semibold text-base w-10">{{
+              producto.nombre
+            }}</span>
+          </div>
+        </ng-template>
+
+        <div>
+          <p>Categoría: {{ producto.categoria }}</p>
+          <p>Stock: {{ producto.cantidad }}</p>
+          <p>Precio unitario: {{ producto.precio.toFixed(2) }}€</p>
         </div>
-      </ng-template>
-
-      <div>
-        <p>Categoría: {{ producto.categoria }}</p>
-        <p>Stock: {{ producto.cantidad }}</p>
-        <p>Precio unitario: {{ producto.precio.toFixed(2) }}€</p>
-      </div>
-
-    </p-accordionTab>
+      </p-accordionTab>
     }
   </p-accordion>
 </main>

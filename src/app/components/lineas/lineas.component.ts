@@ -6,7 +6,7 @@ import { Linea } from '@/app/types/Linea';
 import { NewLineaEvent } from '@/app/types/NewLineaEvent';
 import { Response } from '@/app/types/Response';
 import { Component, Input, OnInit } from '@angular/core';
-import { HeaderComponent } from "../header/header.component";
+import { HeaderComponent } from '../header/header.component';
 import { PanelModule } from 'primeng/panel';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
@@ -22,10 +22,10 @@ import env from '@/app/env.json';
     AvatarModule,
     ButtonModule,
     DataViewModule,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './lineas.component.html',
-  styleUrl: './lineas.component.css'
+  styleUrl: './lineas.component.css',
 })
 export class LineasComponent implements OnInit {
   lineas: Linea[] = [];
@@ -35,8 +35,7 @@ export class LineasComponent implements OnInit {
     private pusher: PusherService,
     private lineaService: LineaService,
     private audioService: AudioService,
-
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     if (this.channel === 'lineas-cocina') {
@@ -47,7 +46,9 @@ export class LineasComponent implements OnInit {
           const { data } = response;
           this.lineas = data;
         },
-        error: (error: any) => { console.log(error) }
+        error: (error: any) => {
+          console.log(error);
+        },
       });
     } else if (this.channel === 'lineas-barra') {
       this.lineaService.getLineasOfBarra().subscribe({
@@ -57,8 +58,10 @@ export class LineasComponent implements OnInit {
           const { data } = response;
           this.lineas = data;
         },
-        error: (error: any) => { console.log(error) }
-      })
+        error: (error: any) => {
+          console.log(error);
+        },
+      });
     }
 
     const channel = this.pusher.listenTo(this.channel);
@@ -106,8 +109,8 @@ export class LineasComponent implements OnInit {
       },
       error: (error) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
 
   setPlaceholder(event: any) {

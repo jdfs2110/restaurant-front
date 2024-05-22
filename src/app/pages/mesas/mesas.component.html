@@ -1,167 +1,269 @@
 <app-header></app-header>
 <main>
-
   @defer {
-  <div class="w-full px-2" id="cards">
-    @for (mesa of mesas; track mesa.id) {
+    <div class="w-full px-2" id="cards">
+      @for (mesa of mesas; track mesa.id) {
+        <p-card styleClass="w-full">
+          <ng-template pTemplate="header">
+            <div
+              class="flex justify-content-between align-items-center pt-2 px-4"
+            >
+              <p class="text-xl font-bold">Mesa {{ mesa.id }}</p>
+              <p-button
+                severity="secondary"
+                [rounded]="true"
+                icon="pi pi-receipt"
+                (onClick)="verLineas(mesa)"
+                [disabled]="mesa.estado_numero !== 1"
+              />
+            </div>
+          </ng-template>
 
-    <p-card styleClass="w-full">
+          <ng-template pTemplate="subheader">
+            <p>Estado: {{ mesa.estado }}</p>
+            <span
+              >Capacidad máxima: {{ mesa.capacidad_maxima }}
+              {{ mesa.capacidad_maxima === 1 ? "persona" : "personas" }}</span
+            >
+          </ng-template>
 
-      <ng-template pTemplate="header">
+          <ng-template pTemplate="footer">
+            @if (mesa.estado_numero === 1) {
+              <div class="flex flex-row gap-2 w-full">
+                <div class="flex-1">
+                  <p-button
+                    styleClass="w-full"
+                    label="Servir"
+                    (onClick)="showServirDialog($event, mesa)"
+                  />
+                </div>
+                <div class="flex-1">
+                  <p-button
+                    styleClass="w-full"
+                    label="Añadir producto"
+                    (onClick)="nuevaLinea(mesa)"
+                  />
+                </div>
+              </div>
+            } @else {
+              <app-create-pedido
+                [mesa]="mesa"
+                [userId]="userId"
+                (onNewPedido)="ocuparMesa($event)"
+              ></app-create-pedido>
+            }
+          </ng-template>
+        </p-card>
+      }
+    </div>
 
-        <div class="flex justify-content-between align-items-center pt-2 px-4">
-
-          <p class="text-xl font-bold">Mesa {{ mesa.id }}</p>
-          <p-button severity="secondary" [rounded]="true" icon="pi pi-receipt" (onClick)="verLineas(mesa)"
-            [disabled]="mesa.estado_numero !== 1" />
-        </div>
-      </ng-template>
-
-      <ng-template pTemplate="subheader">
-        <p>Estado: {{ mesa.estado }}</p>
-        <span>Capacidad máxima: {{ mesa.capacidad_maxima }} {{ mesa.capacidad_maxima === 1 ? 'persona' : 'personas'
-          }}</span>
-      </ng-template>
-
-
-      <ng-template pTemplate="footer">
-        @if (mesa.estado_numero === 1) {
-        <div class="flex flex-row gap-2 w-full">
-          <div class="flex-1">
-            <p-button styleClass="w-full" label="Servir" (onClick)="showServirDialog($event, mesa)" />
-          </div>
-          <div class="flex-1">
-            <p-button styleClass="w-full" label="Añadir producto" (onClick)="nuevaLinea(mesa)" />
-          </div>
-        </div>
-        } @else {
-        <app-create-pedido [mesa]="mesa" [userId]="userId" (onNewPedido)="ocuparMesa($event)"></app-create-pedido>
-        }
-      </ng-template>
-
-    </p-card>
-
-    }
-  </div>
+  } @placeholder {
+    <div
+      class="flex justify-content-center align-items-center min-h-screen gap-4"
+    >
+      <p>Cargando...</p>
+      <p-progressSpinner
+        ariaLabel="loading"
+        styleClass="w-4rem h-4rem"
+        strokeWidth="5"
+        animationDuration=".5s"
+      />
+    </div>
   }
-
-  @placeholder {
-  <div class="flex justify-content-center align-items-center min-h-screen gap-4">
-    <p>Cargando...</p>
-    <p-progressSpinner ariaLabel="loading" styleClass="w-4rem h-4rem" strokeWidth="5" animationDuration=".5s" />
-  </div>
-  }
-
 </main>
 
 <div class="card flex justify-content-center">
-  <p-dialog [(visible)]="newLineaVisible" [maximizable]="true" [modal]="true" header="Añadir un producto"
-    [draggable]="false" (onHide)="refreshMesa()" styleClass="h-full" styleClass="w-11">
+  <p-dialog
+    [(visible)]="newLineaVisible"
+    [maximizable]="true"
+    [modal]="true"
+    header="Añadir un producto"
+    [draggable]="false"
+    (onHide)="refreshMesa()"
+    styleClass="h-full"
+    styleClass="w-11"
+  >
     <p-tabView>
-
       <p-tabPanel header="Bebidas">
-        <input type="text" pInputText placeholder="Busca un producto" (keyup)="filterProduct($event, 'barra')"
-          class="mb-2" />
+        <input
+          type="text"
+          pInputText
+          placeholder="Busca un producto"
+          (keyup)="filterProduct($event, 'barra')"
+          class="mb-2"
+        />
         @for (producto of productosBarraFiltered; track producto.id) {
-        <div class="w-full border-1 border-gray-200 border-round px-2 py-3 flex gap-2 flex-column card box-primary"
-          pRipple (click)="newLinea(producto, 'barra')">
-          <div class="flex align-items-center gap-2">
-            <p-avatar [image]="producto.foto" shape="circle" size="large"
-              (onImageError)="setPlaceholder($event)"></p-avatar>
-            <p>{{ producto.nombre }}</p>
+          <div
+            class="w-full border-1 border-gray-200 border-round px-2 py-3 flex gap-2 flex-column card box-primary"
+            pRipple
+            (click)="newLinea(producto, 'barra')"
+          >
+            <div class="flex align-items-center gap-2">
+              <p-avatar
+                [image]="producto.foto"
+                shape="circle"
+                size="large"
+                (onImageError)="setPlaceholder($event)"
+              ></p-avatar>
+              <p>{{ producto.nombre }}</p>
+            </div>
+            <span class="font-medium">Stock: {{ producto.cantidad }}</span>
           </div>
-          <span class="font-medium">Stock: {{ producto.cantidad }}</span>
-        </div>
         }
       </p-tabPanel>
 
       <p-tabPanel header="Comida">
-        <input type="text" pInputText placeholder="Busca un producto" (keyup)="filterProduct($event, 'cocina')"
-          class="mb-2" />
+        <input
+          type="text"
+          pInputText
+          placeholder="Busca un producto"
+          (keyup)="filterProduct($event, 'cocina')"
+          class="mb-2"
+        />
 
         @for (producto of productosCocinaFiltered; track producto.id) {
-        <div class="w-full border-1 border-gray-200 border-round px-2 py-3 flex gap-2 flex-column card box-primary"
-          pRipple (click)="newLinea(producto, 'cocina')">
-          <div class="flex align-items-center gap-2">
-            <p-avatar [image]="producto.foto" shape="circle" size="large"
-              (onImageError)="setPlaceholder($event)"></p-avatar>
-            <p>{{ producto.nombre }}</p>
+          <div
+            class="w-full border-1 border-gray-200 border-round px-2 py-3 flex gap-2 flex-column card box-primary"
+            pRipple
+            (click)="newLinea(producto, 'cocina')"
+          >
+            <div class="flex align-items-center gap-2">
+              <p-avatar
+                [image]="producto.foto"
+                shape="circle"
+                size="large"
+                (onImageError)="setPlaceholder($event)"
+              ></p-avatar>
+              <p>{{ producto.nombre }}</p>
+            </div>
+            <span class="font-medium">Stock: {{ producto.cantidad }}</span>
           </div>
-          <span class="font-medium">Stock: {{ producto.cantidad }}</span>
-        </div>
         }
       </p-tabPanel>
-
     </p-tabView>
   </p-dialog>
 </div>
 
 <div class="card flex justify-content-center">
-
-  <p-dialog [(visible)]="lineasVisible" [maximizable]="true" [modal]="true" [draggable]="false"
-    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [header]="'Lineas del pedido actual'"
-    (onHide)="refreshMesa()">
-
+  <p-dialog
+    [(visible)]="lineasVisible"
+    [maximizable]="true"
+    [modal]="true"
+    [draggable]="false"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    [header]="'Lineas del pedido actual'"
+    (onHide)="refreshMesa()"
+  >
     @if (lineas.length === 0) {
-    <p>Actualmente no hay líneas</p>
+      <p>Actualmente no hay líneas</p>
     }
     <div>
-      @for (linea of lineas; track linea.id; let last = $last; let first = $first) {
-      <p-panel [toggleable]="true" [collapsed]="true" toggler="header"
-        [styleClass]="first && last ? 'border-top-1 border-bottom-1' : first ? 'border-top-1 border-bottom-none' : last ? 'border-bottom-1 border-top-none' : 'border-top-none border-bottom-none'">
-        <div class="flex justify-content-end align-items-center gap-2">
-          <app-edit-linea [linea]="linea" (onUpdate)="updateLinea($event)"
-            (updatedProduct)="updateProducto($event)"></app-edit-linea>
-          <p-button [rounded]="true" icon="pi pi-trash" severity="danger" (onClick)="showDeletion($event, linea)"
-            [disabled]="linea.estado_numero === 1" />
-        </div>
-
-        <ng-template pTemplate="header">
-          <div class="flex justify-content-between w-full align-items-center">
-            <div class="flex align-items-center gap-2 w-9">
-              <p-avatar [image]="linea.producto_foto" shape="circle" size="large"
-                (onImageError)="setPlaceholder($event)" />
-              <span class="font-medium">{{ linea.cantidad }}x {{ linea.producto }}</span>
-            </div>
-            <span class="font-semibold w-2 pl-2 mr-4">{{ (linea.precio * linea.cantidad).toFixed(2) }}€</span>
+      @for (
+        linea of lineas;
+        track linea.id;
+        let last = $last;
+        let first = $first
+      ) {
+        <p-panel
+          [toggleable]="true"
+          [collapsed]="true"
+          toggler="header"
+          [styleClass]="
+            first && last
+              ? 'border-top-1 border-bottom-1'
+              : first
+                ? 'border-top-1 border-bottom-none'
+                : last
+                  ? 'border-bottom-1 border-top-none'
+                  : 'border-top-none border-bottom-none'
+          "
+        >
+          <div class="flex justify-content-end align-items-center gap-2">
+            <app-edit-linea
+              [linea]="linea"
+              (onUpdate)="updateLinea($event)"
+              (updatedProduct)="updateProducto($event)"
+            ></app-edit-linea>
+            <p-button
+              [rounded]="true"
+              icon="pi pi-trash"
+              severity="danger"
+              (onClick)="showDeletion($event, linea)"
+              [disabled]="linea.estado_numero === 1"
+            />
           </div>
-        </ng-template>
 
-      </p-panel>
+          <ng-template pTemplate="header">
+            <div class="flex justify-content-between w-full align-items-center">
+              <div class="flex align-items-center gap-2 w-9">
+                <p-avatar
+                  [image]="linea.producto_foto"
+                  shape="circle"
+                  size="large"
+                  (onImageError)="setPlaceholder($event)"
+                />
+                <span class="font-medium"
+                  >{{ linea.cantidad }}x {{ linea.producto }}</span
+                >
+              </div>
+              <span class="font-semibold w-2 pl-2 mr-4"
+                >{{ (linea.precio * linea.cantidad).toFixed(2) }}€</span
+              >
+            </div>
+          </ng-template>
+        </p-panel>
       }
     </div>
     @if (lineas.length > 0) {
-    <span class="font-semibold text-lg">Precio total: {{ pedidoActual.precio }}€</span>
+      <span class="font-semibold text-lg"
+        >Precio total: {{ pedidoActual.precio }}€</span
+      >
     }
   </p-dialog>
-
 </div>
 
 <div class="card flex justify-content-center">
-
-  <p-dialog [(visible)]="newLineaFormVisible" [maximizable]="true" [draggable]="false"
-    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [header]="'Nueva línea'" (onHide)="showPreviousDialog()">
-
-
+  <p-dialog
+    [(visible)]="newLineaFormVisible"
+    [maximizable]="true"
+    [draggable]="false"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    [header]="'Nueva línea'"
+    (onHide)="showPreviousDialog()"
+  >
     <form [formGroup]="newLineaForm" (submit)="onCreate()">
-
       <div class="field">
         <label for="producto">Producto</label>
-        <input type="text" pInputText class="w-full" disabled [value]="productoActual.nombre">
+        <input
+          type="text"
+          pInputText
+          class="w-full"
+          disabled
+          [value]="productoActual.nombre"
+        />
       </div>
 
       <div class="field">
         <label for="cantidad">Cantidad</label>
-        <input type="text" pInputText class="w-full" formControlName="cantidad">
+        <input
+          type="text"
+          pInputText
+          class="w-full"
+          formControlName="cantidad"
+        />
         @if (submitted && newLineaForm.controls.cantidad.invalid) {
-        <error-p class="pb-1">{{ getCantidadErrors() }}</error-p>
+          <error-p class="pb-1">{{ getCantidadErrors() }}</error-p>
         }
       </div>
 
-      <p-button label="Añadir producto" type="submit" styleClass="w-full" [loading]="loading" iconPos="right" />
-
+      <p-button
+        label="Añadir producto"
+        type="submit"
+        styleClass="w-full"
+        [loading]="loading"
+        iconPos="right"
+      />
     </form>
-
   </p-dialog>
   <p-confirmDialog />
 </div>

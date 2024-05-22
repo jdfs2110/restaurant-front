@@ -12,7 +12,7 @@ main {
 @media (min-width: 1024px) {
   form {
     padding-inline: 14rem !important;
-    padding-block: 8rem !important
+    padding-block: 8rem !important;
   }
 }
 

@@ -22,42 +22,42 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo: 'home',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'home',
     component: HomeComponent,
-    title: 'Home - Restaurant'
+    title: 'Home - Restaurant',
   },
   {
     path: 'login',
     component: LoginComponent,
-    title: 'Inicio de sesión - Restaurant'
+    title: 'Inicio de sesión - Restaurant',
   },
   {
     path: 'lineas/cocina',
     component: LineasCocinaComponent,
-    title: 'Líneas de cocina - Restaurant'
+    title: 'Líneas de cocina - Restaurant',
   },
   {
     path: 'lineas/barra',
     component: LineasBarraComponent,
-    title: 'Lineas de barra - Restaurant'
+    title: 'Lineas de barra - Restaurant',
   },
   {
     path: 'mesas',
     component: MesasComponent,
-    title: 'Mesas - Restaurant'
+    title: 'Mesas - Restaurant',
   },
   {
     path: 'productos',
     component: ProductosComponent,
-    title: 'Productos - Restaurant'
+    title: 'Productos - Restaurant',
   },
   {
     path: 'perfil',
     component: PerfilComponent,
-    title: 'Perfil - Restaurant'
+    title: 'Perfil - Restaurant',
   },
   {
     path: 'rrhh',
@@ -67,14 +67,14 @@ export const routes: Routes = [
       {
         path: 'usuarios',
         component: AdminUsuariosComponent,
-        title: 'Usuarios - RRHH'
+        title: 'Usuarios - RRHH',
       },
       {
         path: 'roles',
         component: AdminRolesComponent,
-        title: 'Roles - RRHH'
+        title: 'Roles - RRHH',
       },
-    ]
+    ],
   },
   {
     path: 'admin',
@@ -84,52 +84,52 @@ export const routes: Routes = [
       {
         path: 'registro',
         component: RegistroComponent,
-        title: 'Registrar un usuario - Admin'
+        title: 'Registrar un usuario - Admin',
       },
       {
         path: 'roles',
         component: AdminRolesComponent,
-        title: 'Roles - Panel de administración'
+        title: 'Roles - Panel de administración',
       },
       {
         path: 'usuarios',
         component: AdminUsuariosComponent,
-        title: 'Usuarios - Panel de administración'
+        title: 'Usuarios - Panel de administración',
       },
       {
         path: 'categorias',
         component: AdminCategoriasComponent,
-        title: 'Categorías - Panel de administración'
+        title: 'Categorías - Panel de administración',
       },
       {
         path: 'productos',
         component: AdminProductosComponent,
-        title: 'Productos - Panel de administración'
+        title: 'Productos - Panel de administración',
       },
       {
         path: 'mesas',
         component: AdminMesasComponent,
-        title: 'Mesas - Panel de administración'
+        title: 'Mesas - Panel de administración',
       },
       {
         path: 'pedidos',
         component: AdminPedidosComponent,
-        title: 'Pedidos - Panel de administración'
+        title: 'Pedidos - Panel de administración',
       },
       {
         path: 'facturas',
         component: AdminFacturasComponent,
-        title: 'Facturas - Panel de administración'
-      }
-    ]
+        title: 'Facturas - Panel de administración',
+      },
+    ],
   },
   {
     path: '404',
     component: NotFoundComponent,
-    title: 'Página no encontrada - Restaurant'
+    title: 'Página no encontrada - Restaurant',
   },
   {
     path: '**',
-    redirectTo: '404'
-  }
+    redirectTo: '404',
+  },
 ];

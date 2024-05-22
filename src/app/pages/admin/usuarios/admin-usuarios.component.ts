@@ -11,11 +11,15 @@ import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
-import { AutoCompleteCompleteEvent, AutoCompleteModule, AutoCompleteSelectEvent } from 'primeng/autocomplete';
-import { AdminUserEditDialogComponent } from "../../../components/admin/usuarios/user-edit-dialog/user-edit-dialog.component";
+import {
+  AutoCompleteCompleteEvent,
+  AutoCompleteModule,
+  AutoCompleteSelectEvent,
+} from 'primeng/autocomplete';
+import { AdminUserEditDialogComponent } from '../../../components/admin/usuarios/user-edit-dialog/user-edit-dialog.component';
 import { Rol } from '@/app/types/Rol';
 import { RolService } from '@/app/services/rol.service';
-import { UserEditPasswordComponent } from "../../../components/admin/usuarios/user-edit-password/user-edit-password.component";
+import { UserEditPasswordComponent } from '../../../components/admin/usuarios/user-edit-password/user-edit-password.component';
 @Component({
   selector: 'app-admin-usuarios',
   standalone: true,
@@ -30,8 +34,8 @@ import { UserEditPasswordComponent } from "../../../components/admin/usuarios/us
     ConfirmDialogModule,
     AutoCompleteModule,
     AdminUserEditDialogComponent,
-    UserEditPasswordComponent
-  ]
+    UserEditPasswordComponent,
+  ],
 })
 export class AdminUsuariosComponent implements OnInit {
   protected totalUsers: number;
@@ -49,8 +53,8 @@ export class AdminUsuariosComponent implements OnInit {
     private userSignal: UserSignalService,
     private confirmer: ConfirmationService,
     private toaster: ToastService,
-    private rolService: RolService
-  ) { }
+    private rolService: RolService,
+  ) {}
 
   get userId(): number {
     return this.userSignal.user().id;
@@ -59,7 +63,6 @@ export class AdminUsuariosComponent implements OnInit {
   get rolId(): number {
     return this.userSignal.user().id_rol;
   }
-
 
   ngOnInit(): void {
     this.loading = true;
@@ -70,8 +73,8 @@ export class AdminUsuariosComponent implements OnInit {
       },
       error: (error: any) => {
         console.log(error);
-      }
-    })
+      },
+    });
     this.userService.getPages().subscribe({
       next: (response: Response<number>) => {
         const { data, message } = response;
@@ -80,8 +83,8 @@ export class AdminUsuariosComponent implements OnInit {
       },
       error: (error: any) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
 
   fetchUsers(page: number) {
@@ -94,14 +97,14 @@ export class AdminUsuariosComponent implements OnInit {
         this.buttonLoading = false;
       },
       error: (error: any) => {
-        console.log(error)
-      }
-    })
+        console.log(error);
+      },
+    });
   }
 
   loadUsers(event: TableLazyLoadEvent) {
     this.loading = true;
-    const page = (event.first! / event.rows!) + 1;
+    const page = event.first! / event.rows! + 1;
     this.fetchUsers(page);
   }
 
@@ -117,13 +120,17 @@ export class AdminUsuariosComponent implements OnInit {
       header: 'Eliminación de usuario',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
-      accept: () => { this.deleteUser(user) }
+      accept: () => {
+        this.deleteUser(user);
+      },
     });
   }
 
   deleteUser(user: User) {
     const pos = this.users.indexOf(user);
-    this.users = this.users.filter((u: User) => { return u.id !== user.id })
+    this.users = this.users.filter((u: User) => {
+      return u.id !== user.id;
+    });
     this.userService.delete(user.id).subscribe({
       next: (response: Response<User>) => {
         const { message } = response;
@@ -131,9 +138,9 @@ export class AdminUsuariosComponent implements OnInit {
       },
       error: (error: any) => {
         this.users.splice(pos, 0, user);
-        this.toaster.smallToast('error', 'Error al eliminar el usuario')
-      }
-    })
+        this.toaster.smallToast('error', 'Error al eliminar el usuario');
+      },
+    });
   }
 
   filterUser(event: AutoCompleteCompleteEvent) {
@@ -146,14 +153,13 @@ export class AdminUsuariosComponent implements OnInit {
     this.userService.findUsersWithSimilarName(query).subscribe({
       next: (response: Response<User[]>) => {
         console.log(response);
-        const { data } = response
+        const { data } = response;
         this.filteredUsers = data;
-
       },
       error: (error: any) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
 
   onSelect(event: AutoCompleteSelectEvent) {
@@ -173,12 +179,12 @@ export class AdminUsuariosComponent implements OnInit {
       },
       error: (error: any) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
 
   getIconClass() {
-    return this.buttonLoading ? 'pi pi-spin pi-sync' : 'pi pi-sync'
+    return this.buttonLoading ? 'pi pi-spin pi-sync' : 'pi pi-sync';
   }
 
   updateUser(user: User) {
@@ -187,20 +193,23 @@ export class AdminUsuariosComponent implements OnInit {
         return user;
       }
 
-      return u
-    })
+      return u;
+    });
   }
 
   private router: Router = inject(Router);
   register() {
     if (this.rolId === 4) {
-      this.router.navigate(['/admin/registro'])
+      this.router.navigate(['/admin/registro']);
     }
   }
 
   promptTokenRemoval(event: Event, user: User) {
     if (user.id === this.userId) {
-      this.toaster.smallToast('error', 'No te puedes revocar los tokens a ti mismo.');
+      this.toaster.smallToast(
+        'error',
+        'No te puedes revocar los tokens a ti mismo.',
+      );
       return;
     }
 
@@ -210,7 +219,9 @@ export class AdminUsuariosComponent implements OnInit {
       header: 'Cerrar sesiones',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
-      accept: () => { this.revokeTokens(user) }
+      accept: () => {
+        this.revokeTokens(user);
+      },
     });
   }
 
@@ -223,8 +234,11 @@ export class AdminUsuariosComponent implements OnInit {
       error: (error: any) => {
         console.log(error);
 
-        this.toaster.smallToast('error', 'Error al revocar los tokens del usuario.')
-      }
-    })
+        this.toaster.smallToast(
+          'error',
+          'Error al revocar los tokens del usuario.',
+        );
+      },
+    });
   }
 }

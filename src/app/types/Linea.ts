@@ -9,10 +9,10 @@ export type Linea = {
   tipo: string;
   estado: string | number;
   estado_numero: number;
-}
+};
 
 export type LineaCompleted = {
   id: number;
   message: string;
-  ocurredOn: Date
-}
+  ocurredOn: Date;
+};

@@ -8,8 +8,8 @@ import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
-import { CreateMesaComponent } from "../../../components/admin/mesas/create-mesa/create-mesa.component";
-import { MesaEditDialogComponent } from "../../../components/admin/mesas/mesa-edit-dialog/mesa-edit-dialog.component";
+import { CreateMesaComponent } from '../../../components/admin/mesas/create-mesa/create-mesa.component';
+import { MesaEditDialogComponent } from '../../../components/admin/mesas/mesa-edit-dialog/mesa-edit-dialog.component';
 
 @Component({
   selector: 'app-admin-mesas',
@@ -22,8 +22,8 @@ import { MesaEditDialogComponent } from "../../../components/admin/mesas/mesa-ed
     ConfirmDialogModule,
     ToolbarModule,
     CreateMesaComponent,
-    MesaEditDialogComponent
-  ]
+    MesaEditDialogComponent,
+  ],
 })
 export class AdminMesasComponent implements OnInit {
   protected mesas: Mesa[];
@@ -31,16 +31,16 @@ export class AdminMesasComponent implements OnInit {
   constructor(
     private mesaService: MesaService,
     private confirmer: ConfirmationService,
-    private toaster: ToastService
-  ) { }
+    private toaster: ToastService,
+  ) {}
 
   ngOnInit(): void {
     this.mesaService.findAll().subscribe({
       next: (response: Response<Mesa[]>) => {
         const { data } = response;
         this.mesas = data;
-      }
-    })
+      },
+    });
   }
 
   showDialog(event: Event, mesa: Mesa): void {
@@ -50,13 +50,17 @@ export class AdminMesasComponent implements OnInit {
       header: 'Eliminación de mesa',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
-      accept: () => { this.eliminarMesa(mesa); }
-    })
+      accept: () => {
+        this.eliminarMesa(mesa);
+      },
+    });
   }
 
   eliminarMesa(mesa: Mesa) {
     const pos = this.mesas.indexOf(mesa);
-    this.mesas = this.mesas.filter((m: Mesa) => { return m.id !== mesa.id })
+    this.mesas = this.mesas.filter((m: Mesa) => {
+      return m.id !== mesa.id;
+    });
     this.mesaService.delete(mesa.id).subscribe({
       next: (response: Response<any>) => {
         const { message } = response;
@@ -64,9 +68,13 @@ export class AdminMesasComponent implements OnInit {
       },
       error: (error: any) => {
         this.mesas.splice(pos, 0, mesa);
-        this.toaster.detailedToast('error', 'Error al eliminar la mesa', error.error.error)
-      }
-    })
+        this.toaster.detailedToast(
+          'error',
+          'Error al eliminar la mesa',
+          error.error.error,
+        );
+      },
+    });
   }
 
   updateMesa(mesa: Mesa) {
@@ -76,7 +84,7 @@ export class AdminMesasComponent implements OnInit {
       }
 
       return m;
-    })
+    });
   }
 
   pushMesa(mesa: Mesa) {

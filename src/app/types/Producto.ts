@@ -7,8 +7,8 @@ export type Producto = {
   id_categoria: number;
   categoria: string;
   cantidad: number;
-}
+};
 
 export type stockQuantity = {
   cantidad: number;
-}
+};

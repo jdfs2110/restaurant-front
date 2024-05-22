@@ -12,14 +12,9 @@ import { DialogModule } from 'primeng/dialog';
 @Component({
   selector: 'app-users-by-rol',
   standalone: true,
-  imports: [
-    ButtonModule,
-    DialogModule,
-    DataViewModule,
-    CommonModule
-  ],
+  imports: [ButtonModule, DialogModule, DataViewModule, CommonModule],
   templateUrl: './users-by-rol.component.html',
-  styleUrl: './users-by-rol.component.css'
+  styleUrl: './users-by-rol.component.css',
 })
 export class UsersByRolComponent implements OnInit {
   @Input({ required: true }) rol: Rol;
@@ -31,8 +26,8 @@ export class UsersByRolComponent implements OnInit {
 
   constructor(
     private rolService: RolService,
-    private toaster: ToastService
-  ) { }
+    private toaster: ToastService,
+  ) {}
 
   showDialog() {
     this.isVisible = true;
@@ -48,9 +43,13 @@ export class UsersByRolComponent implements OnInit {
         this.users = data;
       },
       error: (error: any) => {
-        console.log(error)
-        this.toaster.detailedToast('error', 'Ha ocurrido un error', `Ha ocurrido un error intentando obtener los usuarios del rol ${this.rol.nombre}`);
-      }
-    })
+        console.log(error);
+        this.toaster.detailedToast(
+          'error',
+          'Ha ocurrido un error',
+          `Ha ocurrido un error intentando obtener los usuarios del rol ${this.rol.nombre}`,
+        );
+      },
+    });
   }
 }

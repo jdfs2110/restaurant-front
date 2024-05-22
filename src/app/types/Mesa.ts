@@ -3,4 +3,4 @@ export type Mesa = {
   capacidad_maxima: number;
   estado: string | number;
   estado_numero: number;
-}
+};

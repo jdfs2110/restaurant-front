@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderComponent } from "../../components/header/header.component";
+import { HeaderComponent } from '../../components/header/header.component';
 import { Mesa } from '@/app/types/Mesa';
 import { MesaService } from '@/app/services/mesa.service';
 import { Response } from '@/app/types/Response';
@@ -8,16 +8,21 @@ import { LineaService } from '@/app/services/linea.service';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { UserSignalService } from '@/app/services/user.signal.service';
 import { InputTextModule } from 'primeng/inputtext';
 import { ValidationMessagesService } from '@/app/services/validation-messages.service';
-import { ErrorPComponent } from "../../components/error-p/error-p.component";
+import { ErrorPComponent } from '../../components/error-p/error-p.component';
 import { Pedido } from '@/app/types/Pedido';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { Linea, LineaCompleted } from '@/app/types/Linea';
 import { ToastService } from '@/app/lib/toast.service';
-import { CreatePedidoComponent } from "./create-pedido.component";
+import { CreatePedidoComponent } from './create-pedido.component';
 import { PusherService } from '@/app/services/pusher.service';
 import { PanelModule } from 'primeng/panel';
 import { AvatarModule } from 'primeng/avatar';
@@ -25,11 +30,11 @@ import { Producto } from '@/app/types/Producto';
 import { TabViewModule } from 'primeng/tabview';
 import { ProductoService } from '@/app/services/producto.service';
 import { RippleModule } from 'primeng/ripple';
-import { EditLineaComponent } from "./edit-linea.component";
+import { EditLineaComponent } from './edit-linea.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { AudioService } from '@/app/lib/audio.service';
-import env from '@/app/env.json'
+import env from '@/app/env.json';
 @Component({
   selector: 'app-mesas',
   standalone: true,
@@ -50,8 +55,8 @@ import env from '@/app/env.json'
     TabViewModule,
     RippleModule,
     EditLineaComponent,
-    ConfirmDialogModule
-  ]
+    ConfirmDialogModule,
+  ],
 })
 export class MesasComponent implements OnInit {
   protected mesas: Mesa[] = [];
@@ -67,22 +72,23 @@ export class MesasComponent implements OnInit {
 
   protected productos: Producto[] = [];
   protected productosCocina: Producto[] = [];
-  protected productosCocinaFiltered: Producto[] = []
-  protected productosBarraFiltered: Producto[] = []
+  protected productosCocinaFiltered: Producto[] = [];
+  protected productosBarraFiltered: Producto[] = [];
   protected productosBarra: Producto[] = [];
-
 
   protected lineasVisible: boolean = false;
   protected newLineaFormVisible: boolean = false;
 
   protected newLineaForm = new FormGroup({
-    cantidad: new FormControl(null, [Validators.required])
-  })
+    cantidad: new FormControl(null, [Validators.required]),
+  });
 
   getCantidadErrors() {
     const cantidad = this.newLineaForm.controls.cantidad;
 
-    return cantidad.hasError('required') ? this.validationService.requiredMessage() : '';
+    return cantidad.hasError('required')
+      ? this.validationService.requiredMessage()
+      : '';
   }
 
   get userId(): number {
@@ -103,8 +109,8 @@ export class MesasComponent implements OnInit {
     private productoService: ProductoService,
     private validationService: ValidationMessagesService,
     private confirmer: ConfirmationService,
-    private audioService: AudioService
-  ) { }
+    private audioService: AudioService,
+  ) {}
 
   ngOnInit(): void {
     this.mesaService.findAll().subscribe({
@@ -114,32 +120,38 @@ export class MesasComponent implements OnInit {
       },
       error: (error: any) => {
         console.log(error);
-      }
-    })
+      },
+    });
 
     this.productoService.all().subscribe({
       next: (response: Response<Producto[]>) => {
         const { data } = response;
-        this.productos = data.filter((producto: Producto) => { return producto.cantidad > 0 && producto.activo });
-        this.productosCocina = data.filter(producto => producto.id_categoria !== 1);
+        this.productos = data.filter((producto: Producto) => {
+          return producto.cantidad > 0 && producto.activo;
+        });
+        this.productosCocina = data.filter(
+          (producto) => producto.id_categoria !== 1,
+        );
         this.productosCocinaFiltered = this.productosCocina;
-        this.productosBarra = data.filter(producto => producto.id_categoria === 1);
+        this.productosBarra = data.filter(
+          (producto) => producto.id_categoria === 1,
+        );
         this.productosBarraFiltered = this.productosBarra;
       },
-    })
+    });
 
     const channel = this.pusher.listenTo('mesas');
     channel.bind('mesa-edited', (event: Response<Mesa>) => {
       const { data } = event;
-      console.log(event)
+      console.log(event);
       this.mesas = this.mesas.map((mesa: Mesa) => {
         if (mesa.id === data.id) {
           return data;
         }
 
         return mesa;
-      })
-    })
+      });
+    });
 
     const notifications = this.pusher.listenTo('lineas-notifications');
     notifications.bind('linea-completed', (notification: LineaCompleted) => {
@@ -147,7 +159,7 @@ export class MesasComponent implements OnInit {
       console.log(notification);
       this.audioService.notification();
       this.toaster.longerDetailedToast('info', 'Línea a recoger', message);
-    })
+    });
   }
 
   ocuparMesa(mesa: Mesa) {
@@ -163,21 +175,23 @@ export class MesasComponent implements OnInit {
       header: 'Servir pedido',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
-      accept: () => { this.servirPedido(mesa) }
-    })
+      accept: () => {
+        this.servirPedido(mesa);
+      },
+    });
   }
 
   servirPedido(mesa: Mesa) {
     this.mesaService.findLastPedido(mesa.id).subscribe({
       next: (response: Response<Pedido>) => {
         const { data } = response;
-        this.markAsServido(data.id, mesa)
+        this.markAsServido(data.id, mesa);
       },
       error: (error: any) => {
         console.log(error);
         this.toaster.smallToast('error', 'Error al servir el pedido');
-      }
-    })
+      },
+    });
   }
 
   markAsServido(idPedido: number, mesa: Mesa) {
@@ -186,15 +200,15 @@ export class MesasComponent implements OnInit {
     this.mesas[pos].estado = 'libre';
     this.pedidoService.servirPedido(idPedido).subscribe({
       next: (response: Response<any>) => {
-        console.log(response.message)
+        console.log(response.message);
       },
       error: (error: any) => {
         console.log('error', error);
         this.toaster.smallToast('error', 'Error al servir el pedido');
         this.mesas[pos].estado_numero = mesa.estado_numero;
         this.mesas[pos].estado = mesa.estado;
-      }
-    })
+      },
+    });
   }
 
   nuevaLinea(mesa: Mesa) {
@@ -204,8 +218,8 @@ export class MesasComponent implements OnInit {
       next: (response: Response<Pedido>) => {
         const { data } = response;
         this.pedidoActual = data;
-      }
-    })
+      },
+    });
   }
 
   verLineas(mesa: Mesa) {
@@ -215,19 +229,19 @@ export class MesasComponent implements OnInit {
       next: (response: Response<Pedido>) => {
         const { data } = response;
         this.pedidoActual = data;
-        this.findLineasByPedido(data.id)
-      }
-    })
+        this.findLineasByPedido(data.id);
+      },
+    });
   }
 
   findLineasByPedido(idPedido: number) {
     this.pedidoService.getLineas(idPedido).subscribe({
       next: (response: Response<Linea[]>) => {
         if (response === null) return;
-        const { data } = response
+        const { data } = response;
         this.lineas = data;
-      }
-    })
+      },
+    });
   }
 
   refreshMesa() {
@@ -243,13 +257,17 @@ export class MesasComponent implements OnInit {
     const query = event.target.value;
 
     if (tipo === 'cocina') {
-      if (query === '') this.productosCocinaFiltered = this.productosCocina
+      if (query === '') this.productosCocinaFiltered = this.productosCocina;
       else
-        this.productosCocinaFiltered = this.productosCocina.filter(producto => this.removeAccent(producto.nombre).includes(this.removeAccent(query)))
+        this.productosCocinaFiltered = this.productosCocina.filter((producto) =>
+          this.removeAccent(producto.nombre).includes(this.removeAccent(query)),
+        );
     } else {
-      if (query === '') this.productosBarraFiltered = this.productosBarra
+      if (query === '') this.productosBarraFiltered = this.productosBarra;
       else
-        this.productosBarraFiltered = this.productosBarra.filter(producto => this.removeAccent(producto.nombre).includes(this.removeAccent(query)))
+        this.productosBarraFiltered = this.productosBarra.filter((producto) =>
+          this.removeAccent(producto.nombre).includes(this.removeAccent(query)),
+        );
     }
   }
 
@@ -290,9 +308,7 @@ export class MesasComponent implements OnInit {
     console.log(formValue);
     console.log('selected tipo', this.selectedTipo);
     console.log('producto', this.productoActual);
-    console.log('pedido', this.pedidoActual)
-
-
+    console.log('pedido', this.pedidoActual);
 
     const newLinea: Linea = {
       id: 0,
@@ -304,8 +320,8 @@ export class MesasComponent implements OnInit {
       id_pedido: this.pedidoActual.id,
       tipo: this.selectedTipo,
       estado: '',
-      estado_numero: 0
-    }
+      estado_numero: 0,
+    };
 
     this.lineaService.create(newLinea).subscribe({
       next: (response: Response<Linea>) => {
@@ -313,17 +329,16 @@ export class MesasComponent implements OnInit {
         this.loading = false;
         this.submitted = false;
         this.productoActual.cantidad -= formValue.cantidad ?? 0;
-        this.toaster.smallToast('success', 'Producto añadido correctamente.')
+        this.toaster.smallToast('success', 'Producto añadido correctamente.');
         this.showPreviousDialog();
-
       },
       error: (error: any) => {
         console.log(error);
         this.loading = false;
         this.submitted = false;
         this.toaster.smallToast('error', 'Error al añadir el producto');
-      }
-    })
+      },
+    });
   }
 
   updateLinea(linea: Linea) {
@@ -333,11 +348,11 @@ export class MesasComponent implements OnInit {
       }
 
       return l;
-    })
+    });
   }
 
   updateProducto(producto: Producto) {
-    const breakException = {}
+    const breakException = {};
     try {
       this.productos.forEach((p: Producto) => {
         if (p.id === producto.id) {
@@ -357,25 +372,29 @@ export class MesasComponent implements OnInit {
       header: 'Eliminar línea',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
-      accept: () => { this.deleteLinea(linea) }
-    })
+      accept: () => {
+        this.deleteLinea(linea);
+      },
+    });
   }
 
   deleteLinea(linea: Linea) {
     const pos = this.lineas.indexOf(linea);
-    this.lineas = this.lineas.filter((l: Linea) => { return l.id !== linea.id });
+    this.lineas = this.lineas.filter((l: Linea) => {
+      return l.id !== linea.id;
+    });
     this.lineaService.delete(linea.id).subscribe({
       next: (response: Response<Linea>) => {
         const { message } = response;
         console.log(message);
-        const breakException = {}
+        const breakException = {};
         try {
           this.productos.forEach((producto: Producto) => {
             if (producto.id === linea.id_producto) {
               producto.cantidad += linea.cantidad;
               throw breakException;
             }
-          })
+          });
         } catch (e) {
           // console.log('linea eliminada, stock actualizado');
         }
@@ -384,10 +403,7 @@ export class MesasComponent implements OnInit {
       error: (error: any) => {
         this.lineas.splice(pos, 0, linea);
         this.toaster.smallToast('error', 'Error al eliminar la línea');
-      }
-    })
-
+      },
+    });
   }
-
 }
-

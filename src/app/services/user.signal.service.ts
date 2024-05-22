@@ -2,13 +2,13 @@ import { Injectable, effect, signal } from '@angular/core';
 import { User } from '@/app/types/User';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserSignalService {
   private userSignal = signal({} as User);
   readonly user = this.userSignal.asReadonly();
 
-  constructor() { }
+  constructor() {}
 
   updateUser(user: User): void {
     this.userSignal.set(user);

@@ -4,5 +4,5 @@ label {
 }
 
 p-image ::ng-deep .p-image:hover {
-  opacity: .5
+  opacity: 0.5;
 }

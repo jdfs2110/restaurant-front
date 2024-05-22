@@ -9,12 +9,9 @@ import { MenubarModule } from 'primeng/menubar';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [
-    MenubarModule,
-    ButtonModule,
-  ],
+  imports: [MenubarModule, ButtonModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
 })
 export class HeaderComponent implements OnInit {
   adminMenuItems: MenuItem[];
@@ -26,11 +23,11 @@ export class HeaderComponent implements OnInit {
     private userSignal: UserSignalService,
     private authService: AuthService,
     private cookieService: CookieService,
-    private router: Router
-  ) { }
+    private router: Router,
+  ) {}
 
   protected get name(): string {
-    return this.userSignal.user().name
+    return this.userSignal.user().name;
   }
 
   protected get idRol(): number {
@@ -54,21 +51,21 @@ export class HeaderComponent implements OnInit {
               {
                 label: 'Todos los usuarios',
                 icon: 'pi pi-users',
-                routerLink: '/admin/usuarios'
+                routerLink: '/admin/usuarios',
               },
               {
                 label: 'Nuevo usuario',
                 icon: 'pi pi-plus',
-                routerLink: '/admin/registro'
-              }
-            ]
+                routerLink: '/admin/registro',
+              },
+            ],
           },
           {
             label: 'Roles',
             icon: 'pi pi-tags',
-            routerLink: '/admin/roles'
-          }
-        ]
+            routerLink: '/admin/roles',
+          },
+        ],
       },
       {
         label: 'Productos',
@@ -77,14 +74,14 @@ export class HeaderComponent implements OnInit {
           {
             label: 'Todos los productos',
             icon: 'pi pi-shopping-bag',
-            routerLink: '/admin/productos'
+            routerLink: '/admin/productos',
           },
           {
             label: 'Categorías',
             icon: 'pi pi-list',
-            routerLink: '/admin/categorias'
+            routerLink: '/admin/categorias',
           },
-        ]
+        ],
       },
       {
         label: 'Restaurante',
@@ -93,12 +90,12 @@ export class HeaderComponent implements OnInit {
           {
             label: 'Mesas',
             icon: 'pi pi-objects-column',
-            routerLink: '/admin/mesas'
+            routerLink: '/admin/mesas',
           },
           {
             label: 'Pedidos',
             icon: 'pi pi-shopping-cart', // no se que ponerle
-            routerLink: '/admin/pedidos'
+            routerLink: '/admin/pedidos',
           },
           {
             label: 'Finanzas',
@@ -107,16 +104,16 @@ export class HeaderComponent implements OnInit {
               {
                 label: 'Facturas',
                 icon: 'pi pi-receipt',
-                routerLink: '/admin/facturas'
-              }
-            ]
-          }
-        ]
+                routerLink: '/admin/facturas',
+              },
+            ],
+          },
+        ],
       },
       {
         label: 'Perfil',
         icon: 'pi pi-user-edit',
-        routerLink: '/perfil'
+        routerLink: '/perfil',
       },
       {
         label: 'Ventanas',
@@ -125,25 +122,25 @@ export class HeaderComponent implements OnInit {
           {
             label: 'Mesas',
             icon: 'pi pi-objects-column',
-            routerLink: '/mesas'
+            routerLink: '/mesas',
           },
           {
             label: 'Líneas de barra',
             icon: 'pi pi-list',
-            routerLink: '/lineas/barra'
+            routerLink: '/lineas/barra',
           },
           {
             label: 'Líneas de cocina',
             icon: 'pi pi-list',
-            routerLink: '/lineas/cocina'
+            routerLink: '/lineas/cocina',
           },
           {
             label: 'Productos',
             icon: 'pi pi-shopping-bag',
-            routerLink: '/productos'
-          }
-        ]
-      }
+            routerLink: '/productos',
+          },
+        ],
+      },
     ];
 
     this.rrhhMenuItems = [
@@ -154,51 +151,51 @@ export class HeaderComponent implements OnInit {
           {
             label: 'Usuarios',
             icon: 'pi pi-user',
-            routerLink: '/rrhh/usuarios'
+            routerLink: '/rrhh/usuarios',
           },
           {
             label: 'Roles',
             icon: 'pi pi-tags',
-            routerLink: '/rrhh/roles'
-          }
-        ]
+            routerLink: '/rrhh/roles',
+          },
+        ],
       },
       {
         label: 'Perfil',
         icon: 'pi pi-user-edit',
-        routerLink: '/perfil'
-      }
+        routerLink: '/perfil',
+      },
     ];
 
     this.meseroMenuItems = [
       {
         label: 'Mesas',
         icon: 'pi pi-objects-column',
-        routerLink: '/mesas'
+        routerLink: '/mesas',
       },
       {
         label: 'Perfil',
         icon: 'pi pi-user-edit',
-        routerLink: '/perfil'
-      }
-    ]
+        routerLink: '/perfil',
+      },
+    ];
 
     this.regularMenuItems = [
       {
         label: 'Líneas',
         icon: 'pi pi-list',
-        routerLink: `${this.idRol === 2 ? '/lineas/cocina' : '/lineas/barra'}`
+        routerLink: `${this.idRol === 2 ? '/lineas/cocina' : '/lineas/barra'}`,
       },
       {
         label: 'Productos',
         icon: 'pi pi-shopping-bag',
-        routerLink: '/productos'
+        routerLink: '/productos',
       },
       {
         label: 'Perfil',
         icon: 'pi pi-user-edit',
-        routerLink: '/perfil'
-      }
+        routerLink: '/perfil',
+      },
     ];
   }
 
@@ -213,8 +210,8 @@ export class HeaderComponent implements OnInit {
       },
       error: (error) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
 
   redirect(): void {

@@ -1,28 +1,33 @@
-import { Linea } from "@/app/types/Linea";
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { ButtonModule } from "primeng/button";
-import { DialogModule } from "primeng/dialog";
-import { InputTextModule } from "primeng/inputtext";
-import { ErrorPComponent } from "../../components/error-p/error-p.component";
-import { LineaService } from "@/app/services/linea.service";
-import { ValidationMessagesService } from "@/app/services/validation-messages.service";
-import { ConfirmationService } from "primeng/api";
-import { ToastService } from "@/app/lib/toast.service";
-import { Response } from "@/app/types/Response";
-import { ConfirmDialogModule } from "primeng/confirmdialog";
-import { ProductoService } from "@/app/services/producto.service";
-import { Producto } from "@/app/types/Producto";
+import { Linea } from '@/app/types/Linea';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { ErrorPComponent } from '../../components/error-p/error-p.component';
+import { LineaService } from '@/app/services/linea.service';
+import { ValidationMessagesService } from '@/app/services/validation-messages.service';
+import { ConfirmationService } from 'primeng/api';
+import { ToastService } from '@/app/lib/toast.service';
+import { Response } from '@/app/types/Response';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ProductoService } from '@/app/services/producto.service';
+import { Producto } from '@/app/types/Producto';
 
 @Component({
   selector: 'app-edit-linea',
   standalone: true,
   templateUrl: './edit-linea.component.html',
   styles: `
-  label {
-    display: block;
-    font-size: 16px;
-  }
+    label {
+      display: block;
+      font-size: 16px;
+    }
   `,
   imports: [
     ButtonModule,
@@ -30,13 +35,13 @@ import { Producto } from "@/app/types/Producto";
     InputTextModule,
     ReactiveFormsModule,
     ErrorPComponent,
-  ]
+  ],
 })
 export class EditLineaComponent implements OnInit {
   @Input({ required: true }) linea: Linea;
   // @Input({ required: true }) currentStock: number;
-  @Output() onUpdate = new EventEmitter<Linea>;
-  @Output() updatedProduct = new EventEmitter<Producto>;
+  @Output() onUpdate = new EventEmitter<Linea>();
+  @Output() updatedProduct = new EventEmitter<Producto>();
   protected newStock: number;
   protected producto: Producto;
   protected isVisible: boolean = false;
@@ -44,34 +49,38 @@ export class EditLineaComponent implements OnInit {
   protected submitted: boolean = false;
 
   protected lineaForm = new FormGroup({
-    cantidad: new FormControl(0, [Validators.required])
-  })
+    cantidad: new FormControl(0, [Validators.required]),
+  });
 
   constructor(
     private lineaService: LineaService,
     private validationService: ValidationMessagesService,
     private confirmer: ConfirmationService,
     private toaster: ToastService,
-    private productoService: ProductoService
-  ) { }
+    private productoService: ProductoService,
+  ) {}
 
   getCantidadErrors() {
     const cantidad = this.lineaForm.controls.cantidad;
 
-    return cantidad.hasError('required') ? this.validationService.requiredMessage() : '';
+    return cantidad.hasError('required')
+      ? this.validationService.requiredMessage()
+      : '';
   }
 
   ngOnInit(): void {
     this.lineaForm.setValue({
-      cantidad: this.linea.cantidad
-    })
+      cantidad: this.linea.cantidad,
+    });
     this.productoService.findById(this.linea.id_producto).subscribe({
       next: (response: Response<Producto>) => {
         const { data } = response;
         this.producto = data;
       },
-      error: (error: any) => { console.log(error) }
-    })
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
   }
 
   refresh() {
@@ -89,12 +98,14 @@ export class EditLineaComponent implements OnInit {
       header: 'Editar línea',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
-      accept: () => { this.editLinea() }
-    })
+      accept: () => {
+        this.editLinea();
+      },
+    });
   }
 
   editLinea() {
-    const form = this.lineaForm.value
+    const form = this.lineaForm.value;
     this.submitted = true;
     this.isLoading = true;
 
@@ -113,8 +124,8 @@ export class EditLineaComponent implements OnInit {
       producto_foto: '',
       tipo: this.linea.tipo,
       estado: this.linea.estado_numero,
-      estado_numero: 0
-    }
+      estado_numero: 0,
+    };
 
     this.lineaService.update(lineaEdited, this.linea.id).subscribe({
       next: (response: Response<Linea>) => {
@@ -123,21 +134,24 @@ export class EditLineaComponent implements OnInit {
         this.toaster.smallToast('success', message);
         this.onUpdate.emit(data);
 
-        this.isLoading = false
+        this.isLoading = false;
 
         if (this.lineaForm.value.cantidad! < this.linea.cantidad) {
           console.log('estoy quitando cantidad');
-          this.newStock = this.producto.cantidad + (this.linea.cantidad - this.lineaForm.value.cantidad!)
-          this.producto.cantidad = this.newStock
+          this.newStock =
+            this.producto.cantidad +
+            (this.linea.cantidad - this.lineaForm.value.cantidad!);
+          this.producto.cantidad = this.newStock;
           this.updatedProduct.emit(this.producto);
-
         } else if (this.lineaForm.value.cantidad! > this.linea.cantidad) {
           console.log('estoy metiendo cantidad');
-          this.newStock = this.producto.cantidad - (this.lineaForm.value.cantidad! - this.linea.cantidad);
-          this.producto.cantidad = this.newStock
+          this.newStock =
+            this.producto.cantidad -
+            (this.lineaForm.value.cantidad! - this.linea.cantidad);
+          this.producto.cantidad = this.newStock;
           this.updatedProduct.emit(this.producto);
         } else {
-          console.log('no estoy cambiando nada')
+          console.log('no estoy cambiando nada');
           this.updatedProduct.emit(this.producto);
         }
       },
@@ -145,9 +159,7 @@ export class EditLineaComponent implements OnInit {
         console.log(error);
         this.toaster.smallToast('error', 'Error al actualizar la línea.');
         this.isLoading = false;
-      }
-    })
-
+      },
+    });
   }
-
 }

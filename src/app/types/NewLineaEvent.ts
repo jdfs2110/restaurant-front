@@ -1,6 +1,6 @@
-import { Linea } from "./Linea"
+import { Linea } from './Linea';
 
 export type NewLineaEvent = {
-  data: Linea,
+  data: Linea;
   ocurredOn: Date;
-}
+};

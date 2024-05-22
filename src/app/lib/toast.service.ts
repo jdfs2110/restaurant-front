@@ -1,13 +1,11 @@
-import { Injectable } from "@angular/core";
-import { MessageService } from "primeng/api";
+import { Injectable } from '@angular/core';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ToastService {
-  constructor(
-    private messageService: MessageService
-  ) { }
+  constructor(private messageService: MessageService) {}
 
   smallToast(severity: string, message: string) {
     this.messageService.add({
@@ -20,7 +18,7 @@ export class ToastService {
     this.messageService.add({
       severity: severity,
       summary: message,
-      detail: detail
+      detail: detail,
     });
   }
 
@@ -29,7 +27,7 @@ export class ToastService {
       severity: severity,
       summary: message,
       detail: detail,
-      life: 10000
-    })
+      life: 10000,
+    });
   }
-} 
+}

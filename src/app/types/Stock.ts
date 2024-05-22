@@ -4,4 +4,4 @@ export type Stock = {
   producto: string;
   cantidad: number;
   created_at: Date;
-}
+};

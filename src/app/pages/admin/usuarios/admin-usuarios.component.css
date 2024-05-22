@@ -3,5 +3,5 @@ main {
 }
 
 p-table ::ng-deep .p-datatable-loading-overlay {
-  opacity: .4;
+  opacity: 0.4;
 }

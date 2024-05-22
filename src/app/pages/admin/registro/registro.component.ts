@@ -10,16 +10,16 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button'
+import { ButtonModule } from 'primeng/button';
 import { RolService } from '@/app/services/rol.service';
-import { DropdownModule } from 'primeng/dropdown'
+import { DropdownModule } from 'primeng/dropdown';
 import { ErrorPComponent } from '@/app/components/error-p/error-p.component';
 import { RepeatPasswordValidator } from '@/app/lib/RepeatPasswordValidator';
 import { ToastService } from '@/app/lib/toast.service';
-import { HeaderComponent } from "../../../components/header/header.component";
+import { HeaderComponent } from '../../../components/header/header.component';
 
 @Component({
   selector: 'app-registro',
@@ -33,8 +33,8 @@ import { HeaderComponent } from "../../../components/header/header.component";
     DropdownModule,
     FormsModule,
     ErrorPComponent,
-    HeaderComponent
-  ]
+    HeaderComponent,
+  ],
 })
 export class RegistroComponent implements OnInit {
   protected registerForm: FormGroup;
@@ -51,37 +51,34 @@ export class RegistroComponent implements OnInit {
     private validationService: ValidationMessagesService,
     private userService: UserService,
     private rolService: RolService,
-    private toaster: ToastService
-  ) { }
+    private toaster: ToastService,
+  ) {}
 
   ngOnInit(): void {
     this.passwordGroup = new FormGroup({
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
-        Validators.maxLength(40)
+        Validators.maxLength(40),
       ]),
       password_confirmation: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
-        Validators.maxLength(40)
-      ])
-    })
+        Validators.maxLength(40),
+      ]),
+    });
 
     this.passwordGroup.validator = RepeatPasswordValidator.repeatPassword();
 
     this.registerForm = new FormGroup({
       name: new FormControl('', [
         Validators.required,
-        Validators.maxLength(40)
+        Validators.maxLength(40),
       ]),
-      email: new FormControl('', [
-        Validators.required,
-        Validators.email
-      ]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       passwords: this.passwordGroup,
-      id_rol: new FormControl(null, [Validators.required])
-    })
+      id_rol: new FormControl(null, [Validators.required]),
+    });
 
     this.rolService.findAll().subscribe({
       next: (json: Response<Rol[]>) => {
@@ -90,14 +87,15 @@ export class RegistroComponent implements OnInit {
       },
       error: (error) => {
         console.log(error);
-      }
-    })
+      },
+    });
   }
 
   getNameErrors() {
     const name = this.registerForm.controls['name'];
 
-    if (name.hasError('required')) return this.validationService.requiredMessage();
+    if (name.hasError('required'))
+      return this.validationService.requiredMessage();
 
     if (name.hasError('maxlength')) return this.validationService.maxLength(40);
 
@@ -107,7 +105,8 @@ export class RegistroComponent implements OnInit {
   getEmailErrors() {
     const email = this.registerForm.controls['email'];
 
-    if (email.hasError('required')) return this.validationService.requiredMessage();
+    if (email.hasError('required'))
+      return this.validationService.requiredMessage();
 
     if (email.hasError('email')) return 'El email no es válido';
 
@@ -117,21 +116,27 @@ export class RegistroComponent implements OnInit {
   getPasswordErrors() {
     const password = this.passwordGroup.controls['password'];
 
-    if (password.hasError('required')) return this.validationService.requiredMessage();
+    if (password.hasError('required'))
+      return this.validationService.requiredMessage();
 
-    if (password.hasError('minlength')) return this.validationService.minLength(6);
+    if (password.hasError('minlength'))
+      return this.validationService.minLength(6);
 
-    if (password.hasError('maxlength')) return this.validationService.maxLength(40);
+    if (password.hasError('maxlength'))
+      return this.validationService.maxLength(40);
 
     return '';
   }
 
   getPasswordConfirmationErrors() {
-    const passwordConfirmation = this.passwordGroup.controls['password_confirmation'];
+    const passwordConfirmation =
+      this.passwordGroup.controls['password_confirmation'];
 
-    if (passwordConfirmation.hasError('required')) return 'Debes repetir la contraseña';
+    if (passwordConfirmation.hasError('required'))
+      return 'Debes repetir la contraseña';
 
-    if (passwordConfirmation.hasError('notEquivalent')) return 'Las contraseñas no coinciden.';
+    if (passwordConfirmation.hasError('notEquivalent'))
+      return 'Las contraseñas no coinciden.';
 
     return '';
   }
@@ -152,39 +157,36 @@ export class RegistroComponent implements OnInit {
     if (this.registerForm.invalid) {
       this.loading = false;
       return;
-    };
+    }
 
     const registerForm: RegisterForm = {
       name: form['name'] ?? '',
       email: form['email'] ?? '',
       password: form['passwords'].password ?? '',
       password_confirmation: form['passwords'].password_confirmation ?? '',
-      id_rol: form['id_rol'] ?? 6 // 6 = bloqueado
-    }
+      id_rol: form['id_rol'] ?? 6, // 6 = bloqueado
+    };
 
     console.log(registerForm);
 
-    this.userService.create(registerForm)
-      .subscribe({
-        next: (response: Response<User>) => {
-
-          const { message } = response;
-          this.registerError = false;
-          this.loading = false;
-          this.toaster.smallToast('success', message);
-        },
-        error: (e: any) => {
-          this.loading = false;
-          if (e.error.error.email !== null) {
-            this.setError(e.error.error.email);
-          } else {
-            this.setError('Ha ocurrido un error');
-          }
-          console.log(e);
-          this.registerError = true;
+    this.userService.create(registerForm).subscribe({
+      next: (response: Response<User>) => {
+        const { message } = response;
+        this.registerError = false;
+        this.loading = false;
+        this.toaster.smallToast('success', message);
+      },
+      error: (e: any) => {
+        this.loading = false;
+        if (e.error.error.email !== null) {
+          this.setError(e.error.error.email);
+        } else {
+          this.setError('Ha ocurrido un error');
         }
-      }
-      )
+        console.log(e);
+        this.registerError = true;
+      },
+    });
   }
 
   setError(message: string) {

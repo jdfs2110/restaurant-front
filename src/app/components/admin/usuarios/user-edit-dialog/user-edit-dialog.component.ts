@@ -6,13 +6,18 @@ import { Response } from '@/app/types/Response';
 import { Rol } from '@/app/types/Rol';
 import { User } from '@/app/types/User';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
-import { ErrorPComponent } from "../../../error-p/error-p.component";
+import { ErrorPComponent } from '../../../error-p/error-p.component';
 import { UserSignalService } from '@/app/services/user.signal.service';
 
 @Component({
@@ -26,22 +31,22 @@ import { UserSignalService } from '@/app/services/user.signal.service';
     InputTextModule,
     ReactiveFormsModule,
     DropdownModule,
-    ErrorPComponent
-  ]
+    ErrorPComponent,
+  ],
 })
 export class AdminUserEditDialogComponent implements OnInit {
   @Input({ required: true }) user: User;
   @Input({ required: true }) roles: Rol[];
-  @Output() onUpdate = new EventEmitter<User>;
+  @Output() onUpdate = new EventEmitter<User>();
   protected estados: Estado[] = [
     {
       nombre: 'Alta',
-      valor: true
+      valor: true,
     },
     {
       nombre: 'Baja',
-      valor: false
-    }
+      valor: false,
+    },
   ];
   protected isVisible: boolean = false;
   protected userForm: FormGroup;
@@ -53,7 +58,7 @@ export class AdminUserEditDialogComponent implements OnInit {
   }
 
   protected get userId(): number {
-    return this.userSignal.user().id
+    return this.userSignal.user().id;
   }
 
   get rolId(): number {
@@ -65,28 +70,29 @@ export class AdminUserEditDialogComponent implements OnInit {
     private userService: UserService,
     private validationService: ValidationMessagesService,
     private toaster: ToastService,
-    private confirmer: ConfirmationService
-  ) { }
+    private confirmer: ConfirmationService,
+  ) {}
 
   ngOnInit(): void {
     this.userForm = new FormGroup({
       name: new FormControl(this.user.name, [
         Validators.required,
-        Validators.maxLength(40)
+        Validators.maxLength(40),
       ]),
       email: new FormControl(this.user.email, [
         Validators.required,
-        Validators.email
+        Validators.email,
       ]),
       estado: new FormControl(this.user.estado, [Validators.required]),
-      id_rol: new FormControl(this.user.id_rol, [Validators.required])
-    })
+      id_rol: new FormControl(this.user.id_rol, [Validators.required]),
+    });
   }
 
   getNameErrors() {
     const name = this.userForm.controls['name'];
 
-    if (name.hasError('required')) return this.validationService.requiredMessage();
+    if (name.hasError('required'))
+      return this.validationService.requiredMessage();
 
     if (name.hasError('maxlength')) return this.validationService.maxLength(40);
 
@@ -96,7 +102,8 @@ export class AdminUserEditDialogComponent implements OnInit {
   getEmailErrors() {
     const email = this.userForm.controls['email'];
 
-    if (email.hasError('required')) return this.validationService.requiredMessage();
+    if (email.hasError('required'))
+      return this.validationService.requiredMessage();
 
     if (email.hasError('email')) return 'El email no es válido';
 
@@ -126,8 +133,10 @@ export class AdminUserEditDialogComponent implements OnInit {
       header: 'Editar usuario',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
-      accept: () => { this.onEdit() }
-    })
+      accept: () => {
+        this.onEdit();
+      },
+    });
   }
 
   onEdit() {
@@ -142,7 +151,11 @@ export class AdminUserEditDialogComponent implements OnInit {
 
     if (this.user.id === this.userId && formValue['id_rol'] !== 4) {
       this.isVisible = false;
-      this.toaster.detailedToast('error', 'Error de permisos', 'No te puedes quitar los permisos de administrador.');
+      this.toaster.detailedToast(
+        'error',
+        'Error de permisos',
+        'No te puedes quitar los permisos de administrador.',
+      );
       return;
     }
 
@@ -153,8 +166,8 @@ export class AdminUserEditDialogComponent implements OnInit {
       estado: formValue['estado'] ?? this.user.estado,
       fecha_ingreso: this.user.fecha_ingreso,
       id_rol: formValue['id_rol'] ?? this.user.id_rol,
-      rol: 'este campo no se utiliza en la db'
-    }
+      rol: 'este campo no se utiliza en la db',
+    };
 
     this.userService.update(user, this.user.id).subscribe({
       next: (response: Response<User>) => {
@@ -176,12 +189,12 @@ export class AdminUserEditDialogComponent implements OnInit {
         } else {
           this.toaster.smallToast('error', 'Error al actualizar el usuario.');
         }
-      }
-    })
+      },
+    });
   }
 }
 
 type Estado = {
   nombre: string;
   valor: boolean;
-}
+};

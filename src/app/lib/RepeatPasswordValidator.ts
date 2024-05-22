@@ -1,4 +1,4 @@
-import { FormGroup } from "@angular/forms";
+import { FormGroup } from '@angular/forms';
 
 export class RepeatPasswordValidator {
   public static repeatPassword(): any {
@@ -8,11 +8,9 @@ export class RepeatPasswordValidator {
 
       if (password.value !== passwordConfirmation.value) {
         passwordConfirmation.setErrors({ notEquivalent: true });
-
       } else {
-        passwordConfirmation.setErrors(null)
-
+        passwordConfirmation.setErrors(null);
       }
-    }
+    };
   }
 }
