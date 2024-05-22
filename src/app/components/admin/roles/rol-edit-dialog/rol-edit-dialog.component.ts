@@ -62,6 +62,12 @@ export class RolEditDialogComponent implements OnInit {
     });
   }
 
+  refresh() {
+    this.ngOnInit();
+    this.isLoading = false;
+    this.submitted = false;
+  }
+
   getNombreErrors() {
     const nombre = this.rolForm.controls.nombre;
 

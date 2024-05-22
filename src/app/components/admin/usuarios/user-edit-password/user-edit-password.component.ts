@@ -72,6 +72,12 @@ export class UserEditPasswordComponent implements OnInit {
     this.passwordGroup.validator = RepeatPasswordValidator.repeatPassword();
   }
 
+  refresh() {
+    this.passwordGroup.reset();
+    this.submitted = false;
+    this.isLoading = false;
+  }
+
   getPasswordErrors() {
     const password = this.passwordGroup.controls['password'];
 

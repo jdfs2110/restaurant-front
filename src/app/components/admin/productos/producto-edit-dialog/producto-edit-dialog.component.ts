@@ -91,8 +91,10 @@ export class ProductoEditDialogComponent implements OnInit {
     this.productoForm.controls.id_categoria.setValue(this.product.id_categoria);
   }
 
-  refresh(event: any) {
-    this.currentImage = this.product.foto;
+  refresh() {
+    this.ngOnInit();
+    this.submitted = false;
+    this.isLoading = false;
   }
 
   getNombreErrors() {
@@ -218,7 +220,8 @@ export class ProductoEditDialogComponent implements OnInit {
 
   onSelectFile(event: any) {
     this.inputImage = event.target.files[0];
-    this.currentImage = URL.createObjectURL(event.target.files[0]);
+    if (this.inputImage !== null)
+      this.currentImage = URL.createObjectURL(event.target.files[0]);
   }
 
   setPlaceholder(event: any) {

@@ -64,7 +64,7 @@ export class CreateMesaComponent {
     this.isVisible = true;
   }
 
-  refresh(event: any) {
+  refresh() {
     this.mesaForm.reset();
     this.submitted = false;
     this.isLoading = false;

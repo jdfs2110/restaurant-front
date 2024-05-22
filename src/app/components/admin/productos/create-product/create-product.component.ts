@@ -121,7 +121,8 @@ export class CreateProductComponent {
 
   onSelectFile(event: any) {
     this.inputImage = event.target.files[0];
-    this.currentImage = URL.createObjectURL(event.target.files[0]);
+    if (this.inputImage !== null)
+      this.currentImage = URL.createObjectURL(event.target.files[0]);
   }
 
   onSubmit(event: Event) {

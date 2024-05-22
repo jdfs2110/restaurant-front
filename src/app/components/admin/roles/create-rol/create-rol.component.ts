@@ -46,7 +46,7 @@ export class CreateRolComponent {
     this.isVisible = true;
   }
 
-  refresh(event: any) {
+  refresh() {
     this.rolForm.reset();
     this.submitted = false;
     this.isLoading = false;

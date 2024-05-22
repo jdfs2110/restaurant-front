@@ -88,6 +88,12 @@ export class AdminUserEditDialogComponent implements OnInit {
     });
   }
 
+  refresh() {
+    this.ngOnInit();
+    this.submitted = false;
+    this.isLoading = false;
+  }
+
   getNameErrors() {
     const name = this.userForm.controls['name'];
 

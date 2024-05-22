@@ -81,6 +81,12 @@ export class MesaEditDialogComponent implements OnInit {
     });
   }
 
+  refresh() {
+    this.ngOnInit();
+    this.isLoading = false;
+    this.submitted = false;
+  }
+
   getCapacidadMaximaErrors() {
     const capacidad_maxima = this.mesaForm.controls.capacidad_maxima;
 
