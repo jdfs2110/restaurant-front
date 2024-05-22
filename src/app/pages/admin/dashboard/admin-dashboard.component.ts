@@ -74,8 +74,8 @@ export class AdminDashboardComponent implements OnInit {
     private authService: AuthService,
     private cookieService: CookieService,
     private userSignal: UserSignalService,
-    private router: Router
-  ) { }
+    private router: Router,
+  ) {}
 
   protected closeAll() {
     this.usersVisible = false;
@@ -136,7 +136,7 @@ export class AdminDashboardComponent implements OnInit {
         icon: 'pi pi-user-edit',
         routerLink: '/perfil',
       },
-    ]
+    ];
     this.items = [
       {
         label: 'Todos los usuarios',

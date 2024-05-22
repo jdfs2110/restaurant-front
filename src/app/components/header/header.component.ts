@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private cookieService: CookieService,
     private router: Router,
-  ) { }
+  ) {}
 
   protected get name(): string {
     return this.userSignal.user().name;

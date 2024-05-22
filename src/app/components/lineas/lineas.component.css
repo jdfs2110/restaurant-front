@@ -1,0 +1,18 @@
+.wrapper {
+  width: 90px;
+  height: 70px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper img {
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+}
+
+/* md:w-10rem relative  */
+
+/* block xl:block mx-auto border-round w-full */

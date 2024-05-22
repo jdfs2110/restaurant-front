@@ -1,79 +1,126 @@
 <!--if location /admin poner algo-->
 @if (location.path() === "/admin") {
-<app-header class="lg:hidden"></app-header>
-<div class="card hidden lg:block" id="menubar">
-  <p-menubar [model]="menubarItems">
-    <ng-template pTemplate="start">
-      <div class="flex align-items-center px-2">
-        <img src="/assets/images/ubuntu.png" alt="ubuntu" height="24" width="24" class="cursor-pointer"
-          routerLink="/admin">
-      </div>
-    </ng-template>
-    <ng-template pTemplate="end">
-      <div class="flex align-items-center">
-        <i class="pi pi-power-off cursor-pointer" title="Cerrar sesión" (click)="logout()"></i>
-      </div>
-    </ng-template>
-  </p-menubar>
-</div>
-<div class="dock-window hidden lg:block">
-  <p-dock [model]="items" position="bottom">
-    <ng-template pTemplate="item" let-item>
-      <div class="w-full flex justify-content-center flex-column align-items-center cursor-pointer">
-        <img [src]="item.icon" [alt]="item.label" width="100%" />
-      </div>
-    </ng-template>
-  </p-dock>
-</div>
+  <app-header class="lg:hidden"></app-header>
+  <div class="card hidden lg:block" id="menubar">
+    <p-menubar [model]="menubarItems">
+      <ng-template pTemplate="start">
+        <div class="flex align-items-center px-2">
+          <img
+            src="/assets/images/ubuntu.png"
+            alt="ubuntu"
+            height="24"
+            width="24"
+            class="cursor-pointer"
+            routerLink="/admin"
+          />
+        </div>
+      </ng-template>
+      <ng-template pTemplate="end">
+        <div class="flex align-items-center">
+          <i
+            class="pi pi-power-off cursor-pointer"
+            title="Cerrar sesión"
+            (click)="logout()"
+          ></i>
+        </div>
+      </ng-template>
+    </p-menubar>
+  </div>
+  <div class="dock-window hidden lg:block">
+    <p-dock [model]="items" position="bottom">
+      <ng-template pTemplate="item" let-item>
+        <div
+          class="w-full flex justify-content-center flex-column align-items-center cursor-pointer"
+        >
+          <img [src]="item.icon" [alt]="item.label" width="100%" />
+        </div>
+      </ng-template>
+    </p-dock>
+  </div>
 
-@if (usersFetched) {
-<p-dialog [(visible)]="usersVisible" [maximizable]="true" header="Usuarios">
-  <app-admin-usuarios></app-admin-usuarios>
-</p-dialog>
-}
+  @if (usersFetched) {
+    <p-dialog [(visible)]="usersVisible" [maximizable]="true" header="Usuarios">
+      <app-admin-usuarios></app-admin-usuarios>
+    </p-dialog>
+  }
 
-@if (registroFetched) {
-<p-dialog [(visible)]="registroVisible" [maximizable]="true" header="Registrar usuario" [style]="{ width: '1000px' }">
-  <app-registro></app-registro>
-</p-dialog>
-}
+  @if (registroFetched) {
+    <p-dialog
+      [(visible)]="registroVisible"
+      [maximizable]="true"
+      header="Registrar usuario"
+      [style]="{ width: '1000px' }"
+    >
+      <app-registro></app-registro>
+    </p-dialog>
+  }
 
-@if (rolesFetched) {
-<p-dialog [(visible)]="rolesVisible" [maximizable]="true" header="Roles" [style]="{ width: '1000px' }">
-  <app-admin-roles></app-admin-roles>
-</p-dialog>
-}
+  @if (rolesFetched) {
+    <p-dialog
+      [(visible)]="rolesVisible"
+      [maximizable]="true"
+      header="Roles"
+      [style]="{ width: '1000px' }"
+    >
+      <app-admin-roles></app-admin-roles>
+    </p-dialog>
+  }
 
-@if (productosFetched) {
-<p-dialog [(visible)]="productosVisible" [maximizable]="true" header="Productos" [style]="{ width: '1200px' }">
-  <app-admin-productos></app-admin-productos>
-</p-dialog>
-}
+  @if (productosFetched) {
+    <p-dialog
+      [(visible)]="productosVisible"
+      [maximizable]="true"
+      header="Productos"
+      [style]="{ width: '1200px' }"
+    >
+      <app-admin-productos></app-admin-productos>
+    </p-dialog>
+  }
 
-@if (categoriasFetched) {
-<p-dialog [(visible)]="categoriasVisible" [maximizable]="true" header="Categorias" [style]="{ width: '1200px' }">
-  <app-admin-categorias></app-admin-categorias>
-</p-dialog>
-}
+  @if (categoriasFetched) {
+    <p-dialog
+      [(visible)]="categoriasVisible"
+      [maximizable]="true"
+      header="Categorias"
+      [style]="{ width: '1200px' }"
+    >
+      <app-admin-categorias></app-admin-categorias>
+    </p-dialog>
+  }
 
-@if (mesasFetched) {
-<p-dialog [(visible)]="mesasVisible" [maximizable]="true" header="Mesas" [style]="{ width: '1200px' }">
-  <app-admin-mesas></app-admin-mesas>
-</p-dialog>
-}
+  @if (mesasFetched) {
+    <p-dialog
+      [(visible)]="mesasVisible"
+      [maximizable]="true"
+      header="Mesas"
+      [style]="{ width: '1200px' }"
+    >
+      <app-admin-mesas></app-admin-mesas>
+    </p-dialog>
+  }
 
-@if (pedidosFetched) {
-<p-dialog [(visible)]="pedidosVisible" [maximizable]="true" header="Pedidos" [style]="{ width: '1200px' }">
-  <app-admin-pedidos></app-admin-pedidos>
-</p-dialog>
-}
+  @if (pedidosFetched) {
+    <p-dialog
+      [(visible)]="pedidosVisible"
+      [maximizable]="true"
+      header="Pedidos"
+      [style]="{ width: '1200px' }"
+    >
+      <app-admin-pedidos></app-admin-pedidos>
+    </p-dialog>
+  }
 
-@if (facturasFetched) {
-<p-dialog [(visible)]="facturasVisible" [maximizable]="true" header="Facturas" [style]="{ width: '1000px' }">
-  <app-admin-facturas></app-admin-facturas>
-</p-dialog>
-}
+  @if (facturasFetched) {
+    <p-dialog
+      [(visible)]="facturasVisible"
+      [maximizable]="true"
+      header="Facturas"
+      [style]="{ width: '1000px' }"
+    >
+      <app-admin-facturas></app-admin-facturas>
+    </p-dialog>
+  }
 } @else {
-<app-header />
+  <app-header />
 }
 <router-outlet></router-outlet>
