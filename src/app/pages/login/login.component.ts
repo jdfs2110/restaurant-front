@@ -16,6 +16,7 @@ import { UserSignalService } from '@/app/services/user.signal.service';
 import { ErrorPComponent } from '@/app/components/error-p/error-p.component';
 import { ToastService } from '@/app/lib/toast.service';
 import { PasswordModule } from 'primeng/password';
+import { User } from '@/app/types/User';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -37,7 +38,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.userSignal.user().id) {
-      this.redirect();
+      this.redirect(this.userSignal.user());
     }
   }
 
@@ -86,7 +87,7 @@ export class LoginComponent implements OnInit {
         console.log(data);
         this.authService.setToken(token);
         this.userSignal.updateUser(data);
-        this.redirect();
+        this.redirect(data);
       },
       error: (error) => {
         this.loading = false;
@@ -122,8 +123,12 @@ export class LoginComponent implements OnInit {
     return '';
   }
 
-  redirect(): void {
-    this.router.navigate(['/']);
+  redirect(user: User): void {
+    if (user.id_rol === 4) {
+      this.router.navigate(['/admin']);
+    } else {
+      this.router.navigate(['/']);
+    }
     // setTimeout(() => {
     //   window.location.reload();
     // }, 500);
