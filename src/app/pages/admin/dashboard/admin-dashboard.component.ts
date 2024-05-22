@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../../components/header/header.component';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { AdminService } from '../admin.service';
 import { Location } from '@angular/common';
 import { DockModule } from 'primeng/dock';
@@ -15,6 +15,9 @@ import { AdminCategoriasComponent } from '../categorias/admin-categorias.compone
 import { AdminMesasComponent } from '../mesas/admin-mesas.component';
 import { AdminPedidosComponent } from '../pedidos/admin-pedidos.component';
 import { AdminFacturasComponent } from '../facturas/admin-facturas.component';
+import { AuthService } from '@/app/services/auth.service';
+import { CookieService } from 'ngx-cookie-service';
+import { UserSignalService } from '@/app/services/user.signal.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -68,7 +71,11 @@ export class AdminDashboardComponent implements OnInit {
   constructor(
     private adminService: AdminService,
     protected location: Location,
-  ) {}
+    private authService: AuthService,
+    private cookieService: CookieService,
+    private userSignal: UserSignalService,
+    private router: Router
+  ) { }
 
   protected closeAll() {
     this.usersVisible = false;
@@ -100,16 +107,45 @@ export class AdminDashboardComponent implements OnInit {
     this.adminService.checkIfAdmin();
     this.menubarItems = [
       {
-        label: 'Cerrar pestaña',
-        icon: 'pi pi-times',
-        command: () => {
-          window.close();
-        },
+        label: 'Ventanas',
+        items: [
+          {
+            label: 'Mesas',
+            icon: 'pi pi-objects-column',
+            routerLink: '/mesas',
+          },
+          {
+            label: 'Líneas de barra',
+            icon: 'pi pi-list',
+            routerLink: '/lineas/barra',
+          },
+          {
+            label: 'Líneas de cocina',
+            icon: 'pi pi-list',
+            routerLink: '/lineas/cocina',
+          },
+          {
+            label: 'Productos',
+            icon: 'pi pi-shopping-bag',
+            routerLink: '/productos',
+          },
+        ],
       },
-    ];
+      {
+        label: 'Perfil',
+        icon: 'pi pi-user-edit',
+        routerLink: '/perfil',
+      },
+    ]
     this.items = [
       {
         label: 'Todos los usuarios',
+        tooltipOptions: {
+          tooltipLabel: 'Todos los usuarios',
+          tooltipPosition: 'top',
+          positionTop: -15,
+          positionLeft: 0,
+        },
         icon: '/assets/images/users-black.png',
         command: () => {
           this.closeAll();
@@ -119,6 +155,12 @@ export class AdminDashboardComponent implements OnInit {
       },
       {
         label: 'Nuevo usuario',
+        tooltipOptions: {
+          tooltipLabel: 'Nuevo usuario',
+          tooltipPosition: 'top',
+          positionTop: -15,
+          positionLeft: 0,
+        },
         icon: '/assets/images/registro-black.png',
         command: () => {
           this.closeAll();
@@ -128,6 +170,12 @@ export class AdminDashboardComponent implements OnInit {
       },
       {
         label: 'Roles',
+        tooltipOptions: {
+          tooltipLabel: 'Roles',
+          tooltipPosition: 'top',
+          positionTop: -15,
+          positionLeft: 0,
+        },
         icon: '/assets/images/roles-black.png',
         command: () => {
           this.closeAll();
@@ -137,6 +185,12 @@ export class AdminDashboardComponent implements OnInit {
       },
       {
         label: 'Productos',
+        tooltipOptions: {
+          tooltipLabel: 'Productos',
+          tooltipPosition: 'top',
+          positionTop: -15,
+          positionLeft: 0,
+        },
         icon: '/assets/images/productos-black.png',
         command: () => {
           this.closeAll();
@@ -146,6 +200,12 @@ export class AdminDashboardComponent implements OnInit {
       },
       {
         label: 'Categorías',
+        tooltipOptions: {
+          tooltipLabel: 'Categorías',
+          tooltipPosition: 'top',
+          positionTop: -15,
+          positionLeft: 0,
+        },
         icon: '/assets/images/categorias-black.png',
         command: () => {
           this.closeAll();
@@ -155,6 +215,12 @@ export class AdminDashboardComponent implements OnInit {
       },
       {
         label: 'Mesas',
+        tooltipOptions: {
+          tooltipLabel: 'Mesas',
+          tooltipPosition: 'top',
+          positionTop: -15,
+          positionLeft: 0,
+        },
         icon: '/assets/images/mesas-black.png',
         command: () => {
           this.closeAll();
@@ -164,6 +230,12 @@ export class AdminDashboardComponent implements OnInit {
       },
       {
         label: 'Pedidos',
+        tooltipOptions: {
+          tooltipLabel: 'Pedidos',
+          tooltipPosition: 'top',
+          positionTop: -15,
+          positionLeft: 0,
+        },
         icon: '/assets/images/pedidos-black.png',
         command: () => {
           this.closeAll();
@@ -173,6 +245,12 @@ export class AdminDashboardComponent implements OnInit {
       },
       {
         label: 'Facturas',
+        tooltipOptions: {
+          tooltipLabel: 'Facturas',
+          tooltipPosition: 'top',
+          positionTop: -15,
+          positionLeft: 0,
+        },
         icon: '/assets/images/facturas-black.png',
         command: () => {
           this.closeAll();
@@ -181,5 +259,24 @@ export class AdminDashboardComponent implements OnInit {
         },
       },
     ];
+  }
+
+  logout(): void {
+    this.authService.logout().subscribe({
+      next: (response: any) => {
+        console.log(response);
+
+        this.userSignal.clearUser();
+        this.cookieService.deleteAll();
+        this.redirect();
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
+  redirect(): void {
+    this.router.navigate(['/login']);
   }
 }

@@ -2,11 +2,19 @@
   z-index: 1000;
 }
 
+#menubar {
+  height: 30px;
+}
+
 .dock-window {
   width: 100%;
-  height: 100dvh;
+  height: calc(100dvh - 30px);
   position: relative;
   background-image: url("/assets/images/golira.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+p-menubar ::ng-deep .p-menubar {
+  height: 100%;
 }
