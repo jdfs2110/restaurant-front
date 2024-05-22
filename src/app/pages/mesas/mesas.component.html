@@ -10,6 +10,7 @@
             >
               <p class="text-xl font-bold">Mesa {{ mesa.id }}</p>
               <p-button
+                title="Ver lineas"
                 severity="secondary"
                 [rounded]="true"
                 icon="pi pi-receipt"
@@ -245,7 +246,7 @@
       <div class="field">
         <label for="cantidad">Cantidad</label>
         <input
-          type="text"
+          type="number"
           pInputText
           class="w-full"
           formControlName="cantidad"

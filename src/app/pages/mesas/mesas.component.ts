@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { Mesa } from '@/app/types/Mesa';
 import { MesaService } from '@/app/services/mesa.service';
@@ -58,7 +58,7 @@ import env from '@/app/env.json';
     ConfirmDialogModule,
   ],
 })
-export class MesasComponent implements OnInit {
+export class MesasComponent implements OnInit, OnDestroy {
   protected mesas: Mesa[] = [];
   protected newLineaVisible: boolean = false;
   protected submitted: boolean = false;
@@ -80,15 +80,18 @@ export class MesasComponent implements OnInit {
   protected newLineaFormVisible: boolean = false;
 
   protected newLineaForm = new FormGroup({
-    cantidad: new FormControl(null, [Validators.required]),
+    cantidad: new FormControl(null, [Validators.required, Validators.min(1)]),
   });
 
   getCantidadErrors() {
     const cantidad = this.newLineaForm.controls.cantidad;
 
-    return cantidad.hasError('required')
-      ? this.validationService.requiredMessage()
-      : '';
+    if (cantidad.hasError('required'))
+      return this.validationService.requiredMessage();
+
+    if (cantidad.hasError('min')) return 'Debes poner al menos 1 de cantidad.';
+
+    return '';
   }
 
   get userId(): number {
@@ -149,6 +152,11 @@ export class MesasComponent implements OnInit {
       this.audioService.notification();
       this.toaster.longerDetailedToast('info', 'Línea a recoger', message);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.pusher.listenTo('mesas').unbind_all();
+    this.pusher.listenTo('lineas-notifications').unbind_all();
   }
 
   fetchProducts() {
@@ -300,6 +308,8 @@ export class MesasComponent implements OnInit {
     this.newLineaForm.reset();
     this.newLineaVisible = true;
     this.newLineaFormVisible = false;
+    this.submitted = false;
+    this.loading = false;
     // this.productoActual = {} as Producto;
   }
 

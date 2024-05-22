@@ -5,7 +5,7 @@ import { DeletionEvent } from '@/app/types/DeletionEvent';
 import { Linea } from '@/app/types/Linea';
 import { NewLineaEvent } from '@/app/types/NewLineaEvent';
 import { Response } from '@/app/types/Response';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { PanelModule } from 'primeng/panel';
 import { AvatarModule } from 'primeng/avatar';
@@ -27,7 +27,7 @@ import env from '@/app/env.json';
   templateUrl: './lineas.component.html',
   styleUrl: './lineas.component.css',
 })
-export class LineasComponent implements OnInit {
+export class LineasComponent implements OnInit, OnDestroy {
   lineas: Linea[] = [];
   @Input() channel: string;
 
@@ -100,6 +100,11 @@ export class LineasComponent implements OnInit {
         return false;
       });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.pusher.listenTo('lineas-cocina').unbind_all();
+    this.pusher.listenTo('lineas-barra').unbind_all();
   }
 
   completarLinea(id: number): void {

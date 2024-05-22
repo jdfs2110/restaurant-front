@@ -38,7 +38,11 @@ export class CreatePedidoComponent {
   protected submitted: boolean = false;
 
   protected newPedidoForm = new FormGroup({
-    numero_comensales: new FormControl(null, [Validators.required]),
+    numero_comensales: new FormControl(null, [
+      Validators.required,
+      Validators.min(1),
+      Validators.max(25),
+    ]),
     id_mesa: new FormControl(),
     id_usuario: new FormControl(),
   });
@@ -58,9 +62,20 @@ export class CreatePedidoComponent {
     this.isVisible = true;
   }
 
+  refresh() {
+    this.newPedidoForm.reset();
+    this.isLoading = false;
+    this.submitted = false;
+  }
+
   getNumeroComensalesError() {
-    if (this.newPedidoForm.controls.numero_comensales.hasError('required'))
-      return this.validator.requiredMessage();
+    const personas = this.newPedidoForm.controls.numero_comensales;
+    if (personas.hasError('required')) return this.validator.requiredMessage();
+
+    if (personas.hasError('min')) return 'El mínimo de personas es 1.';
+
+    if (personas.hasError('max')) return 'El máximo de personas es 40.';
+
     return '';
   }
 
