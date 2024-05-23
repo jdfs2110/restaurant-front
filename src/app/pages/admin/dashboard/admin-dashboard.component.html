@@ -39,7 +39,13 @@
   </div>
 
   @if (usersFetched) {
-    <p-dialog [(visible)]="usersVisible" [maximizable]="true" header="Usuarios">
+    <p-dialog
+      [(visible)]="usersVisible"
+      [maximizable]="true"
+      header="Usuarios"
+      maximizeIcon="pi pi-stop"
+      minimizeIcon="pi pi-table"
+    >
       <app-admin-usuarios></app-admin-usuarios>
     </p-dialog>
   }
@@ -50,6 +56,8 @@
       [maximizable]="true"
       header="Registrar usuario"
       [style]="{ width: '1000px' }"
+      maximizeIcon="pi pi-stop"
+      minimizeIcon="pi pi-table"
     >
       <app-registro></app-registro>
     </p-dialog>
@@ -61,6 +69,8 @@
       [maximizable]="true"
       header="Roles"
       [style]="{ width: '1000px' }"
+      maximizeIcon="pi pi-stop"
+      minimizeIcon="pi pi-table"
     >
       <app-admin-roles></app-admin-roles>
     </p-dialog>
@@ -72,6 +82,8 @@
       [maximizable]="true"
       header="Productos"
       [style]="{ width: '1200px' }"
+      maximizeIcon="pi pi-stop"
+      minimizeIcon="pi pi-table"
     >
       <app-admin-productos></app-admin-productos>
     </p-dialog>
@@ -83,6 +95,8 @@
       [maximizable]="true"
       header="Categorias"
       [style]="{ width: '1200px' }"
+      maximizeIcon="pi pi-stop"
+      minimizeIcon="pi pi-table"
     >
       <app-admin-categorias></app-admin-categorias>
     </p-dialog>
@@ -94,6 +108,8 @@
       [maximizable]="true"
       header="Mesas"
       [style]="{ width: '1200px' }"
+      maximizeIcon="pi pi-stop"
+      minimizeIcon="pi pi-table"
     >
       <app-admin-mesas></app-admin-mesas>
     </p-dialog>
@@ -105,6 +121,8 @@
       [maximizable]="true"
       header="Pedidos"
       [style]="{ width: '1200px' }"
+      maximizeIcon="pi pi-stop"
+      minimizeIcon="pi pi-table"
     >
       <app-admin-pedidos></app-admin-pedidos>
     </p-dialog>
@@ -116,6 +134,8 @@
       [maximizable]="true"
       header="Facturas"
       [style]="{ width: '1000px' }"
+      maximizeIcon="pi pi-stop"
+      minimizeIcon="pi pi-table"
     >
       <app-admin-facturas></app-admin-facturas>
     </p-dialog>

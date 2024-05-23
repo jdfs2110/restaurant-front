@@ -31,6 +31,7 @@ p-dialog ::ng-deep .p-dialog {
 p-dialog ::ng-deep .p-dialog-header {
   height: 25px;
   border-bottom: 1px solid #ccc;
+  margin-bottom: 1rem;
 }
 
 /* 
