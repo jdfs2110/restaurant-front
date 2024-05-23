@@ -2,11 +2,9 @@
 @layer primeng;
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";
-@import url("./assets/fonts/Ranade/css/ranade.css");
 
 * {
   box-sizing: border-box;
-  /* font-family: 'Ranade', sans-serif; */
 }
 
 a:active,
