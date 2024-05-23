@@ -9,3 +9,7 @@ div > p {
 p-tabView ::ng-deep .p-tabview-panels {
   padding: 0;
 }
+
+main {
+  height: calc(100dvh - 70px);
+}

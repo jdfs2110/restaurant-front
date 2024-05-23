@@ -31,16 +31,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // if (this.idRol === 1) {
-    //   this.router.navigate(['/mesas']);
-    // }
-    // if (this.idRol === 4) {
-    //   this.router.navigate(['/admin']);
-    // }
-    // else if (this.idRol === 2) {
-    //   this.router.navigate(['/lineas/cocina'])
-    // } else if (this.idRol === 5) {
-    //   this.router.navigate(['/lineas/barra'])
-    // }
+    if (this.idRol === 4) {
+      this.router.navigate(['/admin']);
+    }
   }
 }

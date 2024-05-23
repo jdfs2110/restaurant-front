@@ -25,6 +25,12 @@
               <p>Precio unitario: {{ producto.precio.toFixed(2) }}€</p>
             </div>
           </p-accordionTab>
+        } @empty {
+          <div
+            class="w-full flex align-items-center justify-content-center gap-2 py-3 px-2"
+          >
+            <span class="font-semibold text-2xl">No hay productos</span>
+          </div>
         }
       </p-accordion>
     </p-tabPanel>
@@ -53,6 +59,12 @@
               <p>Precio unitario: {{ producto.precio.toFixed(2) }}€</p>
             </div>
           </p-accordionTab>
+        } @empty {
+          <div
+            class="w-full flex align-items-center justify-content-center gap-2 py-3 px-2"
+          >
+            <span class="font-semibold text-2xl">No hay productos</span>
+          </div>
         }
       </p-accordion>
     </p-tabPanel>

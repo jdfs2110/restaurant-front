@@ -85,6 +85,16 @@ export class LoginComponent implements OnInit {
       next: (response: LoggedUserResponse) => {
         const { data, token } = response;
         console.log(data);
+        if (data.id_rol === 6) {
+          this.toaster.detailedToast(
+            'error',
+            'Usuario bloqueado',
+            'No puedes entrar a la aplicación.',
+          );
+          this.loading = false;
+          this.submitted = false;
+          return;
+        }
         this.authService.setToken(token);
         this.userSignal.updateUser(data);
         this.redirect(data);
