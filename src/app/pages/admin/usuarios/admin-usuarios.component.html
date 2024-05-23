@@ -25,7 +25,13 @@
           (onSelect)="onSelect($event)"
           placeholder="Buscar usuario"
           [showClear]="true"
-        ></p-autoComplete>
+        >
+          <ng-template let-user pTemplate="item">
+            <div>
+              <span>{{ user.name }} ({{ user.email }})</span>
+            </div>
+          </ng-template>
+        </p-autoComplete>
       </div>
     </p-toolbar>
     <p-table

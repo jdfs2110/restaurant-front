@@ -41,7 +41,7 @@ export class CreatePedidoComponent {
     numero_comensales: new FormControl(null, [
       Validators.required,
       Validators.min(1),
-      Validators.max(25),
+      Validators.max(40),
     ]),
     id_mesa: new FormControl(),
     id_usuario: new FormControl(),

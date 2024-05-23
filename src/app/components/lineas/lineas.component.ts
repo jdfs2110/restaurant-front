@@ -89,7 +89,6 @@ export class LineasComponent implements OnInit, OnDestroy {
 
     channel.bind('linea-deleted', (event: DeletionEvent) => {
       const { id } = event;
-      console.log('una linea ha sido eliminada', id);
       this.lineas.find((linea: Linea, index: number) => {
         if (linea.id === id) {
           this.lineas.splice(index, 1);

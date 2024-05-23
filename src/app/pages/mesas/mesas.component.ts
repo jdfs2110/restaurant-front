@@ -201,11 +201,21 @@ export class MesasComponent implements OnInit, OnDestroy {
     this.mesaService.findLastPedido(mesa.id).subscribe({
       next: (response: Response<Pedido>) => {
         const { data } = response;
+        console.log(data);
+
         this.markAsServido(data.id, mesa);
       },
       error: (error: any) => {
         console.log(error);
-        this.toaster.smallToast('error', 'Error al servir el pedido');
+        if (error.error.error) {
+          this.toaster.detailedToast(
+            'error',
+            'Error al servir el pedido',
+            error.error.error,
+          );
+        } else {
+          this.toaster.smallToast('error', 'Error al servir el pedido');
+        }
       },
     });
   }
@@ -220,9 +230,17 @@ export class MesasComponent implements OnInit, OnDestroy {
       },
       error: (error: any) => {
         console.log('error', error);
-        this.toaster.smallToast('error', 'Error al servir el pedido');
-        this.mesas[pos].estado_numero = mesa.estado_numero;
-        this.mesas[pos].estado = mesa.estado;
+        if (error.error.error) {
+          this.toaster.detailedToast(
+            'error',
+            'Error al servir el pedido',
+            error.error.error,
+          );
+        } else {
+          this.toaster.smallToast('error', 'Error al servir el pedido');
+        }
+        this.mesas[pos].estado_numero = 1;
+        this.mesas[pos].estado = 'ocupada';
       },
     });
   }
