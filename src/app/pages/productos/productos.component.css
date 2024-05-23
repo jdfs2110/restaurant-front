@@ -5,3 +5,7 @@ p-accordion ::ng-deep .p-accordion-content {
 div > p {
   margin-block: 8px;
 }
+
+p-tabView ::ng-deep .p-tabview-panels {
+  padding: 0;
+}

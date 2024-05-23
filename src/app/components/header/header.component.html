@@ -2,13 +2,14 @@
   @if (idRol === 4) {
     <p-menubar [model]="adminMenuItems">
       <ng-template pTemplate="start">
-        <i class="pi pi-crown hidden lg:inline"></i>
-        <p
-          class="hidden cursor-pointer select-none lg:inline lg:px-2 lg:border-right-1 lg:mr-1"
-          [routerLink]="['/admin']"
-        >
-          Administración
-        </p>
+        <div class="cursor-pointer hidden lg:block" routerLink="/admin">
+          <i class="pi pi-crown hidden lg:inline"></i>
+          <p
+            class="hidden select-none lg:inline lg:px-2 lg:border-right-1 lg:mr-1"
+          >
+            Administración
+          </p>
+        </div>
       </ng-template>
 
       <ng-template pTemplate="end">

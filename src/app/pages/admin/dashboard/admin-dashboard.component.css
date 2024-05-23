@@ -18,3 +18,7 @@
 p-menubar ::ng-deep .p-menubar {
   height: 100%;
 }
+
+p-dialog ::ng-deep .p-dialog {
+  max-width: 100%;
+}

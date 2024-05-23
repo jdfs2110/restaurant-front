@@ -4,9 +4,11 @@ label {
 }
 
 main {
-  min-width: 360px;
+  min-width: 320px;
   min-height: 100dvh;
-  /* background: #C8DEFE; */
+  background-image: url("/assets/images/loginwallpaper-gradient.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 @media (min-width: 1024px) {

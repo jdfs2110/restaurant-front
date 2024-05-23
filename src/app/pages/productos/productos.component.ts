@@ -6,15 +6,18 @@ import { Response } from '@/app/types/Response';
 import { AccordionModule } from 'primeng/accordion';
 import { AvatarModule } from 'primeng/avatar';
 import env from '@/app/env.json';
+import { TabViewModule } from 'primeng/tabview';
 @Component({
   selector: 'app-productos',
   standalone: true,
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css',
-  imports: [HeaderComponent, AccordionModule, AvatarModule],
+  imports: [HeaderComponent, AccordionModule, AvatarModule, TabViewModule],
 })
 export class ProductosComponent implements OnInit {
   protected productos: Producto[] = [];
+  protected productosActivos: Producto[] = [];
+  protected productosInactivos: Producto[] = [];
 
   constructor(private productoService: ProductoService) {}
 
@@ -23,6 +26,12 @@ export class ProductosComponent implements OnInit {
       next: (response: Response<Producto[]>) => {
         const { data } = response;
         this.productos = data;
+        this.productosActivos = data.filter((producto: Producto) => {
+          return producto.activo;
+        });
+        this.productosInactivos = data.filter((producto: Producto) => {
+          return !producto.activo;
+        });
       },
       error: (error: any) => {
         console.log(error);
