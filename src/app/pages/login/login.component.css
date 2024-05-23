@@ -11,6 +11,10 @@ main {
   background-repeat: no-repeat;
 }
 
+p-password ::ng-deep .p-password-input {
+  width: 100%;
+}
+
 @media (min-width: 1024px) {
   form {
     padding-inline: 14rem !important;
