@@ -28,6 +28,11 @@ p-dialog ::ng-deep .p-dialog {
   max-width: 100%;
 }
 
+p-dialog ::ng-deep .p-dialog-header {
+  height: 25px;
+  border-bottom: 1px solid #ccc;
+}
+
 /* 
 p-dock ::ng-deep .p-dock-item:nth-of-type(5) img {
   transform: rotate(90deg);
