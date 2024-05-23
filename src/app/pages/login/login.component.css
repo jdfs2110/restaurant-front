@@ -24,5 +24,4 @@ p-password ::ng-deep .p-password-input {
 
 error-p {
   font-size: 13px;
-  /* TODO: arreglar el error de minlength para que no haga mas grande la pantalla */
 }

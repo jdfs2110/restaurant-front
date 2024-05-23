@@ -2,6 +2,10 @@
   z-index: 1000;
 }
 
+p-dock ::ng-deep .p-dock:hover {
+  z-index: 100000;
+}
+
 #menubar {
   height: 30px;
 }
@@ -13,6 +17,7 @@
   background-image: url("/assets/images/golira.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
 }
 
 p-menubar ::ng-deep .p-menubar {
@@ -22,3 +27,8 @@ p-menubar ::ng-deep .p-menubar {
 p-dialog ::ng-deep .p-dialog {
   max-width: 100%;
 }
+
+/* 
+p-dock ::ng-deep .p-dock-item:nth-of-type(5) img {
+  transform: rotate(90deg);
+} */

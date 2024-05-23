@@ -146,7 +146,7 @@ export class AdminDashboardComponent implements OnInit {
           positionTop: -15,
           positionLeft: 0,
         },
-        icon: '/assets/images/users-black.png',
+        icon: '/assets/images/users.png',
         command: () => {
           this.closeAll();
           this.usersVisible = true;
@@ -161,7 +161,7 @@ export class AdminDashboardComponent implements OnInit {
           positionTop: -15,
           positionLeft: 0,
         },
-        icon: '/assets/images/registro-black.png',
+        icon: '/assets/images/registro.png',
         command: () => {
           this.closeAll();
           this.registroVisible = true;
@@ -176,7 +176,7 @@ export class AdminDashboardComponent implements OnInit {
           positionTop: -15,
           positionLeft: 0,
         },
-        icon: '/assets/images/roles-black.png',
+        icon: '/assets/images/roles.png',
         command: () => {
           this.closeAll();
           this.rolesVisible = true;
@@ -191,7 +191,7 @@ export class AdminDashboardComponent implements OnInit {
           positionTop: -15,
           positionLeft: 0,
         },
-        icon: '/assets/images/productos-black.png',
+        icon: '/assets/images/productos.png', // #3AD2C5
         command: () => {
           this.closeAll();
           this.productosVisible = true;
@@ -206,7 +206,7 @@ export class AdminDashboardComponent implements OnInit {
           positionTop: -15,
           positionLeft: 0,
         },
-        icon: '/assets/images/categorias-black.png',
+        icon: '/assets/images/categorias-bluer.png',
         command: () => {
           this.closeAll();
           this.categoriasVisible = true;
@@ -221,7 +221,7 @@ export class AdminDashboardComponent implements OnInit {
           positionTop: -15,
           positionLeft: 0,
         },
-        icon: '/assets/images/mesas-black.png',
+        icon: '/assets/images/mesas.png',
         command: () => {
           this.closeAll();
           this.mesasVisible = true;
@@ -236,7 +236,7 @@ export class AdminDashboardComponent implements OnInit {
           positionTop: -15,
           positionLeft: 0,
         },
-        icon: '/assets/images/pedidos-black.png',
+        icon: '/assets/images/pedidos.png',
         command: () => {
           this.closeAll();
           this.pedidosVisible = true;
@@ -251,7 +251,7 @@ export class AdminDashboardComponent implements OnInit {
           positionTop: -15,
           positionLeft: 0,
         },
-        icon: '/assets/images/facturas-black.png',
+        icon: '/assets/images/facturas.png',
         command: () => {
           this.closeAll();
           this.facturasVisible = true;
