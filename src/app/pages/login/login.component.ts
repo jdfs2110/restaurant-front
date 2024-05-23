@@ -84,7 +84,6 @@ export class LoginComponent implements OnInit {
     this.authService.login(loginForm).subscribe({
       next: (response: LoggedUserResponse) => {
         const { data, token } = response;
-        console.log(data);
         if (data.id_rol === 6) {
           this.toaster.detailedToast(
             'error',
@@ -101,8 +100,6 @@ export class LoginComponent implements OnInit {
       },
       error: (error) => {
         this.loading = false;
-        console.log(error);
-        this.toaster.smallToast('error', 'Error en el login');
         this.setLoginError('Correo o contraseña incorrectos.');
         this.submitted = false;
         this.loginError = true;

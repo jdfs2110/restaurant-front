@@ -23,7 +23,10 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.primeConfig.setTranslation(es);
     this.primeConfig.ripple = true;
-    const redirectTo = this.location.path() === '' ? '/' : this.location.path();
-    this.initializer.start(redirectTo);
+    if (this.location.path() !== '/carta') {
+      const redirectTo =
+        this.location.path() === '' ? '/' : this.location.path();
+      this.initializer.start(redirectTo);
+    }
   }
 }

@@ -157,7 +157,15 @@ export class EditLineaComponent implements OnInit {
       },
       error: (error: any) => {
         console.log(error);
-        this.toaster.smallToast('error', 'Error al actualizar la línea.');
+        if (error.error.error) {
+          this.toaster.detailedToast(
+            'error',
+            'Error al actualizar la línea',
+            error.error.error,
+          );
+        } else {
+          this.toaster.smallToast('error', 'Error al actualizar la línea.');
+        }
         this.isLoading = false;
       },
     });
