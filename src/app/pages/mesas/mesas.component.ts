@@ -120,6 +120,7 @@ export class MesasComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.mesaService.findAll().subscribe({
       next: (response: Response<Mesa[]>) => {
+        if (response === null) return;
         const { data } = response;
         this.mesas = data;
       },
