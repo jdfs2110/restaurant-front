@@ -2,6 +2,7 @@
 @layer primeng;
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";
+@import url('./assets/fonts/Switzer/css/switzer.css');
 
 * {
   box-sizing: border-box;
@@ -16,6 +17,15 @@ html,
 body {
   margin: 0;
   padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Switzer', sans-serif;
 }
 
 body {
