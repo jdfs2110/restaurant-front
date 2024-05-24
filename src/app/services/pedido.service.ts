@@ -50,4 +50,8 @@ export class PedidoService {
   servirPedido(id: number): Observable<Response<any>> {
     return this.http.post<Response<any>>(`${this.url}/${id}/servir`, null);
   }
+
+  cancelarPedido(id: number): Observable<Response<any>> {
+    return this.http.post<Response<any>>(`${this.url}/${id}/cancelar`, null);
+  }
 }

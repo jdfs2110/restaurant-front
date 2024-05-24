@@ -35,6 +35,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { AudioService } from '@/app/lib/audio.service';
 import env from '@/app/env.json';
+import { InputNumberModule } from 'primeng/inputnumber';
 @Component({
   selector: 'app-mesas',
   standalone: true,
@@ -56,6 +57,7 @@ import env from '@/app/env.json';
     RippleModule,
     EditLineaComponent,
     ConfirmDialogModule,
+    InputNumberModule,
   ],
 })
 export class MesasComponent implements OnInit, OnDestroy {
@@ -448,6 +450,51 @@ export class MesasComponent implements OnInit, OnDestroy {
       error: (error: any) => {
         this.lineas.splice(pos, 0, linea);
         this.toaster.smallToast('error', 'Error al eliminar la línea');
+      },
+    });
+  }
+
+  showCancelDialog(event: Event, mesa: Mesa): void {
+    this.confirmer.confirm({
+      target: event.target as EventTarget,
+      message: `¿Está seguro que desea cancelar el pedido?`,
+      header: 'Cancelar pedido',
+      icon: 'pi pi-exclamation-triangle',
+      rejectButtonStyleClass: 'p-button-text',
+      accept: () => {
+        this.findAndCancelPedido(mesa);
+      },
+    });
+  }
+
+  findAndCancelPedido(mesa: Mesa) {
+    const pos = this.mesas.indexOf(mesa);
+    this.mesas[pos].estado_numero = 0;
+    this.mesas[pos].estado = 'libre';
+    this.mesaService.findLastPedido(mesa.id).subscribe({
+      next: (response: Response<Pedido>) => {
+        const { data } = response;
+        this.cancelarPedido(data, pos);
+      },
+      error: (error: any) => {
+        console.log(error);
+        this.mesas[pos].estado_numero = 1;
+        this.mesas[pos].estado = 'ocupada';
+        this.toaster.smallToast('error', 'Error al cancelar el pedido');
+      },
+    });
+  }
+
+  cancelarPedido(pedido: Pedido, pos: number) {
+    this.pedidoService.cancelarPedido(pedido.id).subscribe({
+      next: (response: Response<any>) => {
+        this.toaster.smallToast('success', 'Pedido cancelado correctamente');
+      },
+      error: (error: any) => {
+        console.log(error);
+        this.mesas[pos].estado_numero = 1;
+        this.mesas[pos].estado = 'ocupada';
+        this.toaster.smallToast('error', 'Error al cancelar el pedido');
       },
     });
   }

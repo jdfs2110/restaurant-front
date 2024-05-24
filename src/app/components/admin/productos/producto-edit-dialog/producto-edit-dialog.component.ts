@@ -20,6 +20,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ImageModule } from 'primeng/image';
 import { InputTextModule } from 'primeng/inputtext';
 import env from '@/app/env.json';
+import { InputNumberModule } from 'primeng/inputnumber';
 @Component({
   selector: 'app-producto-edit-dialog',
   standalone: true,
@@ -31,6 +32,7 @@ import env from '@/app/env.json';
     ErrorPComponent,
     ImageModule,
     DropdownModule,
+    InputNumberModule,
   ],
   templateUrl: './producto-edit-dialog.component.html',
   styleUrl: './producto-edit-dialog.component.css',
@@ -170,14 +172,15 @@ export class ProductoEditDialogComponent implements OnInit {
       this.productoForm.controls.nombre.value ?? this.product.nombre;
     const precio =
       this.productoForm.controls.precio.value ?? this.product.precio;
-    const activo = this.productoForm.controls.activo.value ? 1 : 0; // aaaaa
-    console.log(activo);
+    const activo = this.productoForm.controls.activo.value === '1' ? 1 : 0; // aaaaa
 
     const cantidad =
       this.productoForm.controls.cantidad.value ?? this.stock.cantidad;
     const idCategoria =
       this.productoForm.controls.id_categoria.value ??
       this.product.id_categoria;
+
+    console.log('activo', activo);
 
     this.formdata.set('nombre', nombre);
     this.formdata.set('precio', precio.toString());

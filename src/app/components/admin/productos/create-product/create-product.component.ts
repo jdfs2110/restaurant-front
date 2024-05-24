@@ -19,6 +19,7 @@ import { Response } from '@/app/types/Response';
 import { Producto } from '@/app/types/Producto';
 import { Categoria } from '@/app/types/Categoria';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
   selector: 'app-create-product',
@@ -31,6 +32,7 @@ import { DropdownModule } from 'primeng/dropdown';
     ErrorPComponent,
     InputTextModule,
     DropdownModule,
+    InputNumberModule,
   ],
   templateUrl: './create-product.component.html',
   styleUrl: './create-product.component.css',

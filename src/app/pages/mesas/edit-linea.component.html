@@ -12,14 +12,19 @@
   [maximizable]="true"
   (onHide)="refresh()"
 >
-  <span class="font-bold white-space-nowrap">
+  <span class="font-bold mb-1">
     Información de la línea {{ linea.cantidad }}x {{ linea.producto }}
   </span>
 
   <form [formGroup]="lineaForm" (submit)="onSubmit($event)">
     <div class="field">
       <label for="cantidad">Cantidad</label>
-      <input type="text" pInputText formControlName="cantidad" class="w-full" />
+      <p-inputNumber
+        [min]="1"
+        formControlName="cantidad"
+        class="w-full"
+        styleClass="w-full"
+      />
       @if (submitted && lineaForm.controls.cantidad.invalid) {
         <error-p class="pb-1">{{ getCantidadErrors() }}</error-p>
       }

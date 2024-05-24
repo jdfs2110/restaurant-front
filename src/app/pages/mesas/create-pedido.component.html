@@ -17,11 +17,11 @@
     <form [formGroup]="newPedidoForm" (submit)="onCreate()">
       <div class="field">
         <label for="numero_comensales">Número de comensales</label>
-        <input
-          type="number"
-          pInputText
+        <p-inputNumber
+          [min]="1"
           formControlName="numero_comensales"
-          class="w-full px-2"
+          class="w-full"
+          styleClass="w-full"
         />
         @if (submitted && newPedidoForm.controls.numero_comensales.invalid) {
           <error-p>{{ getNumeroComensalesError() }}</error-p>
@@ -30,23 +30,21 @@
 
       <div class="hidden">
         <label for="id_mesa">ID de Mesa</label>
-        <input
-          type="number"
-          pInputText
+        <p-inputNumber
           readonly
           formControlName="id_mesa"
-          class="w-full px-2"
+          class="w-full"
+          styleClass="w-full"
         />
       </div>
 
       <div class="hidden">
         <label for="id_usuario">ID de Empleado</label>
-        <input
-          type="number"
-          pInputText
+        <p-inputNumber
           readonly
           formControlName="id_usuario"
-          class="w-full px-2"
+          class="w-full"
+          styleClass="w-full"
         />
       </div>
 

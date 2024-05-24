@@ -74,6 +74,8 @@ export class LineasByPedidoComponent implements OnInit {
         this.toaster.smallToast('success', message);
       },
       error: (error: any) => {
+        console.log(error);
+
         this.lineas.splice(pos, 0, linea);
         this.toaster.smallToast('error', 'Error al eliminar la línea');
       },

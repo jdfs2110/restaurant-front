@@ -16,6 +16,7 @@ import { ToastService } from '@/app/lib/toast.service';
 import { ConfirmationService } from 'primeng/api';
 import { Response } from '@/app/types/Response';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
   selector: 'app-mesa-edit-dialog',
@@ -27,6 +28,7 @@ import { DropdownModule } from 'primeng/dropdown';
     InputTextModule,
     ErrorPComponent,
     DropdownModule,
+    InputNumberModule,
   ],
   templateUrl: './mesa-edit-dialog.component.html',
   styleUrl: './mesa-edit-dialog.component.css',

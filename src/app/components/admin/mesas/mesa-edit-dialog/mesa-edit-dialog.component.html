@@ -61,12 +61,12 @@
 
     <div class="field">
       <label for="capacidad_maxima">Capacidad máxima</label>
-      <input
-        type="number"
-        pInputText
+      <p-inputNumber
+        [min]="1"
         name="capacidad_maxima"
         formControlName="capacidad_maxima"
         class="w-full"
+        styleClass="w-full"
       />
       @if (submitted && mesaForm.controls.capacidad_maxima.invalid) {
         <error-p class="pb-1">{{ getCapacidadMaximaErrors() }}</error-p>

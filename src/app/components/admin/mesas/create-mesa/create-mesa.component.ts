@@ -15,6 +15,7 @@ import { MesaService } from '@/app/services/mesa.service';
 import { ToastService } from '@/app/lib/toast.service';
 import { Response } from '@/app/types/Response';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
   selector: 'app-create-mesa',
@@ -26,6 +27,7 @@ import { DropdownModule } from 'primeng/dropdown';
     DialogModule,
     InputTextModule,
     DropdownModule,
+    InputNumberModule,
   ],
   templateUrl: './create-mesa.component.html',
   styleUrl: './create-mesa.component.css',

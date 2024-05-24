@@ -79,12 +79,14 @@
 
     <div class="field">
       <label for="precio">Precio</label>
-      <input
-        type="number"
-        pInputText
+      <p-inputNumber
+        mode="decimal"
+        [min]="0.1"
+        [maxFractionDigits]="2"
         name="precio"
         formControlName="precio"
         class="w-full"
+        styleClass="w-full"
       />
       @if (submitted && productoForm.controls.nombre.invalid) {
         <error-p class="pb-1">{{ getPrecioErrors() }}</error-p>
@@ -93,12 +95,12 @@
 
     <div class="field">
       <label for="cantidad">Stock</label>
-      <input
-        type="number"
-        pInputText
+      <p-inputNumber
+        [min]="1"
         name="cantidad"
         formControlName="cantidad"
         class="w-full"
+        styleClass="w-full"
       />
       @if (submitted && productoForm.controls.cantidad.invalid) {
         <error-p class="pb-1">{{ getCantidadErrors() }}</error-p>

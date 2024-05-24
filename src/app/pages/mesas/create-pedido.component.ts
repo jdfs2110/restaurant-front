@@ -15,6 +15,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { ErrorPComponent } from '../../components/error-p/error-p.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
   selector: 'app-create-pedido',
@@ -26,6 +27,7 @@ import { InputTextModule } from 'primeng/inputtext';
     ReactiveFormsModule,
     ErrorPComponent,
     InputTextModule,
+    InputNumberModule,
   ],
 })
 export class CreatePedidoComponent {

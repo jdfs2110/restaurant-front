@@ -2,7 +2,7 @@
 @layer primeng;
 @import "primeicons/primeicons.css";
 @import "primeflex/primeflex.css";
-@import url('./assets/fonts/Switzer/css/switzer.css');
+@import url("./assets/fonts/Switzer/css/switzer.css");
 
 * {
   box-sizing: border-box;
@@ -25,7 +25,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Switzer', sans-serif;
+  font-family: "Switzer", sans-serif;
 }
 
 body {
@@ -38,4 +38,12 @@ p-image ::ng-deep img {
 
 img {
   object-fit: cover;
+}
+
+p-dialog ::ng-deep .p-dialog {
+  max-width: 100%;
+}
+
+p-dialog ::ng-deep .p-dialog-header {
+  text-wrap: nowrap;
 }

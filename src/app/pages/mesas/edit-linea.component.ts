@@ -15,9 +15,9 @@ import { ValidationMessagesService } from '@/app/services/validation-messages.se
 import { ConfirmationService } from 'primeng/api';
 import { ToastService } from '@/app/lib/toast.service';
 import { Response } from '@/app/types/Response';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ProductoService } from '@/app/services/producto.service';
 import { Producto } from '@/app/types/Producto';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
   selector: 'app-edit-linea',
@@ -35,6 +35,7 @@ import { Producto } from '@/app/types/Producto';
     InputTextModule,
     ReactiveFormsModule,
     ErrorPComponent,
+    InputNumberModule,
   ],
 })
 export class EditLineaComponent implements OnInit {
