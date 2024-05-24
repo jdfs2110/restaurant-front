@@ -44,6 +44,39 @@
     </div>
 
     <div class="field">
+      <label for="id_rol">Rol</label>
+      <p-dropdown
+        [options]="roles"
+        optionLabel="nombre"
+        optionValue="id"
+        placeholder="Selecciona el rol"
+        [filter]="true"
+        filterBy="nombre"
+        [showClear]="true"
+        styleClass="w-full"
+        formControlName="id_rol"
+      ></p-dropdown>
+      @if (submitted && userForm.controls["id_rol"].invalid) {
+        <error-p class="pb-1">{{ getIdRolErrors() }}</error-p>
+      }
+    </div>
+
+    <div class="field mt-3">
+      <label for="estado">Estado</label>
+      <p-dropdown
+        formControlName="estado"
+        [options]="estados"
+        optionLabel="nombre"
+        optionValue="valor"
+        placeholder="Selecciona el estado"
+        styleClass="w-full"
+      ></p-dropdown>
+      @if (submitted && userForm.controls["estado"].invalid) {
+        <error-p class="pb-1">{{ getEstadoErrors() }}</error-p>
+      }
+    </div>
+
+    <div class="field">
       <label for="name">Nombre</label>
       <input
         formControlName="name"
@@ -70,40 +103,6 @@
       />
       @if (submitted && userForm.controls["email"].invalid) {
         <error-p class="pb-1">{{ getEmailErrors() }}</error-p>
-      }
-    </div>
-
-    <div class="field mt-3">
-      <label for="estado">Estado</label>
-      <p-dropdown
-        formControlName="estado"
-        [options]="estados"
-        optionLabel="nombre"
-        optionValue="valor"
-        placeholder="Selecciona el estado"
-        styleClass="w-full"
-        [showClear]="true"
-      ></p-dropdown>
-      @if (submitted && userForm.controls["estado"].invalid) {
-        <error-p class="pb-1">{{ getEstadoErrors() }}</error-p>
-      }
-    </div>
-
-    <div class="field">
-      <label for="id_rol">Rol</label>
-      <p-dropdown
-        [options]="roles"
-        optionLabel="nombre"
-        optionValue="id"
-        placeholder="Selecciona el rol"
-        [filter]="true"
-        filterBy="nombre"
-        [showClear]="true"
-        styleClass="w-full"
-        formControlName="id_rol"
-      ></p-dropdown>
-      @if (submitted && userForm.controls["id_rol"].invalid) {
-        <error-p class="pb-1">{{ getIdRolErrors() }}</error-p>
       }
     </div>
 
