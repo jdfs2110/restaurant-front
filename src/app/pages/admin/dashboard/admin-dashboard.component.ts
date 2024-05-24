@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../../components/header/header.component';
 import { Router, RouterOutlet } from '@angular/router';
 import { AdminService } from '../admin.service';
@@ -105,6 +105,13 @@ export class AdminDashboardComponent implements OnInit {
 
   get name(): string {
     return this.userSignal.user().name;
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  protected handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.ctrlKey && event.key === 'q') {
+      this.closeAll();
+    }
   }
 
   ngOnInit(): void {
