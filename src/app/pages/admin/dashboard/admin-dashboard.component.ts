@@ -103,7 +103,17 @@ export class AdminDashboardComponent implements OnInit {
     this.facturasFetched = false;
   }
 
+  get name(): string {
+    return this.userSignal.user().name;
+  }
+
   ngOnInit(): void {
+    console.log('asd');
+
+    if (window.innerWidth < 1000 && this.location.path() === '/admin') {
+      this.router.navigate(['/admin/usuarios']);
+    }
+
     this.adminService.checkIfAdmin();
     this.menubarItems = [
       {

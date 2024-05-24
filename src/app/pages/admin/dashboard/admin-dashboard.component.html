@@ -1,6 +1,7 @@
 <!--if location /admin poner algo-->
 @if (location.path() === "/admin") {
   <app-header class="lg:hidden"></app-header>
+
   <div class="card hidden lg:block" id="menubar">
     <p-menubar [model]="menubarItems">
       <ng-template pTemplate="start">

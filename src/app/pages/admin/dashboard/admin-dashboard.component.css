@@ -38,3 +38,7 @@ p-dialog ::ng-deep .p-dialog-header {
 p-dock ::ng-deep .p-dock-item:nth-of-type(5) img {
   transform: rotate(90deg);
 } */
+
+#admin-dashboard p {
+  text-wrap: pretty;
+}
