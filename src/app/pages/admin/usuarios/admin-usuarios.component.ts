@@ -4,7 +4,14 @@ import { UserSignalService } from '@/app/services/user.signal.service';
 import { Response } from '@/app/types/Response';
 import { User } from '@/app/types/User';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  inject,
+} from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -38,6 +45,8 @@ import { UserEditPasswordComponent } from '../../../components/admin/usuarios/us
   ],
 })
 export class AdminUsuariosComponent implements OnInit {
+  @Input() program: boolean = false;
+  @Output() onRegisterClick = new EventEmitter();
   protected totalUsers: number;
   protected paginationLimit: number = 1;
   protected users: User[] = [];
@@ -199,6 +208,10 @@ export class AdminUsuariosComponent implements OnInit {
 
   private router: Router = inject(Router);
   register() {
+    if (this.program) {
+      this.onRegisterClick.emit();
+      return;
+    }
     if (this.rolId === 4) {
       this.router.navigate(['/admin/registro']);
     }

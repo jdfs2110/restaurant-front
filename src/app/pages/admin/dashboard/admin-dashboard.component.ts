@@ -296,4 +296,10 @@ export class AdminDashboardComponent implements OnInit {
   redirect(): void {
     this.router.navigate(['/login']);
   }
+
+  openRegister(): void {
+    this.closeAll();
+    this.registroVisible = true;
+    this.registroFetched = true;
+  }
 }

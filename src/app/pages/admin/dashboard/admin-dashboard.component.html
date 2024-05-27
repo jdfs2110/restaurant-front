@@ -47,7 +47,10 @@
       maximizeIcon="pi pi-stop"
       minimizeIcon="pi pi-table"
     >
-      <app-admin-usuarios></app-admin-usuarios>
+      <app-admin-usuarios
+        [program]="true"
+        (onRegisterClick)="openRegister()"
+      ></app-admin-usuarios>
     </p-dialog>
   }
 
