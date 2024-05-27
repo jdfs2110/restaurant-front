@@ -51,7 +51,7 @@
 
       <ng-template pTemplate="body" let-product>
         <tr>
-          <td>{{ product.id }}</td>
+          <td class="text-right">{{ product.id }}</td>
           <td>{{ product.nombre }}</td>
           <td>
             <p-image
@@ -63,9 +63,9 @@
               (onImageError)="setPlaceholder($event)"
             ></p-image>
           </td>
-          <td>{{ product.precio }}€</td>
-          <td>{{ product.cantidad }}</td>
-          <td>{{ product.id_categoria }} ({{ product.categoria }})</td>
+          <td class="text-right">{{ product.precio }}€</td>
+          <td class="text-right">{{ product.cantidad }}</td>
+          <td>{{ product.categoria }}</td>
           <td>{{ product.activo ? "Activo" : "Inactivo" }}</td>
           <td class="px-0 md:px-3">
             <div class="flex gap-2 justify-content-start align-items-center">

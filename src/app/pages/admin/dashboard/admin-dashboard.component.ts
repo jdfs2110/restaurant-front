@@ -298,7 +298,6 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   openRegister(): void {
-    this.closeAll();
     this.registroVisible = true;
     this.registroFetched = true;
   }

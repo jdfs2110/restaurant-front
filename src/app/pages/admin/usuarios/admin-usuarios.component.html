@@ -50,7 +50,7 @@
     >
       <ng-template pTemplate="header">
         <tr>
-          <th>ID</th>
+          <!-- <th>ID</th> -->
           <th>Nombre</th>
           <th>Correo electrónico</th>
           <th>Estado</th>
@@ -62,12 +62,12 @@
 
       <ng-template pTemplate="body" let-user>
         <tr>
-          <td>{{ user.id }}</td>
+          <!-- <td>{{ user.id }}</td> -->
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.estado === true ? "Alta" : "Baja" }}</td>
           <td>{{ user.fecha_ingreso }}</td>
-          <td>{{ user.id_rol }} ({{ user.rol | titlecase }})</td>
+          <td>{{ user.rol | titlecase }}</td>
           <td class="px-0 md:px-3">
             <div class="flex gap-2 align-items-center">
               <app-admin-user-edit

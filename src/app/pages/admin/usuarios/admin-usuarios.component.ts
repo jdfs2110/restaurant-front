@@ -212,6 +212,7 @@ export class AdminUsuariosComponent implements OnInit {
       this.onRegisterClick.emit();
       return;
     }
+
     if (this.rolId === 4) {
       this.router.navigate(['/admin/registro']);
     }
