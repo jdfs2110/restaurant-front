@@ -115,6 +115,8 @@ export class AdminCategoriasComponent implements OnInit {
       },
       error: (error: any) => {
         this.categories.splice(pos, 0, category);
+        console.log(error);
+
         this.toaster.detailedToast(
           'error',
           'Error al eliminar la categoría',

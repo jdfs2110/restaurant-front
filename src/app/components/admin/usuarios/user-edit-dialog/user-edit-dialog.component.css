@@ -5,3 +5,7 @@ label {
   font-size: 16px;
   display: block;
 }
+
+p-dialog ::ng-deep .p-dialog {
+  max-width: 100%;
+}

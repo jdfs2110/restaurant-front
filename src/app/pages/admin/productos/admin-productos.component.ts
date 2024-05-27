@@ -116,7 +116,7 @@ export class AdminProductosComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',
       accept: () => {
-        console.log('accepted');
+        this.deleteProduct(product);
       },
     });
   }
@@ -132,6 +132,8 @@ export class AdminProductosComponent implements OnInit {
         this.toaster.smallToast('success', message);
       },
       error: (error: any) => {
+        console.log(error);
+
         this.products.splice(pos, 0, product);
         if (error.error.error) {
           this.toaster.detailedToast(

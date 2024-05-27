@@ -6,3 +6,7 @@ label {
 p-image ::ng-deep .p-image:hover {
   opacity: 0.5;
 }
+
+p-dialog ::ng-deep .p-dialog {
+  max-width: 100%;
+}

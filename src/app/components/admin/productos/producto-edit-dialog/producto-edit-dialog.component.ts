@@ -63,7 +63,7 @@ export class ProductoEditDialogComponent implements OnInit {
   protected productoForm = new FormGroup({
     nombre: new FormControl('', [
       Validators.required,
-      Validators.maxLength(40),
+      Validators.maxLength(30),
     ]),
     precio: new FormControl(0, [Validators.required]),
     activo: new FormControl('', [Validators.required]),
@@ -106,7 +106,7 @@ export class ProductoEditDialogComponent implements OnInit {
       return this.validationService.requiredMessage();
 
     if (nombre.hasError('maxlength'))
-      return this.validationService.maxLength(40);
+      return this.validationService.maxLength(30);
 
     return '';
   }

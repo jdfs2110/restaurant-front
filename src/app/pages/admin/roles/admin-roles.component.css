@@ -5,3 +5,7 @@ main {
 p-toolbar ::ng-deep .p-toolbar {
   min-width: 280px;
 }
+
+p-dialog ::ng-deep .p-dialog {
+  max-width: 100%;
+}

@@ -77,7 +77,7 @@ export class AdminUserEditDialogComponent implements OnInit {
     this.userForm = new FormGroup({
       name: new FormControl(this.user.name, [
         Validators.required,
-        Validators.maxLength(40),
+        Validators.maxLength(35),
       ]),
       email: new FormControl(this.user.email, [
         Validators.required,
@@ -100,7 +100,7 @@ export class AdminUserEditDialogComponent implements OnInit {
     if (name.hasError('required'))
       return this.validationService.requiredMessage();
 
-    if (name.hasError('maxlength')) return this.validationService.maxLength(40);
+    if (name.hasError('maxlength')) return this.validationService.maxLength(35);
 
     return '';
   }

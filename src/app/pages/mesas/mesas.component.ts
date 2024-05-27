@@ -205,7 +205,6 @@ export class MesasComponent implements OnInit, OnDestroy {
       next: (response: Response<Pedido>) => {
         const { data } = response;
         console.log(data);
-
         this.markAsServido(data.id, mesa);
       },
       error: (error: any) => {
@@ -230,6 +229,9 @@ export class MesasComponent implements OnInit, OnDestroy {
     this.pedidoService.servirPedido(idPedido).subscribe({
       next: (response: Response<any>) => {
         console.log(response.message);
+        this.pedidoActual = {} as Pedido;
+        this.mesaSelected = {} as Mesa;
+        this.lineas = [];
       },
       error: (error: any) => {
         console.log('error', error);
@@ -264,6 +266,7 @@ export class MesasComponent implements OnInit, OnDestroy {
     this.lineasVisible = true;
     this.mesaService.findLastPedido(mesa.id).subscribe({
       next: (response: Response<Pedido>) => {
+        if (response === null) return;
         const { data } = response;
         this.pedidoActual = data;
         this.findLineasByPedido(data.id);
@@ -283,6 +286,7 @@ export class MesasComponent implements OnInit, OnDestroy {
 
   refreshMesa() {
     this.mesaSelected = {} as Mesa;
+    this.lineas = [];
     // this.pedidoActual = {} as Pedido;
   }
 

@@ -59,16 +59,16 @@ export class AdminRolesComponent implements OnInit {
 
   eliminarRol(rol: Rol) {
     const pos = this.roles.indexOf(rol);
-    this.roles = this.roles.filter((r: Rol) => {
-      return r.id !== rol.id;
-    });
     this.rolService.delete(rol.id).subscribe({
       next: (response: Response<any>) => {
         const { message } = response;
         this.toaster.smallToast('success', message);
+        this.roles = this.roles.filter((r: Rol) => {
+          return r.id !== rol.id;
+        });
       },
       error: (error: any) => {
-        this.roles.splice(pos, 0, rol);
+        // this.roles.splice(pos, 0, rol);
         this.toaster.detailedToast(
           'error',
           'Error al eliminar el rol',

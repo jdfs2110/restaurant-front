@@ -51,7 +51,7 @@ export class CategoriaEditDialogComponent implements OnInit {
   protected categoriaForm = new FormGroup({
     nombre: new FormControl('', [
       Validators.required,
-      Validators.maxLength(40),
+      Validators.maxLength(35),
     ]),
     foto: new FormControl(null),
   });
@@ -86,7 +86,7 @@ export class CategoriaEditDialogComponent implements OnInit {
       return this.validationService.requiredMessage();
 
     if (nombre.hasError('maxlength'))
-      return this.validationService.maxLength(40);
+      return this.validationService.maxLength(35);
 
     return '';
   }
