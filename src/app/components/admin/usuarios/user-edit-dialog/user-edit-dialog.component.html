@@ -1,19 +1,19 @@
-<p-button
+<!-- <p-button
   label="Editar"
   severity="secondary"
   styleClass="hidden md:inline"
   (onClick)="showEditDialog()"
   [disabled]="rolId !== 4 && user.id_rol === 4"
-/>
+/> -->
 <p-button
   title="Editar"
   [rounded]="true"
   icon="pi pi-pencil"
   severity="secondary"
-  styleClass="md:hidden ml-2"
   (onClick)="showEditDialog()"
   [disabled]="rolId !== 4 && user.id_rol === 4"
 />
+<!-- styleClass="md:hidden ml-2" -->
 <p-dialog
   [(visible)]="isVisible"
   [modal]="true"

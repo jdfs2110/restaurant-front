@@ -44,21 +44,21 @@
           <td>{{ factura.id_pedido }}</td>
           <td class="px-0 md:px-3">
             <div class="flex gap-2 justify-content-start align-items-center">
-              <p-button
+              <!-- <p-button
                 label="Eliminar"
                 severity="danger"
                 styleClass="hidden md:inline md:ml-2"
                 (onClick)="showDialog($event, factura)"
-              />
+              /> -->
 
               <p-button
                 title="Eliminar"
                 [rounded]="true"
                 icon="pi pi-trash"
                 severity="danger"
-                styleClass="md:hidden"
                 (onClick)="showDialog($event, factura)"
               />
+              <!-- styleClass="md:hidden" -->
             </div>
           </td>
         </tr>

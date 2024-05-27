@@ -58,21 +58,21 @@
           <td class="sm:hidden">mesero {{ pedido.id_usuario }}</td>
           <td class="px-0 md:px-3">
             <div class="flex gap-2 justify-content-start align-items-center">
-              <p-button
+              <!-- <p-button
                 label="Eliminar"
                 severity="danger"
                 styleClass="hidden md:inline md:ml-2"
                 (onClick)="showDialog($event, pedido)"
-              />
+              /> -->
 
               <p-button
                 title="Eliminar"
                 [rounded]="true"
                 icon="pi pi-trash"
                 severity="danger"
-                styleClass="md:hidden"
                 (onClick)="showDialog($event, pedido)"
               />
+              <!-- styleClass="md:hidden" -->
 
               <app-lineas-by-pedido [pedido]="pedido"></app-lineas-by-pedido>
             </div>

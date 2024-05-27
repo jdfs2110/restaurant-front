@@ -1,15 +1,15 @@
-<p-button
+<!-- <p-button
   label="Ver Lineas"
   styleClass="hidden md:inline"
   (onClick)="showLineasDialog()"
-/>
+/> -->
 <p-button
   title="Ver lineas"
   [rounded]="true"
   icon="pi pi-list"
-  styleClass="md:hidden"
   (onClick)="showLineasDialog()"
 />
+<!-- styleClass="md:hidden" -->
 <p-dialog
   [(visible)]="isVisible"
   [modal]="true"
@@ -50,20 +50,16 @@
             <td>{{ linea.estado }}</td>
             <td class="px-0 md:px-3">
               <div class="flex gap-2 justify-content-start align-items-center">
-                <p-button
-                  label="Eliminar"
-                  severity="danger"
-                  styleClass="hidden md:inline md:ml-2"
-                  (onClick)="showDialog($event, linea)"
-                />
+                <!-- <p-button label="Eliminar" severity="danger" styleClass="hidden md:inline md:ml-2"
+                (onClick)="showDialog($event, linea)" /> -->
 
                 <p-button
                   [rounded]="true"
                   icon="pi pi-trash"
                   severity="danger"
-                  styleClass="md:hidden"
                   (onClick)="showDialog($event, linea)"
                 />
+                <!-- styleClass="md:hidden" -->
               </div>
             </td>
           </tr>

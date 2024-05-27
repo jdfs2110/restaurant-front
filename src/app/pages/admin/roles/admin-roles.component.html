@@ -42,23 +42,23 @@
                 (onUpdate)="updateRol($event)"
               ></app-rol-edit-dialog>
 
-              <p-button
+              <!-- <p-button
                 label="Eliminar"
                 severity="danger"
                 styleClass="hidden md:inline md:ml-2"
                 (onClick)="showDialog($event, rol)"
                 [disabled]="rol.id === 4 || rol.id === 6"
-              />
+              /> -->
 
               <p-button
                 title="Eliminar"
                 [rounded]="true"
                 icon="pi pi-trash"
                 severity="danger"
-                styleClass="md:hidden"
                 (onClick)="showDialog($event, rol)"
                 [disabled]="rol.id === 4 || rol.id === 6"
               />
+              <!-- styleClass="md:hidden" -->
 
               <app-users-by-rol [rol]="rol"></app-users-by-rol>
             </div>

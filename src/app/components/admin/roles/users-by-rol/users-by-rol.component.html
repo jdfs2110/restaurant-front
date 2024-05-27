@@ -1,15 +1,15 @@
-<p-button
+<!-- <p-button
   label="Ver Usuarios"
   styleClass="hidden md:inline"
   (onClick)="showDialog()"
-/>
+/> -->
 <p-button
   title="Ver usuarios"
   [rounded]="true"
   icon="pi pi-users"
-  styleClass="md:hidden ml-2"
   (onClick)="showDialog()"
 />
+<!-- styleClass="md:hidden ml-2" -->
 <p-dialog
   [(visible)]="isVisible"
   [modal]="true"

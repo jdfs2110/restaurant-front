@@ -3,17 +3,17 @@
   [rounded]="true"
   icon="pi pi-pencil"
   severity="secondary"
-  styleClass="md:hidden"
   [disabled]="rol.id === 4 || rol.id === 6"
   (onClick)="showEditDialog()"
 />
-<p-button
+<!-- styleClass="md:hidden" -->
+<!-- <p-button
   label="Editar"
   severity="secondary"
   styleClass="hidden md:inline"
   [disabled]="rol.id === 4 || rol.id === 6"
   (onClick)="showEditDialog()"
-/>
+/> -->
 
 <p-dialog
   [(visible)]="isVisible"

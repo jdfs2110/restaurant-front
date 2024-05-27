@@ -3,15 +3,15 @@
   [rounded]="true"
   icon="pi pi-pencil"
   severity="secondary"
-  styleClass="md:hidden"
   (onClick)="showEditDialog()"
 />
-<p-button
+<!-- styleClass="md:hidden" -->
+<!-- <p-button
   label="Editar"
   severity="secondary"
   styleClass="hidden md:inline"
   (onClick)="showEditDialog()"
-/>
+/> -->
 <p-dialog
   [(visible)]="isVisible"
   [modal]="true"

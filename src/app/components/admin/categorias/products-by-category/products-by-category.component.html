@@ -1,15 +1,15 @@
-<p-button
+<!-- <p-button
   label="Ver Productos"
   styleClass="hidden md:inline"
   (onClick)="showDialog()"
-/>
+/> -->
 <p-button
   title="Ver productos"
   [rounded]="true"
   icon="pi pi-shopping-bag"
-  styleClass="md:hidden ml-2"
   (onClick)="showDialog()"
 />
+<!-- styleClass="md:hidden ml-2" -->
 <p-dialog
   [(visible)]="isVisible"
   [modal]="true"
