@@ -1,0 +1,56 @@
+<p-button
+  title="Generar factura"
+  [rounded]="true"
+  icon="pi pi-receipt"
+  (onClick)="showTicketDialog()"
+  severity="secondary"
+  [disabled]="pedido.estado_numero !== 0 && pedido.estado_numero !== 2"
+/>
+<p-dialog
+  [(visible)]="isVisible"
+  [maximizable]="true"
+  [modal]="true"
+  [draggable]="false"
+  [header]="'Ticket del pedido'"
+  (onHide)="refreshTicket()"
+  styleClass="md:w-6 w-full"
+>
+  <section class="w-full text-center m-0">
+    <h2 class="font-semibold mb-1">Food flow</h2>
+    <h3 class="mb-1 mt-2">Factura</h3>
+  </section>
+
+  <hr />
+
+  <div class="flex justify-content-between w-full p-1">
+    <span>Mesa {{ pedido.id_mesa }}</span>
+    <span>Fecha: {{ fecha }}</span>
+  </div>
+
+  <hr />
+
+  <div class="factura-header">
+    <span>Cantidad</span>
+    <span>Producto</span>
+    <span>Precio</span>
+    <span>Total</span>
+  </div>
+
+  @for (linea of lineasTicket; track $index; let last = $last) {
+    <div class="factura-row mb-2">
+      <span class="number">{{ linea.cantidad }}</span>
+      <span>{{ linea.producto }}</span>
+      <span class="number">{{ linea.precio.toFixed(2) }}€</span>
+      <span class="number"
+        >{{ (linea.cantidad * linea.precio).toFixed(2) }}€</span
+      >
+    </div>
+  }
+
+  <hr />
+
+  <div class="flex justify-content-between">
+    <h2>Precio:</h2>
+    <h2>{{ pedido.precio.toFixed(2) }}€</h2>
+  </div>
+</p-dialog>

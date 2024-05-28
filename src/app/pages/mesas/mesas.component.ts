@@ -542,13 +542,9 @@ export class MesasComponent implements OnInit, OnDestroy {
         console.log(this.lineasTicket);
         const lineasAgrupadas: Linea[] = [];
         this.lineasTicket.forEach((linea: Linea) => {
-          console.log('asas');
-
           let updated = false;
           lineasAgrupadas.forEach((l: Linea) => {
             if (linea.id_producto === l.id_producto) {
-              console.log('aaaa');
-
               l.cantidad += linea.cantidad;
               updated = true;
             }
@@ -556,7 +552,6 @@ export class MesasComponent implements OnInit, OnDestroy {
 
           if (!updated) {
             lineasAgrupadas.push(linea);
-            console.log('no updated');
           }
         });
 

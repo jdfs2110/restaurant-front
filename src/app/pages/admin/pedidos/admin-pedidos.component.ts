@@ -9,6 +9,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { LineasByPedidoComponent } from '../../../components/admin/pedidos/lineas-by-pedido/lineas-by-pedido.component';
+import { PedidoFacturaComponent } from '../../../components/admin/pedidos/pedido-factura/pedido-factura.component';
 
 @Component({
   selector: 'app-admin-pedidos',
@@ -21,6 +22,7 @@ import { LineasByPedidoComponent } from '../../../components/admin/pedidos/linea
     ConfirmDialogModule,
     ToolbarModule,
     LineasByPedidoComponent,
+    PedidoFacturaComponent,
   ],
 })
 export class AdminPedidosComponent implements OnInit {
