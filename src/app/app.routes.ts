@@ -27,42 +27,42 @@ export const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    title: 'Home - RestPilot',
+    title: 'Home - Food Flow',
   },
   {
     path: 'login',
     component: LoginComponent,
-    title: 'Inicio de sesión - RestPilot',
+    title: 'Inicio de sesión - Food Flow',
   },
   {
     path: 'lineas/cocina',
     component: LineasCocinaComponent,
-    title: 'Líneas de cocina - RestPilot',
+    title: 'Líneas de cocina - Food Flow',
   },
   {
     path: 'lineas/barra',
     component: LineasBarraComponent,
-    title: 'Lineas de barra - RestPilot',
+    title: 'Lineas de barra - Food Flow',
   },
   {
     path: 'mesas',
     component: MesasComponent,
-    title: 'Mesas - RestPilot',
+    title: 'Mesas - Food Flow',
   },
   {
     path: 'productos',
     component: ProductosComponent,
-    title: 'Productos - RestPilot',
+    title: 'Productos - Food Flow',
   },
   {
     path: 'perfil',
     component: PerfilComponent,
-    title: 'Perfil - RestPilot',
+    title: 'Perfil - Food Flow',
   },
   {
     path: 'rrhh',
     component: RrhhDashboardComponent,
-    title: 'RRHH - RestPilot',
+    title: 'RRHH - Food Flow',
     children: [
       {
         path: 'usuarios',
@@ -79,7 +79,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminDashboardComponent,
-    title: 'Panel de administración - RestPilot',
+    title: 'Panel de administración - Food Flow',
     children: [
       {
         path: 'registro',
@@ -126,7 +126,7 @@ export const routes: Routes = [
   {
     path: '404',
     component: NotFoundComponent,
-    title: 'Página no encontrada - RestPilot',
+    title: 'Página no encontrada - Food Flow',
   },
   {
     path: '**',

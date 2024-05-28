@@ -27,7 +27,7 @@
   "dayNamesMin": ["D", "L", "M", "M", "J", "V", "S"],
   "dayNamesShort": ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
   "emptyFilterMessage": "No se han encontrado resultados",
-  "emptyMessage": "No se han encontrado resultados",
+  "emptyMessage": "",
   "emptySearchMessage": "No se han encontrado resultados",
   "emptySelectionMessage": "Ningún artículo seleccionado",
   "endsWith": "Termine con",

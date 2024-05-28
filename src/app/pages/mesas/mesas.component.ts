@@ -36,6 +36,7 @@ import { ConfirmationService } from 'primeng/api';
 import { AudioService } from '@/app/lib/audio.service';
 import env from '@/app/env.json';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { TableModule } from 'primeng/table';
 @Component({
   selector: 'app-mesas',
   standalone: true,
@@ -58,6 +59,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     EditLineaComponent,
     ConfirmDialogModule,
     InputNumberModule,
+    TableModule,
   ],
 })
 export class MesasComponent implements OnInit, OnDestroy {
@@ -80,6 +82,9 @@ export class MesasComponent implements OnInit, OnDestroy {
 
   protected lineasVisible: boolean = false;
   protected newLineaFormVisible: boolean = false;
+
+  protected ticketDialogVisible: boolean = false;
+  protected fecha: string = '';
 
   protected newLineaForm = new FormGroup({
     cantidad: new FormControl(null, [Validators.required, Validators.min(1)]),
@@ -205,7 +210,22 @@ export class MesasComponent implements OnInit, OnDestroy {
       next: (response: Response<Pedido>) => {
         const { data } = response;
         console.log(data);
-        this.markAsServido(data.id, mesa);
+        this.pedidoService.getLineas(data.id).subscribe({
+          next: (response: Response<Linea[]>) => {
+            if (response === null) {
+              this.toaster.detailedToast(
+                'error',
+                'Error al servir el pedido',
+                'El pedido está vacío, por favor, cancela el pedido.',
+              );
+              return;
+            }
+            this.markAsServido(data.id, mesa, data.precio);
+          },
+          error: (_) => {
+            console.log(_);
+          },
+        });
       },
       error: (error: any) => {
         console.log(error);
@@ -222,7 +242,7 @@ export class MesasComponent implements OnInit, OnDestroy {
     });
   }
 
-  markAsServido(idPedido: number, mesa: Mesa) {
+  markAsServido(idPedido: number, mesa: Mesa, precio: number) {
     const pos = this.mesas.indexOf(mesa);
     this.mesas[pos].estado_numero = 0;
     this.mesas[pos].estado = 'libre';
@@ -230,8 +250,11 @@ export class MesasComponent implements OnInit, OnDestroy {
       next: (response: Response<any>) => {
         console.log(response.message);
         this.pedidoActual = {} as Pedido;
-        this.mesaSelected = {} as Mesa;
         this.lineas = [];
+        this.idPedidoTicket = idPedido;
+        this.precioPedidoTicket = precio;
+        this.mesaSelected = mesa;
+        this.showTicketDialog();
       },
       error: (error: any) => {
         console.log('error', error);
@@ -502,5 +525,69 @@ export class MesasComponent implements OnInit, OnDestroy {
         this.toaster.smallToast('error', 'Error al cancelar el pedido');
       },
     });
+  }
+
+  lineasTicket: Linea[] = [];
+  idPedidoTicket: number = 0;
+  precioPedidoTicket: number = 0;
+  showTicketDialog() {
+    this.ticketDialogVisible = true;
+    this.handleTicket();
+  }
+
+  handleTicket() {
+    this.pedidoService.getLineas(this.idPedidoTicket).subscribe({
+      next: (res: Response<Linea[]>) => {
+        this.lineasTicket = res.data;
+        console.log(this.lineasTicket);
+        const lineasAgrupadas: Linea[] = [];
+        this.lineasTicket.forEach((linea: Linea) => {
+          console.log('asas');
+
+          let updated = false;
+          lineasAgrupadas.forEach((l: Linea) => {
+            if (linea.id_producto === l.id_producto) {
+              console.log('aaaa');
+
+              l.cantidad += linea.cantidad;
+              updated = true;
+            }
+          });
+
+          if (!updated) {
+            lineasAgrupadas.push(linea);
+            console.log('no updated');
+          }
+        });
+
+        this.lineasTicket = lineasAgrupadas;
+      },
+    });
+
+    const date = new Date();
+    this.fecha = this.formatDate(date);
+  }
+
+  refreshTicket() {
+    this.lineasTicket = [];
+    this.idPedidoTicket = 0;
+    this.precioPedidoTicket = 0;
+    this.mesaSelected = {} as Mesa;
+  }
+
+  formatDate(date: Date) {
+    const d = new Date(date);
+    let month = '' + (d.getMonth() + 1);
+    let day = '' + d.getDate();
+    const year = d.getFullYear();
+
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+
+    return [day, month, year].join('/');
   }
 }

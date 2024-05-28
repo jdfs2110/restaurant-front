@@ -55,6 +55,10 @@ export class UserEditPasswordComponent implements OnInit {
     return this.userSignal.user().id_rol;
   }
 
+  get userId(): number {
+    return this.userSignal.user().id;
+  }
+
   ngOnInit(): void {
     this.passwordGroup = new FormGroup({
       password: new FormControl('', [
@@ -104,7 +108,10 @@ export class UserEditPasswordComponent implements OnInit {
   onSubmit(event: Event) {
     this.confirmer.confirm({
       target: event.target as EventTarget,
-      message: `¿Está seguro que desea cambiar la contraseña al usuario ${this.user.name}?`,
+      message:
+        this.userId !== this.user.id
+          ? `¿Está seguro que desea cambiar la contraseña al usuario ${this.user.name}?`
+          : '¿Está seguro que desea cambiar su contraseña?',
       header: 'Cambiar contraseña',
       icon: 'pi pi-exclamation-triangle',
       rejectButtonStyleClass: 'p-button-text',

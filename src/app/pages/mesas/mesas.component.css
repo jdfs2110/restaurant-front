@@ -39,3 +39,29 @@ label {
   display: block;
   font-size: 16px;
 }
+
+hr {
+  border: 0.5px dashed;
+}
+
+.factura-row,
+.factura-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.factura-row span,
+.factura-header span {
+  min-width: 24%;
+  margin-inline: 0.4rem;
+}
+
+.factura-header span {
+  font-size: 16px;
+  text-align: center;
+}
+
+.number {
+  text-align: right;
+}

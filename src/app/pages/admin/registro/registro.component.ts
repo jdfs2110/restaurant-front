@@ -170,6 +170,9 @@ export class RegistroComponent implements OnInit {
         this.registerError = false;
         this.loading = false;
         this.toaster.smallToast('success', message);
+        this.submitted = false;
+        this.registerForm.reset();
+        this.passwordGroup.reset();
       },
       error: (e: any) => {
         this.loading = false;
