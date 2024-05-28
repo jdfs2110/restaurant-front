@@ -3,13 +3,14 @@ import { UserSignalService } from '@/app/services/user.signal.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService, MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MenubarModule } from 'primeng/menubar';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MenubarModule, ButtonModule],
+  imports: [MenubarModule, ButtonModule, ConfirmDialogModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
@@ -24,6 +25,7 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private cookieService: CookieService,
     private router: Router,
+    private confirmer: ConfirmationService,
   ) {}
 
   protected get name(): string {
@@ -199,6 +201,20 @@ export class HeaderComponent implements OnInit {
     ];
   }
 
+  showLogout(event: Event): void {
+    // this.confirmer.confirm({
+    //   target: event.target as EventTarget,
+    //   message: `¿Está seguro que desea cerrar sesión?`,
+    //   header: 'Cerrar sesión',
+    //   icon: 'pi pi-exclamation-triangle',
+    //   rejectButtonStyleClass: 'p-button-text',
+    //   accept: () => {
+    //     this.logout();
+    //   },
+    // });
+    this.logout();
+  }
+
   logout(): void {
     this.authService.logout().subscribe({
       next: (response: any) => {
@@ -210,6 +226,9 @@ export class HeaderComponent implements OnInit {
       },
       error: (error) => {
         console.log(error);
+        this.userSignal.clearUser();
+        this.cookieService.deleteAll();
+        this.redirect();
       },
     });
   }

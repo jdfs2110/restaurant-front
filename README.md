@@ -2,4 +2,4 @@
 
 ## TODO
 
-- [ ] reservar mesa?
+- [ ] Poner el confirmation dialog a nivel de la app y quitarselo a los componentes

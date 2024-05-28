@@ -17,7 +17,10 @@
           class="flex justify-content-center align-items-center gap-2 lg:gap-4"
         >
           <p class="font-semibold">{{ name }}</p>
-          <p-button (click)="logout()" [link]="true" styleClass="lg:p-1"
+          <p-button
+            (click)="showLogout($event)"
+            [link]="true"
+            styleClass="lg:p-1"
             >Cerrar sesión</p-button
           >
         </div>
@@ -40,7 +43,9 @@
           class="flex justify-content-center align-items-center gap-1 md:gap-2 lg:gap-4"
         >
           <p class="text-green-500">{{ name }}</p>
-          <p-button (click)="logout()" [link]="true">Cerrar sesión</p-button>
+          <p-button (click)="showLogout($event)" [link]="true"
+            >Cerrar sesión</p-button
+          >
         </div>
       </ng-template>
     </p-menubar>
@@ -51,7 +56,9 @@
           class="flex justify-content-center align-items-center gap-1 md:gap-2 lg:gap-4"
         >
           <p>{{ name }}</p>
-          <p-button (click)="logout()" [link]="true">Cerrar sesión</p-button>
+          <p-button (click)="showLogout($event)" [link]="true"
+            >Cerrar sesión</p-button
+          >
         </div>
       </ng-template>
     </p-menubar>
@@ -62,7 +69,9 @@
           class="flex justify-content-center align-items-center gap-1 md:gap-2 lg:gap-4"
         >
           <p>{{ name }}</p>
-          <p-button (click)="logout()" [link]="true">Cerrar sesión</p-button>
+          <p-button (click)="showLogout($event)" [link]="true"
+            >Cerrar sesión</p-button
+          >
         </div>
       </ng-template>
     </p-menubar>
