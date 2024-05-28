@@ -30,16 +30,16 @@
   <hr />
 
   <div class="factura-header">
-    <span>Cantidad</span>
-    <span>Producto</span>
+    <span class="ud">Ud.</span>
+    <span class="producto">Producto</span>
     <span>Precio</span>
     <span>Total</span>
   </div>
 
   @for (linea of lineasTicket; track $index; let last = $last) {
     <div class="factura-row mb-2">
-      <span class="number">{{ linea.cantidad }}</span>
-      <span>{{ linea.producto }}</span>
+      <span class="number ud">{{ linea.cantidad }}</span>
+      <span class="producto">{{ linea.producto }}</span>
       <span class="number">{{ linea.precio.toFixed(2) }}€</span>
       <span class="number"
         >{{ (linea.cantidad * linea.precio).toFixed(2) }}€</span

@@ -9,10 +9,18 @@ hr {
   justify-content: center;
 }
 
+.ud {
+  width: 10% !important;
+}
+
 .factura-row span,
 .factura-header span {
-  min-width: 24%;
+  width: 24%;
   margin-inline: 0.4rem;
+}
+
+.producto {
+  width: 40% !important;
 }
 
 .factura-header span {
