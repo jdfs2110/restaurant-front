@@ -27,42 +27,42 @@ export const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    title: 'Home - Restaurant',
+    title: 'Home - RestPilot',
   },
   {
     path: 'login',
     component: LoginComponent,
-    title: 'Inicio de sesión - Restaurant',
+    title: 'Inicio de sesión - RestPilot',
   },
   {
     path: 'lineas/cocina',
     component: LineasCocinaComponent,
-    title: 'Líneas de cocina - Restaurant',
+    title: 'Líneas de cocina - RestPilot',
   },
   {
     path: 'lineas/barra',
     component: LineasBarraComponent,
-    title: 'Lineas de barra - Restaurant',
+    title: 'Lineas de barra - RestPilot',
   },
   {
     path: 'mesas',
     component: MesasComponent,
-    title: 'Mesas - Restaurant',
+    title: 'Mesas - RestPilot',
   },
   {
     path: 'productos',
     component: ProductosComponent,
-    title: 'Productos - Restaurant',
+    title: 'Productos - RestPilot',
   },
   {
     path: 'perfil',
     component: PerfilComponent,
-    title: 'Perfil - Restaurant',
+    title: 'Perfil - RestPilot',
   },
   {
     path: 'rrhh',
     component: RrhhDashboardComponent,
-    title: 'RRHH - Restaurant',
+    title: 'RRHH - RestPilot',
     children: [
       {
         path: 'usuarios',
@@ -79,7 +79,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminDashboardComponent,
-    title: 'Panel de administración - Restaurant',
+    title: 'Panel de administración - RestPilot',
     children: [
       {
         path: 'registro',
@@ -126,7 +126,7 @@ export const routes: Routes = [
   {
     path: '404',
     component: NotFoundComponent,
-    title: 'Página no encontrada - Restaurant',
+    title: 'Página no encontrada - RestPilot',
   },
   {
     path: '**',

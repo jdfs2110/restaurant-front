@@ -46,7 +46,6 @@ export class LoginComponent implements OnInit {
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [
       Validators.required,
-      Validators.minLength(6),
       Validators.maxLength(40),
     ]),
   });
@@ -70,6 +69,8 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.loading = true;
     this.submitted = true;
+    this.loginError = false;
+
     const form = this.loginForm.value;
     if (this.loginForm.invalid) {
       this.loading = false;
@@ -121,9 +122,6 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.controls.password.hasError('required'))
       return this.validationService.requiredMessage();
 
-    if (this.loginForm.controls.password.hasError('minlength'))
-      return this.validationService.minLength(6);
-
     if (this.loginForm.controls.password.hasError('maxlength'))
       return this.validationService.maxLength(40);
 
@@ -136,9 +134,6 @@ export class LoginComponent implements OnInit {
     } else {
       this.router.navigate(['/']);
     }
-    // setTimeout(() => {
-    //   window.location.reload();
-    // }, 500);
   }
 
   mark(): void {

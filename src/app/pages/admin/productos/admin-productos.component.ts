@@ -158,6 +158,8 @@ export class AdminProductosComponent implements OnInit {
     this.productoService.findProductsWithSimilarName(query).subscribe({
       next: (response: Response<Producto[]>) => {
         const { data } = response;
+        console.log(data);
+
         this.filteredProducts = data;
       },
       error: (error: any) => {

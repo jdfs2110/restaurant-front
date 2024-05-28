@@ -59,12 +59,10 @@ export class UserEditPasswordComponent implements OnInit {
     this.passwordGroup = new FormGroup({
       password: new FormControl('', [
         Validators.required,
-        Validators.minLength(6),
         Validators.maxLength(40),
       ]),
       password_confirmation: new FormControl('', [
         Validators.required,
-        Validators.minLength(6),
         Validators.maxLength(40),
       ]),
     });
@@ -83,9 +81,6 @@ export class UserEditPasswordComponent implements OnInit {
 
     if (password.hasError('required'))
       return this.validationService.requiredMessage();
-
-    if (password.hasError('minlength'))
-      return this.validationService.minLength(6);
 
     if (password.hasError('maxlength'))
       return this.validationService.maxLength(40);

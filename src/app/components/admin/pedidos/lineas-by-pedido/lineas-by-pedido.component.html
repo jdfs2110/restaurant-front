@@ -48,12 +48,13 @@
             <td>{{ linea.cantidad }}</td>
             <td>{{ linea.tipo }}</td>
             <td>{{ linea.estado }}</td>
-            <td class="px-0 md:px-3">
+            <td class="px-3">
               <div class="flex gap-2 justify-content-start align-items-center">
                 <!-- <p-button label="Eliminar" severity="danger" styleClass="hidden md:inline md:ml-2"
                 (onClick)="showDialog($event, linea)" /> -->
 
                 <p-button
+                  title="Eliminar"
                   [rounded]="true"
                   icon="pi pi-trash"
                   severity="danger"
