@@ -115,8 +115,6 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('asd');
-
     if (window.innerWidth < 1000 && this.location.path() === '/admin') {
       this.router.navigate(['/admin/usuarios']);
     }
@@ -281,8 +279,6 @@ export class AdminDashboardComponent implements OnInit {
   logout(): void {
     this.authService.logout().subscribe({
       next: (response: any) => {
-        console.log(response);
-
         this.userSignal.clearUser();
         this.cookieService.deleteAll();
         this.redirect();

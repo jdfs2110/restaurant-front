@@ -169,7 +169,15 @@ export class PerfilComponent implements OnInit {
       error: (error: any) => {
         this.perfilLoading = false;
         console.log(error);
-        this.toaster.smallToast('error', 'Error al actualizar el perfil');
+        if (error.error.error) {
+          this.toaster.detailedToast(
+            'error',
+            'Error al actualizar el perfil',
+            error.error.error,
+          );
+        } else {
+          this.toaster.smallToast('error', 'Error al actualizar el perfil');
+        }
         this.userForm.setValue({
           name: this.user.name,
           email: this.user.email,
