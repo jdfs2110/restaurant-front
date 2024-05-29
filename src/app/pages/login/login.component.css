@@ -11,6 +11,12 @@ main {
   background-repeat: no-repeat;
 }
 
+@-moz-document url-prefix() {
+  main {
+    background: var(--blue-500) !important;
+  }
+}
+
 p-password ::ng-deep .p-password-input {
   width: 100%;
 }
