@@ -19,7 +19,6 @@ import { CreateRolComponent } from '../../../components/admin/roles/create-rol/c
   imports: [
     TableModule,
     ButtonModule,
-    ConfirmDialogModule,
     ToolbarModule,
     RolEditDialogComponent,
     UsersByRolComponent,

@@ -29,7 +29,6 @@ import env from '@/app/env.json';
     ButtonModule,
     TableModule,
     AutoCompleteModule,
-    ConfirmDialogModule,
     ImageModule,
     ProductoEditDialogComponent,
     CreateProductComponent,

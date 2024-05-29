@@ -57,7 +57,6 @@ import { TableModule } from 'primeng/table';
     TabViewModule,
     RippleModule,
     EditLineaComponent,
-    ConfirmDialogModule,
     InputNumberModule,
     TableModule,
   ],

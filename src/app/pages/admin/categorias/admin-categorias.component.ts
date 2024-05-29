@@ -28,7 +28,6 @@ import env from '@/app/env.json';
     ButtonModule,
     TableModule,
     AutoCompleteModule,
-    ConfirmDialogModule,
     CategoriaEditDialogComponent,
     ImageModule,
     CreateCategoryComponent,

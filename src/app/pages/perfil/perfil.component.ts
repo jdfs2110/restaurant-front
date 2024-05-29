@@ -32,7 +32,6 @@ import { RepeatPasswordValidator } from '@/app/lib/RepeatPasswordValidator';
     InputTextModule,
     ErrorPComponent,
     ButtonModule,
-    ConfirmDialogModule,
   ],
 })
 export class PerfilComponent implements OnInit {

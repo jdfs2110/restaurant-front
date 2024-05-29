@@ -6,10 +6,16 @@ import { ToastModule } from 'primeng/toast';
 import { Location } from '@angular/common';
 import { InitializeService } from './lib/initialize.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ToastModule, ProgressSpinnerModule],
+  imports: [
+    RouterOutlet,
+    ToastModule,
+    ProgressSpinnerModule,
+    ConfirmDialogModule,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

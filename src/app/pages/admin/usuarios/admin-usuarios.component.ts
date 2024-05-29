@@ -38,7 +38,6 @@ import { UserEditPasswordComponent } from '../../../components/admin/usuarios/us
     ToolbarModule,
     ButtonModule,
     RouterLink,
-    ConfirmDialogModule,
     AutoCompleteModule,
     AdminUserEditDialogComponent,
     UserEditPasswordComponent,

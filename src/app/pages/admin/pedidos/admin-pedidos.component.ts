@@ -19,7 +19,6 @@ import { PedidoFacturaComponent } from '../../../components/admin/pedidos/pedido
   imports: [
     TableModule,
     ButtonModule,
-    ConfirmDialogModule,
     ToolbarModule,
     LineasByPedidoComponent,
     PedidoFacturaComponent,

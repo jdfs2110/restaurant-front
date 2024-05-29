@@ -202,17 +202,16 @@ export class HeaderComponent implements OnInit {
   }
 
   showLogout(event: Event): void {
-    // this.confirmer.confirm({
-    //   target: event.target as EventTarget,
-    //   message: `¿Está seguro que desea cerrar sesión?`,
-    //   header: 'Cerrar sesión',
-    //   icon: 'pi pi-exclamation-triangle',
-    //   rejectButtonStyleClass: 'p-button-text',
-    //   accept: () => {
-    //     this.logout();
-    //   },
-    // });
-    this.logout();
+    this.confirmer.confirm({
+      target: event.target as EventTarget,
+      message: `¿Está seguro que desea cerrar sesión?`,
+      header: 'Cerrar sesión',
+      icon: 'pi pi-exclamation-triangle',
+      rejectButtonStyleClass: 'p-button-text',
+      accept: () => {
+        this.logout();
+      },
+    });
   }
 
   logout(): void {

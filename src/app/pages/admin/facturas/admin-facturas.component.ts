@@ -12,7 +12,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 @Component({
   selector: 'app-admin-facturas',
   standalone: true,
-  imports: [TableModule, ButtonModule, ConfirmDialogModule, ToolbarModule],
+  imports: [TableModule, ButtonModule, ToolbarModule],
   templateUrl: './admin-facturas.component.html',
   styleUrl: './admin-facturas.component.css',
 })

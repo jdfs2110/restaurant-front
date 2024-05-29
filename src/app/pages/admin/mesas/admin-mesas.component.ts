@@ -19,7 +19,6 @@ import { MesaEditDialogComponent } from '../../../components/admin/mesas/mesa-ed
   imports: [
     TableModule,
     ButtonModule,
-    ConfirmDialogModule,
     ToolbarModule,
     CreateMesaComponent,
     MesaEditDialogComponent,
