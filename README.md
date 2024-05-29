@@ -1,5 +1,5 @@
 # Restaurant front
 
-## TODO
+Este repositorio es la parte front-end del proyecto, desarrollado con Angular 17.
 
-- [ ] Poner el confirmation dialog a nivel de la app y quitarselo a los componentes
+Para más información sobre el proyecto, por favor, consulte el repositorio [restaurant-api](https://github.com/jdfs2110/restaurant-api).
