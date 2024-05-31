@@ -35,7 +35,6 @@ export class MesaService {
   }
 
   findPedidosByIdMesa(id: number): Observable<Response<Pedido[]>> {
-    // Dios mio el naming :help:
     return this.http.get<Response<Pedido[]>>(`${this.url}/${id}/pedidos`);
   }
 
