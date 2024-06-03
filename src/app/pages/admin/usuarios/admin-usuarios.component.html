@@ -91,8 +91,9 @@
                 icon="pi pi-trash"
                 severity="danger"
                 (onClick)="showDialog($event, user)"
-                [disabled]="rolId !== 4 && user.id_rol === 4"
+                [disabled]="rolId !== 4"
               />
+              <!-- [disabled]="rolId !== 4 && user.id_rol === 4" -->
               <!-- styleClass="md:hidden" -->
 
               <app-user-edit-password [user]="user"></app-user-edit-password>
