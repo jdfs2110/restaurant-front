@@ -34,5 +34,8 @@ export class HomeComponent implements OnInit {
     if (this.idRol === 4) {
       this.router.navigate(['/admin']);
     }
+    if (this.idRol === 3) {
+      this.router.navigate(['/rrhh']);
+    }
   }
 }

@@ -22,7 +22,7 @@ export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    title: 'Home - Food Flow'
+    title: 'Home - Food Flow',
   },
   {
     path: 'home',
