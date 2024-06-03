@@ -165,6 +165,16 @@ export class AdminUserEditDialogComponent implements OnInit {
       return;
     }
 
+    if (formValue['id_rol'] === 4 && this.rolId !== 4) {
+      this.isVisible = false;
+      this.toaster.detailedToast(
+        'error',
+        'Error de permisos',
+        'No puedes dar permisos de administador.',
+      );
+      return;
+    }
+
     const user: User = {
       id: this.user.id,
       name: formValue['name'] ?? this.user.name,
