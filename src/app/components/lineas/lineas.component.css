@@ -13,6 +13,16 @@
   object-fit: cover;
 }
 
+.product__name {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.pedido__number {
+  font-size: .9rem;
+  color: var(--surface-500);
+}
+
 /* md:w-10rem relative  */
 
 /* block xl:block mx-auto border-round w-full */
