@@ -51,7 +51,7 @@ export class PedidoFacturaComponent {
       },
     });
 
-    const date = new Date();
+    const date = new Date(this.pedido.fecha);
     this.fecha = this.formatDate(date);
   }
 
