@@ -3,7 +3,7 @@
   @for (linea of lineas; track linea.id) {
     <p-panel [toggleable]="true" toggler="header" styleClass="lg:hidden">
       <ng-template pTemplate="header">
-        <div class="flex align-items-center gap-2">
+        <div class="flex align-items-center product__wrapper">
           <p-avatar
             [image]="linea.producto_foto"
             shape="circle"
