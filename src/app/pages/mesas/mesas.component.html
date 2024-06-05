@@ -90,19 +90,22 @@
     [modal]="true"
     header="Añadir un producto"
     [draggable]="false"
-    (onHide)="refreshMesa()"
+    (onHide)="refreshMesa(); refreshInputs()"
     styleClass="h-full"
     styleClass="w-11"
   >
     <p-tabView>
       <p-tabPanel header="Bebidas">
-        <input
+        <div class="w-full" [formGroup]="queries">
+          <input
           type="text"
           pInputText
           placeholder="Busca un producto"
           (keyup)="filterProduct($event, 'barra')"
           class="mb-2 w-full"
-        />
+          formControlName="queryBarra"
+          />
+        </div>
         @for (producto of productosBarraFiltered; track producto.id) {
           <div
             class="w-full border-1 border-gray-200 border-round px-2 py-3 flex gap-2 flex-column card box-primary"
@@ -124,13 +127,16 @@
       </p-tabPanel>
 
       <p-tabPanel header="Comida">
-        <input
+        <div class="w-full" [formGroup]="queries">
+          <input
           type="text"
           pInputText
           placeholder="Busca un producto"
           (keyup)="filterProduct($event, 'cocina')"
           class="mb-2 w-full"
-        />
+          formControlName="queryCocina"
+          />
+        </div>
 
         @for (producto of productosCocinaFiltered; track producto.id) {
           <div

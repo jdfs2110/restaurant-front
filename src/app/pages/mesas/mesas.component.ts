@@ -85,6 +85,11 @@ export class MesasComponent implements OnInit, OnDestroy {
   protected ticketDialogVisible: boolean = false;
   protected fecha: string = '';
 
+  protected queries = new FormGroup({
+    queryBarra: new FormControl(''),
+    queryCocina: new FormControl(''),
+  })
+
   protected newLineaForm = new FormGroup({
     cantidad: new FormControl(null, [Validators.required, Validators.min(1)]),
   });
@@ -119,7 +124,7 @@ export class MesasComponent implements OnInit, OnDestroy {
     private validationService: ValidationMessagesService,
     private confirmer: ConfirmationService,
     private audioService: AudioService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.mesaService.findAll().subscribe({
@@ -583,5 +588,11 @@ export class MesasComponent implements OnInit, OnDestroy {
     }
 
     return [day, month, year].join('/');
+  }
+
+  refreshInputs() {
+    this.queries.reset();
+    this.productosCocinaFiltered = this.productosCocina;
+    this.productosBarraFiltered = this.productosBarra;
   }
 }
