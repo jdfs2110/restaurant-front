@@ -75,7 +75,7 @@ export class AdminDashboardComponent implements OnInit {
     private cookieService: CookieService,
     private userSignal: UserSignalService,
     private router: Router,
-  ) {}
+  ) { }
 
   protected closeAll() {
     this.usersVisible = false;
@@ -279,14 +279,19 @@ export class AdminDashboardComponent implements OnInit {
   logout(): void {
     this.authService.logout().subscribe({
       next: (response: any) => {
-        this.userSignal.clearUser();
-        this.cookieService.deleteAll();
-        this.redirect();
+        this.handleLogout();
       },
       error: (error) => {
         console.log(error);
+        this.handleLogout();
       },
     });
+  }
+
+  handleLogout(): void {
+    this.userSignal.clearUser();
+    this.cookieService.deleteAll();
+    window.location.reload();
   }
 
   redirect(): void {

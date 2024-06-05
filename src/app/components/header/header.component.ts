@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
     private cookieService: CookieService,
     private router: Router,
     private confirmer: ConfirmationService,
-  ) {}
+  ) { }
 
   protected get name(): string {
     return this.userSignal.user().name;
@@ -219,17 +219,19 @@ export class HeaderComponent implements OnInit {
       next: (response: any) => {
         console.log(response);
 
-        this.userSignal.clearUser();
-        this.cookieService.deleteAll();
-        this.redirect();
+        this.handleLogout();
       },
       error: (error) => {
         console.log(error);
-        this.userSignal.clearUser();
-        this.cookieService.deleteAll();
-        this.redirect();
+        this.handleLogout();
       },
     });
+  }
+
+  handleLogout(): void {
+    this.userSignal.clearUser();
+    this.cookieService.deleteAll();
+    window.location.reload();
   }
 
   redirect(): void {
