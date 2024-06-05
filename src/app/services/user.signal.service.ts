@@ -1,4 +1,4 @@
-import { Injectable, effect, signal } from '@angular/core';
+import { EventEmitter, Injectable, effect, signal } from '@angular/core';
 import { User } from '@/app/types/User';
 
 @Injectable({
@@ -7,11 +7,14 @@ import { User } from '@/app/types/User';
 export class UserSignalService {
   private userSignal = signal({} as User);
   readonly user = this.userSignal.asReadonly();
-
-  constructor() {}
+  public ready = false;
+  public APP_READY: EventEmitter<boolean> = new EventEmitter<boolean>();
+  constructor() { }
 
   updateUser(user: User): void {
     this.userSignal.set(user);
+    this.APP_READY.emit(true);
+    this.ready = true;
   }
 
   clearUser(): void {
