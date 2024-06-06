@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
       }
     }
     if (this.idRol === 3) {
-      this.router.navigate(['/rrhh']);
+      this.router.navigate(['/rrhh/usuarios']);
     }
   }
 }

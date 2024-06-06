@@ -35,7 +35,7 @@ export class LineasComponent implements OnInit, OnDestroy {
     private pusher: PusherService,
     private lineaService: LineaService,
     private audioService: AudioService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (this.channel === 'lineas-cocina') {
@@ -77,7 +77,6 @@ export class LineasComponent implements OnInit, OnDestroy {
 
     channel.bind('linea-edited', (event: Response<Linea>) => {
       const { data } = event;
-      console.log('una línea ha sido editada', data);
       this.lineas = this.lineas.map((linea: Linea) => {
         if (linea.id === data.id) {
           return data;

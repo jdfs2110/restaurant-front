@@ -50,7 +50,7 @@ export class AdminProductosComponent implements OnInit {
     private confirmer: ConfirmationService,
     private toaster: ToastService,
     private categoriaService: CategoriaService,
-  ) {}
+  ) { }
 
   fetchPages() {
     this.productoService.getPages().subscribe({
@@ -85,7 +85,6 @@ export class AdminProductosComponent implements OnInit {
   fetchProducts(page: number) {
     this.productoService.findAll(page).subscribe({
       next: (response: Response<Producto[]>) => {
-        console.log(response);
         const { data } = response;
 
         this.products = data;
@@ -100,8 +99,6 @@ export class AdminProductosComponent implements OnInit {
   }
 
   loadProducts(event: TableLazyLoadEvent) {
-    console.log('lazy');
-
     this.loading = true;
     const page = event.first! / event.rows! + 1;
     this.fetchProducts(page);
