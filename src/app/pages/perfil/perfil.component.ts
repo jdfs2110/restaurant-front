@@ -17,7 +17,6 @@ import { ToastService } from '@/app/lib/toast.service';
 import { ErrorPComponent } from '../../components/error-p/error-p.component';
 import { ButtonModule } from 'primeng/button';
 import { Response } from '@/app/types/Response';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { RepeatPasswordValidator } from '@/app/lib/RepeatPasswordValidator';
 
 @Component({
@@ -74,7 +73,6 @@ export class PerfilComponent implements OnInit {
     });
     this.passwordGroup.reset();
     this.passwordGroup.validator = RepeatPasswordValidator.repeatPassword();
-    console.log(this.user);
   }
 
   getNameErrors() {
@@ -160,7 +158,6 @@ export class PerfilComponent implements OnInit {
     this.userService.update(user, this.user.id).subscribe({
       next: (response: Response<User>) => {
         const { data, message } = response;
-        console.log(response);
         this.userSignal.updateUser(data);
         this.perfilLoading = false;
         this.perfilSubmitted = false;

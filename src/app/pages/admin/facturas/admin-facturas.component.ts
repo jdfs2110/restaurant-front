@@ -5,7 +5,6 @@ import { Response } from '@/app/types/Response';
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 
@@ -109,14 +108,4 @@ export class AdminFacturasComponent implements OnInit {
   getIconClass() {
     return this.buttonLoading ? 'pi pi-spin pi-sync' : 'pi pi-sync';
   }
-
-  // updateFactura(factura: Factura) {
-  //   this.facturas = this.facturas.map((f: Factura) => {
-  //     if (f.id === factura.id) {
-  //       return factura;
-  //     }
-
-  //     return f;
-  //   })
-  // }
 }

@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private userSignal: UserSignalService,
-  ) { }
+  ) {}
 
   protected get idRol(): number {
     return this.userSignal.user().id_rol;
@@ -33,13 +33,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.userSignal.ready) {
-      console.log('ready');
-
       this.redirect();
     } else {
-      console.log('not ready')
       this.userSignal.APP_READY.subscribe(() => {
-        console.log('getting ready');
         this.redirect();
       });
     }

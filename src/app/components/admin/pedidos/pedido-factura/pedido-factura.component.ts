@@ -2,7 +2,7 @@ import { PedidoService } from '@/app/services/pedido.service';
 import { Linea } from '@/app/types/Linea';
 import { Pedido } from '@/app/types/Pedido';
 import { Response } from '@/app/types/Response';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 
@@ -31,8 +31,9 @@ export class PedidoFacturaComponent {
       next: (res: Response<Linea[]>) => {
         if (res === null) return;
         this.lineasTicket = res.data;
-        console.log(this.lineasTicket);
+
         const lineasAgrupadas: Linea[] = [];
+
         this.lineasTicket.forEach((linea: Linea) => {
           let updated = false;
           lineasAgrupadas.forEach((l: Linea) => {

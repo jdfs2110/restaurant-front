@@ -31,7 +31,6 @@ import { TabViewModule } from 'primeng/tabview';
 import { ProductoService } from '@/app/services/producto.service';
 import { RippleModule } from 'primeng/ripple';
 import { EditLineaComponent } from './edit-linea.component';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { AudioService } from '@/app/lib/audio.service';
 import env from '@/app/env.json';
@@ -88,7 +87,7 @@ export class MesasComponent implements OnInit, OnDestroy {
   protected queries = new FormGroup({
     queryBarra: new FormControl(''),
     queryCocina: new FormControl(''),
-  })
+  });
 
   protected newLineaForm = new FormGroup({
     cantidad: new FormControl(null, [Validators.required, Validators.min(1)]),
@@ -124,7 +123,7 @@ export class MesasComponent implements OnInit, OnDestroy {
     private validationService: ValidationMessagesService,
     private confirmer: ConfirmationService,
     private audioService: AudioService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.mesaService.findAll().subscribe({

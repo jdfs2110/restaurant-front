@@ -86,6 +86,7 @@ export class LoginComponent implements OnInit {
       next: (response: LoggedUserResponse) => {
         const { data, token } = response;
         if (data.id_rol === 6) {
+          // 6 es el id del rol de usuario bloqueado
           this.toaster.detailedToast(
             'error',
             'Usuario bloqueado',

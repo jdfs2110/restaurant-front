@@ -3,7 +3,7 @@ import { CategoriaService } from '@/app/services/categoria.service';
 import { ValidationMessagesService } from '@/app/services/validation-messages.service';
 import { Categoria } from '@/app/types/Categoria';
 import { Response } from '@/app/types/Response';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import {
   FormControl,
   FormGroup,

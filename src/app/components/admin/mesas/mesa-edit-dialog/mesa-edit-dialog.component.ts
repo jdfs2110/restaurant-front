@@ -122,8 +122,6 @@ export class MesaEditDialogComponent implements OnInit {
   }
 
   onEdit() {
-    console.log('hola');
-
     const formValue = this.mesaForm.value;
     this.submitted = true;
     this.isLoading = true;

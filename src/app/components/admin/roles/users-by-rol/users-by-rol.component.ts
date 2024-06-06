@@ -36,7 +36,7 @@ export class UsersByRolComponent implements OnInit {
   ngOnInit(): void {
     this.rolService.findAllUsersWithRol(this.rol.id).subscribe({
       next: (response: Response<User[]>) => {
-        if (response === null) return; // El nocontent
+        if (response === null) return;
 
         const { data } = response;
 

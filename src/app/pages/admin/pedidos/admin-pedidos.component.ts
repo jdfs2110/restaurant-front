@@ -5,7 +5,6 @@ import { Response } from '@/app/types/Response';
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { LineasByPedidoComponent } from '../../../components/admin/pedidos/lineas-by-pedido/lineas-by-pedido.component';
@@ -117,14 +116,4 @@ export class AdminPedidosComponent implements OnInit {
   getIconClass() {
     return this.buttonLoading ? 'pi pi-spin pi-sync' : 'pi pi-sync';
   }
-
-  // updatePedido(pedido: Pedido) {
-  //   this.pedidos = this.pedidos.map((p: Pedido) => {
-  //     if (p.id === pedido.id) {
-  //       return pedido;
-  //     }
-
-  //     return p;
-  //   })
-  // }
 }

@@ -2,7 +2,7 @@ import { ToastService } from '@/app/lib/toast.service';
 import { CategoriaService } from '@/app/services/categoria.service';
 import { Categoria } from '@/app/types/Categoria';
 import { Response } from '@/app/types/Response';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import {
   AutoCompleteCompleteEvent,
@@ -10,7 +10,6 @@ import {
   AutoCompleteSelectEvent,
 } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CategoriaEditDialogComponent } from '../../../components/admin/categorias/categoria-edit-dialog/categoria-edit-dialog.component';

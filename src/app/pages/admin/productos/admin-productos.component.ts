@@ -10,7 +10,6 @@ import {
   AutoCompleteSelectEvent,
 } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ImageModule } from 'primeng/image';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -50,7 +49,7 @@ export class AdminProductosComponent implements OnInit {
     private confirmer: ConfirmationService,
     private toaster: ToastService,
     private categoriaService: CategoriaService,
-  ) { }
+  ) {}
 
   fetchPages() {
     this.productoService.getPages().subscribe({
@@ -154,7 +153,6 @@ export class AdminProductosComponent implements OnInit {
     this.productoService.findProductsWithSimilarName(query).subscribe({
       next: (response: Response<Producto[]>) => {
         const { data } = response;
-        console.log(data);
 
         this.filteredProducts = data;
       },

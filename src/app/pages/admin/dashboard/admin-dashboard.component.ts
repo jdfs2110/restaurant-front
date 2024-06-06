@@ -75,7 +75,7 @@ export class AdminDashboardComponent implements OnInit {
     private cookieService: CookieService,
     private userSignal: UserSignalService,
     private router: Router,
-  ) { }
+  ) {}
 
   protected closeAll() {
     this.usersVisible = false;

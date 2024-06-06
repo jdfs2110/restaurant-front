@@ -180,8 +180,6 @@ export class ProductoEditDialogComponent implements OnInit {
       this.productoForm.controls.id_categoria.value ??
       this.product.id_categoria;
 
-    console.log('activo', activo);
-
     this.formdata.set('nombre', nombre);
     this.formdata.set('precio', precio.toString());
     this.formdata.set('activo', activo.toString());
@@ -197,7 +195,6 @@ export class ProductoEditDialogComponent implements OnInit {
     this.productoService.update(this.formdata, this.product.id).subscribe({
       next: (response: Response<Producto>) => {
         const { data, message } = response;
-        console.log(data);
 
         this.onUpdate.emit(data);
         this.toaster.smallToast('success', message);

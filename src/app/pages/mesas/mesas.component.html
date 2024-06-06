@@ -98,12 +98,12 @@
       <p-tabPanel header="Bebidas">
         <div class="w-full" [formGroup]="queries">
           <input
-          type="text"
-          pInputText
-          placeholder="Busca un producto"
-          (keyup)="filterProduct($event, 'barra')"
-          class="mb-2 w-full"
-          formControlName="queryBarra"
+            type="text"
+            pInputText
+            placeholder="Busca un producto"
+            (keyup)="filterProduct($event, 'barra')"
+            class="mb-2 w-full"
+            formControlName="queryBarra"
           />
         </div>
         @for (producto of productosBarraFiltered; track producto.id) {
@@ -129,12 +129,12 @@
       <p-tabPanel header="Comida">
         <div class="w-full" [formGroup]="queries">
           <input
-          type="text"
-          pInputText
-          placeholder="Busca un producto"
-          (keyup)="filterProduct($event, 'cocina')"
-          class="mb-2 w-full"
-          formControlName="queryCocina"
+            type="text"
+            pInputText
+            placeholder="Busca un producto"
+            (keyup)="filterProduct($event, 'cocina')"
+            class="mb-2 w-full"
+            formControlName="queryCocina"
           />
         </div>
 

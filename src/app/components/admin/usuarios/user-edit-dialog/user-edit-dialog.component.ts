@@ -1,4 +1,3 @@
-import { RepeatPasswordValidator } from '@/app/lib/RepeatPasswordValidator';
 import { ToastService } from '@/app/lib/toast.service';
 import { UserService } from '@/app/services/user.service';
 import { ValidationMessagesService } from '@/app/services/validation-messages.service';
@@ -188,10 +187,11 @@ export class AdminUserEditDialogComponent implements OnInit {
     this.userService.update(user, this.user.id).subscribe({
       next: (response: Response<User>) => {
         const { data, message } = response;
-        console.log(data, message);
+
         if (this.user.id === this.userId) {
           this.userSignal.updateUser(data);
         }
+
         this.onUpdate.emit(data);
         this.toaster.smallToast('success', message);
         this.isLoading = false;

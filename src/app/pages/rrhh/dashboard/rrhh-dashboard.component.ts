@@ -17,11 +17,22 @@ export class RrhhDashboardComponent implements OnInit {
   private _location: Location = inject(Location);
 
   ngOnInit(): void {
+    if (this._userSignal.ready) {
+      this.check();
+    } else {
+      this._userSignal.APP_READY.subscribe(() => {
+        this.check();
+      });
+    }
+  }
+
+  check(): void {
     if (
       this._userSignal.user().id_rol !== 3 &&
       this._userSignal.user().id_rol !== 4
     ) {
       this._router.navigate(['/']);
+      return;
     }
 
     if (this._location.path() === '/' || this._location.path() === '/rrhh') {

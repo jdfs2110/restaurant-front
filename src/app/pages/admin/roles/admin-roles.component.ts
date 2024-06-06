@@ -4,7 +4,6 @@ import { Rol } from '@/app/types/Rol';
 import { Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { ToastService } from '@/app/lib/toast.service';
 import { ToolbarModule } from 'primeng/toolbar';

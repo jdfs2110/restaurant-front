@@ -5,7 +5,6 @@ import { Response } from '@/app/types/Response';
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CreateMesaComponent } from '../../../components/admin/mesas/create-mesa/create-mesa.component';

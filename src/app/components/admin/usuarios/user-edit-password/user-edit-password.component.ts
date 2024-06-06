@@ -139,6 +139,7 @@ export class UserEditPasswordComponent implements OnInit {
     this.userService.changePassword(password, this.user.id).subscribe({
       next: (response: Response<User>) => {
         const { data, message } = response;
+
         this.toaster.smallToast('success', message);
         this.isLoading = false;
         this.isVisible = false;

@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
     private cookieService: CookieService,
     private router: Router,
     private confirmer: ConfirmationService,
-  ) { }
+  ) {}
 
   protected get name(): string {
     return this.userSignal.user().name;
@@ -96,7 +96,7 @@ export class HeaderComponent implements OnInit {
           },
           {
             label: 'Pedidos',
-            icon: 'pi pi-shopping-cart', // no se que ponerle
+            icon: 'pi pi-shopping-cart',
             routerLink: '/admin/pedidos',
           },
           {

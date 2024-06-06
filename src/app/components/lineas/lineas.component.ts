@@ -35,7 +35,7 @@ export class LineasComponent implements OnInit, OnDestroy {
     private pusher: PusherService,
     private lineaService: LineaService,
     private audioService: AudioService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     if (this.channel === 'lineas-cocina') {
@@ -67,9 +67,7 @@ export class LineasComponent implements OnInit, OnDestroy {
     const channel = this.pusher.listenTo(this.channel);
 
     channel.bind('linea-created', (event: NewLineaEvent) => {
-      const { data, ocurredOn } = event;
-      console.log('nueva linea', data);
-      console.log(ocurredOn);
+      const { data } = event;
 
       this.audioService.notification();
       this.lineas = [...this.lineas, data];

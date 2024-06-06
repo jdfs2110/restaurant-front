@@ -15,7 +15,6 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { ToolbarModule } from 'primeng/toolbar';
 import {
@@ -160,7 +159,6 @@ export class AdminUsuariosComponent implements OnInit {
 
     this.userService.findUsersWithSimilarName(query).subscribe({
       next: (response: Response<User[]>) => {
-        console.log(response);
         const { data } = response;
         this.filteredUsers = data;
       },
