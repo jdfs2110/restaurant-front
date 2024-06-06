@@ -61,7 +61,7 @@ export class AdminUsuariosComponent implements OnInit {
     private confirmer: ConfirmationService,
     private toaster: ToastService,
     private rolService: RolService,
-  ) {}
+  ) { }
 
   get userId(): number {
     return this.userSignal.user().id;
@@ -102,6 +102,7 @@ export class AdminUsuariosComponent implements OnInit {
         this.users = data;
         this.loading = false;
         this.buttonLoading = false;
+        globalThis.window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       },
       error: (error: any) => {
         console.log(error);

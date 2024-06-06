@@ -35,7 +35,7 @@ export class AdminPedidosComponent implements OnInit {
     private pedidoService: PedidoService,
     private confirmer: ConfirmationService,
     private toaster: ToastService,
-  ) {}
+  ) { }
 
   fetchPages() {
     this.pedidoService.getPages().subscribe({
@@ -63,6 +63,7 @@ export class AdminPedidosComponent implements OnInit {
         this.pedidos = data;
         this.loading = false;
         this.buttonLoading = false;
+        globalThis.window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       },
       error: (error: any) => {
         console.log(error);

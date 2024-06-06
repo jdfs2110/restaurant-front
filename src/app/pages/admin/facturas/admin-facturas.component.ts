@@ -27,7 +27,7 @@ export class AdminFacturasComponent implements OnInit {
     private facturaService: FacturaService,
     private confirmer: ConfirmationService,
     private toaster: ToastService,
-  ) {}
+  ) { }
 
   fetchPages() {
     this.facturaService.getPages().subscribe({
@@ -55,6 +55,7 @@ export class AdminFacturasComponent implements OnInit {
         this.facturas = data;
         this.loading = false;
         this.buttonLoading = false;
+        globalThis.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       },
       error: (error: any) => {
         console.log(error);

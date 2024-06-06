@@ -47,7 +47,7 @@ export class AdminCategoriasComponent implements OnInit {
     private categoriaService: CategoriaService,
     private confirmer: ConfirmationService,
     private toaster: ToastService,
-  ) {}
+  ) { }
 
   fetchPages() {
     this.categoriaService.getPages().subscribe({
@@ -75,6 +75,7 @@ export class AdminCategoriasComponent implements OnInit {
         this.categories = data;
         this.loading = false;
         this.buttonLoading = false;
+        globalThis.window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       },
       error: (error: any) => {
         console.log(error);
