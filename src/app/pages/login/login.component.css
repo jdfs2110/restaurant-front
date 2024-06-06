@@ -31,3 +31,8 @@ p-password ::ng-deep .p-password-input {
 error-p {
   font-size: 13px;
 }
+
+.welcome__text {
+  text-align: center;
+  font-weight: 600;
+}
