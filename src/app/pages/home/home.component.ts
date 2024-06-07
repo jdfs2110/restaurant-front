@@ -19,13 +19,12 @@ import { RrhhDashboardComponent } from '../rrhh/dashboard/rrhh-dashboard.compone
     LineasComponent,
     RrhhDashboardComponent,
   ],
-  providers: [Router],
 })
 export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private userSignal: UserSignalService,
-  ) {}
+  ) { }
 
   protected get idRol(): number {
     return this.userSignal.user().id_rol;
@@ -46,6 +45,8 @@ export class HomeComponent implements OnInit {
       if (globalThis.window.innerWidth < 1000) {
         this.router.navigate(['/admin/usuarios']);
       } else {
+        console.log('asd');
+
         this.router.navigate(['/admin']);
       }
     }

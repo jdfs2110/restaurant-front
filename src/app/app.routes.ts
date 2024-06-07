@@ -21,8 +21,8 @@ import { ProductosComponent } from './pages/productos/productos.component';
 export const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
-    title: 'Home - Food Flow',
+    redirectTo: 'home',
+    pathMatch: 'full',
   },
   {
     path: 'home',
