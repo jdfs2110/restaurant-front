@@ -43,10 +43,10 @@ export class CreateMesaComponent {
       nombre: 'Libre',
       valor: 0,
     },
-    {
-      nombre: 'Ocupada',
-      valor: 1,
-    },
+    // {
+    //   nombre: 'Ocupada',
+    //   valor: 1,
+    // },
     {
       nombre: 'Reservada',
       valor: 2,
@@ -76,7 +76,7 @@ export class CreateMesaComponent {
     private validationService: ValidationMessagesService,
     private mesaService: MesaService,
     private toaster: ToastService,
-  ) {}
+  ) { }
 
   getCapacidadMaximaErrors() {
     const capacidad_maxima = this.mesaForm.controls.capacidad_maxima;
